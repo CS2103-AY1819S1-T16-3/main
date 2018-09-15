@@ -4,53 +4,48 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+FoodZoom was developed by Team https://github.com/CS2103-AY1819S1-T16-3[T16-3] team. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Rahul
+image::rahul.jpg[width="150", align="left"]
+{empty}[https://github.com/rrtheonlyone[github]] [https://www.linkedin.com/in/rahul-rajesh-979919110/[portfolio]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Julius Sander
+image::julius.jpg[width="150", align="left"]
+{empty}[https://github.com/juxd[github]] [<<juliussander#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Monika Manuela
+image::monika.jpg[width="150", align="left"]
+{empty}[http://github.com/yijinl[github]] [https://www.linkedin.com/in/monika-manuela-hengki-a9383a54[portfolio]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Koh Chi Hao
+image::kohchihao.jpg[width="150", align="left"]
+{empty}[https://github.com/kohchihao[github]] [https://www.kohchihao.com/[portfolio]]
 
 Role: Developer +
-Responsibilities: UI
+
+'''
+
+=== Tan Jin Ying
+image::tanjinying.jpg[width="150", align="left"]
+{empty}[https://github.com/jinyingtan[github]] [https://www.tanjinying.com/[portfolio]]
+
+Role: Developer +
 
 '''
