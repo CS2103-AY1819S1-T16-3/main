@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Rahul
-image::rahul.jpg[width="150", align="left"]
+image::rrtheonlyone.jpg[width="150", align="left"]
 {empty}[https://github.com/rrtheonlyone[github]] [https://www.linkedin.com/in/rahul-rajesh-979919110/[portfolio]]
 
 Role: Developer
@@ -19,7 +19,7 @@ Role: Developer
 '''
 
 === Julius Sander
-image::julius.jpg[width="150", align="left"]
+image::juxd.jpg[width="150", align="left"]
 {empty}[https://github.com/juxd[github]] [<<juliussander#, portfolio>>]
 
 Role: Developer +
@@ -27,7 +27,7 @@ Role: Developer +
 '''
 
 === Monika Manuela
-image::monika.jpg[width="150", align="left"]
+image::monmanuela.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [https://www.linkedin.com/in/monika-manuela-hengki-a9383a54[portfolio]]
 
 Role: Developer +
@@ -43,7 +43,7 @@ Role: Developer +
 '''
 
 === Tan Jin Ying
-image::tanjinying.jpg[width="150", align="left"]
+image::jinyingtan.jpg[width="150", align="left"]
 {empty}[https://github.com/jinyingtan[github]] [https://www.tanjinying.com/[portfolio]]
 
 Role: Developer +
