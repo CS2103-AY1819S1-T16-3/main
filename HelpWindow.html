@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>AddressBook Level 4 - User Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By: <code>Team SE-EDU</code>      Since: <code>Jun 2016</code>      Licence: <code>MIT</code></p>
+<p>By: <code>T16-3</code>      Since: <code>Aug 2018</code>      Licence: <code>MIT</code></p>
 </div>
 </div>
 <div id="toc" class="toc">
@@ -13,24 +13,17 @@
 <li><a href="#quick-start">2. Quick Start</a></li>
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></li>
-<li><a href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></li>
-<li><a href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></li>
-<li><a href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></li>
-<li><a href="#selecting-a-person-code-select-code">3.7. Selecting a person : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.13. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#manager">3.1. Manager</a></li>
+<li><a href="#delivery-man">3.2. Delivery Man</a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a></li>
+<li><a href="#command-summary">5. Command Summary</a>
+<ul class="sectlevel2">
+<li><a href="#manager-2">5.1. Manager</a></li>
+<li><a href="#delivery-man-2">5.2. Delivery man</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -38,7 +31,7 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook Level 4 (AB4) is for those who <strong>prefer to use a desktop app for managing contacts</strong>. More importantly, AB4 is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+<p>FoodZoom is a food delivery management platform targeted at food business looking to streamline their delivery process. It is responsive and quick, allowing manager to plan their routes and dispatch orders to delivery man <strong>using a Command Line Interface</strong> (CLI) while having the benefits of a Graphical User Interface (GUI). The delivery man can also this application to view their delivery routes and increase their efficiency.</p>
 </div>
 </div>
 </div>
@@ -73,16 +66,16 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : lists all contacts</p>
+<p><strong><code>/order</code></strong> : lists all orders</p>
 </li>
 <li>
-<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Address Book.</p>
+<p><strong><code>/order add</code></strong><code>f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01</code> : adds the food <code>Roti Prata</code>, customers phone number <code>12345678</code> and customer address <code>block 123, Clementi Drive, #01-01</code> to the list of orders.</p>
 </li>
 <li>
-<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
+<p><strong><code>/order delete</code></strong><code>3</code> : deletes the 3rd order shown in the current list of orders</p>
 </li>
 <li>
-<p><strong><code>exit</code></strong> : exits the app</p>
+<p><strong><code>/exit</code></strong> : exits the app</p>
 </li>
 </ul>
 </div>
@@ -108,38 +101,61 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
+<p>Items in square brackets are optional e.g <code>n/NAME [p/PHONE]</code> can be used as <code>n/John Doe p/9112</code> or as <code>n/John Doe</code>.</p>
 </li>
 <li>
-<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
-</li>
-<li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME a/ADDRESS</code>, <code>a/ADDRESS n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1. Viewing help : <code>help</code></a></h3>
+<h3 id="manager"><a class="link" href="#manager">3.1. Manager</a></h3>
+<div class="sect3">
+<h4 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.1.1. Viewing help : <code>/help</code></a></h4>
 <div class="paragraph">
-<p>Format: <code>help</code></p>
+<p>Format: <code>/help</code></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="adding-a-person-code-add-code"><a class="link" href="#adding-a-person-code-add-code">3.2. Adding a person: <code>add</code></a></h3>
+<div class="sect3">
+<h4 id="login-to-system-code-login-code"><a class="link" href="#login-to-system-code-login-code">3.1.2. Login to system : <code>/login</code></a></h4>
 <div class="paragraph">
-<p>Adds a person to the address book<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+<p>Format: <code>/login u/USERNAME p/PASSWORD</code></p>
 </div>
-<div class="admonitionblock tip">
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/login u/manager p/password</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="logout-from-system-code-logout-code"><a class="link" href="#logout-from-system-code-logout-code">3.1.3. Logout from system : <code>/logout</code></a></h4>
+<div class="paragraph">
+<p>Format: <code>/logout</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-an-order-code-order-add-code"><a class="link" href="#adding-an-order-code-order-add-code">3.1.4. Adding an order : <code>/order add</code></a></h4>
+<div class="paragraph">
+<p>Adds an order to the list of orders<br>
+Format: <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS</code></p>
+</div>
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A person can have any number of tags (including 0)
+<div class="paragraph">
+<p>Able to add more than 1 food items, seperated by a comma. e.g. <code>f/Roti Prata, Ice Milo</code>.</p>
+</div>
 </td>
 </tr>
 </table>
@@ -150,33 +166,33 @@ A person can have any number of tags (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+<p><code>/order add f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01</code></p>
 </li>
 <li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
+<p><code>/order add a/block 55 Computing Drive n/Harry f/Tissue Prata, Nasi Briyani p/81889111</code></p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></h3>
+<div class="sect3">
+<h4 id="listing-all-orders-code-order-code"><a class="link" href="#listing-all-orders-code-order-code">3.1.5. Listing all orders : <code>/order</code></a></h4>
 <div class="paragraph">
-<p>Shows a list of all persons in the address book.<br>
-Format: <code>list</code></p>
+<p>Shows a list of all orders in chronological order<br>
+Format: <code>/order</code></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.4. Editing a person : <code>edit</code></a></h3>
+<div class="sect3">
+<h4 id="editing-an-order-code-order-edit-code"><a class="link" href="#editing-an-order-code-order-edit-code">3.1.6. Editing an order : <code>/order edit</code></a></h4>
 <div class="paragraph">
-<p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+<p>Edits an existing order in the list of orders.<br>
+Format: <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the person at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed person list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the order at the specified <code>INDEX</code>. The index refers to the index number shown by <code>/order</code>. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -185,10 +201,7 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
-<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
-</li>
-<li>
-<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+<p>When a parameter is specified, e.g. <code>f/</code>, <code>n/</code>, empty fields are not allowed. Value must be specified.</p>
 </li>
 </ul>
 </div>
@@ -200,40 +213,36 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <div class="ulist">
 <ul>
 <li>
-<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
+<p><code>/order</code><br>
+<code>/order edit 1 p/91234567 n/Jonathan</code><br>
+Edits the phone number and name of the 1st order to be <code>91234567</code> and <code>Jonathan</code> respectively.</p>
 </li>
 <li>
-<p><code>edit 2 n/Betsy Crower t/</code><br>
-Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
+<p><code>/order</code><br>
+<code>/order edit 2 f/Maggi Goreng, Ice Milo</code><br>
+Edits the food of the 2nd order to be <code>Maggi Goreng, Ice Milo</code>.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.5. Locating persons by name: <code>find</code></a></h3>
+<div class="sect3">
+<h4 id="finding-orders-by-name-or-phone-code-order-find-code"><a class="link" href="#finding-orders-by-name-or-phone-code-order-find-code">3.1.7. Finding orders by name or phone : <code>/order find</code></a></h4>
 <div class="paragraph">
-<p>Finds persons whose names contain any of the given keywords.<br>
-Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+<p>Find orders whose name or phone contain in the given parameter.<br>
+Format: <code>/order find [n/NAME] [p/PHONE]</code><br></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+<p>At least one of the optional fields must be provided.</p>
 </li>
 <li>
-<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+<p>The search is case insensitive. e.g <code>tom</code> will match <code>Tom</code></p>
 </li>
 <li>
-<p>Only the name is searched.</p>
-</li>
-<li>
-<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
-</li>
-<li>
-<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+<p>Partial match is allowed e.g. <code>9112</code> will match <code>91122113</code>. Likewise, <code>tom</code> will match <code>tommy</code></p>
 </li>
 </ul>
 </div>
@@ -245,31 +254,31 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find John</code><br>
+<p><code>/order find n/john</code><br>
 Returns <code>john</code> and <code>John Doe</code></p>
 </li>
 <li>
-<p><code>find Betsy Tim John</code><br>
-Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+<p><code>/order find p/9112</code><br>
+Returns <code>9112</code> and <code>91122113</code></p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.6. Deleting a person : <code>delete</code></a></h3>
+<div class="sect3">
+<h4 id="deleting-an-order-code-order-delete-code"><a class="link" href="#deleting-an-order-code-order-delete-code">3.1.8. Deleting an order : <code>/order delete</code></a></h4>
 <div class="paragraph">
-<p>Deletes the specified person from the address book.<br>
-Format: <code>delete INDEX</code></p>
+<p>Deletes the specified order from the list of order.<br>
+Format: <code>/order delete INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Deletes the person at the specified <code>INDEX</code>.</p>
+<p>Deletes an order at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed person list.</p>
+<p>The index refers to the index number shown in the displayed order list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -284,36 +293,76 @@ Format: <code>delete INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>list</code><br>
-<code>delete 2</code><br>
-Deletes the 2nd person in the address book.</p>
+<p><code>/order</code><br>
+<code>/order delete 2</code><br>
+Deletes the 2nd order in the list of orders.</p>
 </li>
 <li>
-<p><code>find Betsy</code><br>
+<p><code>find tom</code><br>
 <code>delete 1</code><br>
-Deletes the 1st person in the results of the <code>find</code> command.</p>
+Deletes the 1st order in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.7. Selecting a person : <code>select</code></a></h3>
+<div class="sect3">
+<h4 id="clearing-all-order-entries-code-order-clear-code"><a class="link" href="#clearing-all-order-entries-code-order-clear-code">3.1.9. Clearing all order entries : <code>/order clear</code></a></h4>
 <div class="paragraph">
-<p>Selects the person identified by the index number used in the displayed person list.<br>
-Format: <code>select INDEX</code></p>
+<p>Clears all entries from the list of orders.<br>
+Format: <code>/order clear</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-a-delivery-man-deliveryman-add"><a class="link" href="#adding-a-delivery-man-deliveryman-add">3.1.10. Adding a delivery man : /deliveryman add</a></h4>
+<div class="paragraph">
+<p>Adds a delivery man to the list of delivery men<br>
+Format: <code>/deliveryman add n/NAME p/PHONE [a/ADDRESS]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/deliveryman add n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01</code></p>
+</li>
+<li>
+<p><code>/deliveryman add a/block 55 Computing Drive n/Harry p/81889111</code></p>
+</li>
+<li>
+<p><code>/deliveryman add n/Willy p/23456789</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-delivery-men-code-deliveryman-code"><a class="link" href="#listing-all-delivery-men-code-deliveryman-code">3.1.11. Listing all delivery men : <code>/deliveryman</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all delivery men in chronological order<br>
+Format: <code>/deliveryman</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-delivery-man-code-deliveryman-edit-code"><a class="link" href="#editing-a-delivery-man-code-deliveryman-edit-code">3.1.12. Editing a delivery man : <code>/deliveryman edit</code></a></h4>
+<div class="paragraph">
+<p>Edits an existing delivery man in the list of delivery men.<br>
+Format: <code>/delivery man edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
+<p>Edits the delivery man at the specified <code>INDEX</code>. The index refers to the index number shown by <code>/deilveryman</code>. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the displayed person list.</p>
+<p>At least one of the optional fields must be provided.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When a parameter is specified, e.g. <code>n/</code>, <code>p/</code> empty fields are not allowed. A value must be specified.</p>
 </li>
 </ul>
 </div>
@@ -325,23 +374,227 @@ Format: <code>select INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>list</code><br>
-<code>select 2</code><br>
-Selects the 2nd person in the address book.</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>select 1</code><br>
-Selects the 1st person in the results of the <code>find</code> command.</p>
+<p><code>/deliveryman</code><br>
+<code>/deliveryman edit 1 n/John Doe p/12345678</code><br>
+Edits the name and phone number of the 1st delivery man to be <code>John Doe</code> and <code>12345678</code> respectively.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.8. Listing entered commands : <code>history</code></a></h3>
+<div class="sect3">
+<h4 id="finding-delivery-man-by-name-code-deliveryman-find-code"><a class="link" href="#finding-delivery-man-by-name-code-deliveryman-find-code">3.1.13. Finding delivery man by name : <code>/deliveryman find</code></a></h4>
+<div class="paragraph">
+<p>Find delivery men whose name contain in the given parameter.<br>
+Format: `/deliveryman find n/NAME<br></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>tom</code> will match <code>Tom</code></p>
+</li>
+<li>
+<p>Only search one name at a time</p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Alice Smith</code> will match <code>Smith Alice</code></p>
+</li>
+<li>
+<p>Partial match is allowed e.g. <code>tom</code> will match <code>tommy</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/deliveryman find n/john</code><br>
+Returns <code>john</code> and <code>John Doe</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-delivery-man-code-deliveryman-delete-code"><a class="link" href="#deleting-a-delivery-man-code-deliveryman-delete-code">3.1.14. Deleting a delivery man : <code>/deliveryman delete</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified delivery man from the list of delivery men<br>
+Format: <code>/deliveryman delete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes a delivery at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed delivery men list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/deliveryman</code><br>
+<code>/deliveryman delete 2</code><br>
+Deletes the 2nd delivery man in the list of delivery men.</p>
+</li>
+<li>
+<p><code>/deliveryman find tom</code><br>
+<code>delete 1</code><br>
+Deletes the 1st delivery man in the results of the <code>find</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clearing-all-delivery-men-entries-code-deliveryman-clear-code"><a class="link" href="#clearing-all-delivery-men-entries-code-deliveryman-clear-code">3.1.15. Clearing all delivery men entries : <code>/deliveryman clear</code></a></h4>
+<div class="paragraph">
+<p>Clears all entries from the list of delivery men.<br>
+Format: <code>/deliveryman clear</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-a-route-code-route-create-code"><a class="link" href="#creating-a-route-code-route-create-code">3.1.16. Creating a route : <code>/route create</code></a></h4>
+<div class="paragraph">
+<p>Creates a new route and add it to the list of routes<br>
+Format: <code>/route create</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-all-delivery-men-code-route-code"><a class="link" href="#listing-all-delivery-men-code-route-code">3.1.17. Listing all delivery men : <code>/route</code></a></h4>
+<div class="paragraph">
+<p>Shows a list of all existing routes and assigned delivery men<br>
+Format: <code>/route</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="adding-an-order-to-a-route-code-route-add-code"><a class="link" href="#adding-an-order-to-a-route-code-route-add-code">3.1.18. Adding an order to a route : <code>/route add</code></a></h4>
+<div class="paragraph">
+<p>Add an existing orders to an existing route<br>
+Format: <code>/route add r/ROUTE_INDEX o/ORDER_INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>All fields need to have at least a value. e.g. <code>o/</code> is not allowed.</p>
+</li>
+<li>
+<p>Able to add more than 1 orders, seperated by a comma. e.g. <code>o/1, 2, 3</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/route</code><br>
+<code>/order</code><br>
+<code>/route add o/2 r/1</code><br>
+Adds the 2nd order to the 1st route.</p>
+</li>
+<li>
+<p><code>/order</code><br>
+<code>/route</code><br>
+<code>/route add r/3 o/4, 5, 6</code><br>
+Adds the 4th, 5th, 6th orders to the 3rd route.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-a-route-code-route-delete-code"><a class="link" href="#deleting-a-route-code-route-delete-code">3.1.19. Deleting a route: <code>/route delete</code></a></h4>
+<div class="paragraph">
+<p>Deletes the specified route from the list of routes<br>
+Format: <code>/route delete INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes a route at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown by <code>/route</code>.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/route</code><br>
+<code>/route delete 2</code><br>
+Deletes the 2nd route in the list of routes.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="clearing-all-routes-code-route-clear-code"><a class="link" href="#clearing-all-routes-code-route-clear-code">3.1.20. Clearing all routes : <code>/route clear</code></a></h4>
+<div class="paragraph">
+<p>Clears all entries from the list of routes.<br>
+Format: <code>/route clear</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assign-route-to-delivery-man-code-assign-code"><a class="link" href="#assign-route-to-delivery-man-code-assign-code">3.1.21. Assign route to delivery man : <code>/assign</code></a></h4>
+<div class="paragraph">
+<p>Assign a delivery man to an existing route<br>
+Format: <code>/assign d/DELIVERYMAN_INDEX r/ROUTE_INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/route</code><br>
+<code>/deliveryman</code><br>
+<code>/assign d/2 r/1</code><br>
+Add the 2nd delivery man to the 1st route.</p>
+</li>
+<li>
+<p><code>/deliveryman</code><br>
+<code>/route</code><br>
+<code>/assign r/4 d/3</code><br>
+Add the 3rd delivery man to the 4th route.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.1.22. Listing entered commands : <code>/history</code></a></h4>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
-Format: <code>history</code></p>
+Format: <code>/history</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -358,108 +611,77 @@ Format: <code>history</code></p>
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.9. Undoing previous command : <code>undo</code></a></h3>
-<div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.10. Redoing the previously undone command : <code>redo</code></a></h3>
-<div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.11. Clearing all entries : <code>clear</code></a></h3>
-<div class="paragraph">
-<p>Clears all entries from the address book.<br>
-Format: <code>clear</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.12. Exiting the program : <code>exit</code></a></h3>
+<div class="sect3">
+<h4 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.1.23. Exiting the program : <code>/exit</code></a></h4>
 <div class="paragraph">
 <p>Exits the program.<br>
-Format: <code>exit</code></p>
+Format: <code>/exit</code></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.13. Saving the data</a></h3>
+<div class="sect3">
+<h4 id="saving-the-data"><a class="link" href="#saving-the-data">3.1.24. Saving the data</a></h4>
 <div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+<p>FoodZoom data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.14. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<div class="sect3">
+<h4 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.1.25. Encrypting data files <code>[coming in v2.0]</code></a></h4>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="delivery-man"><a class="link" href="#delivery-man">3.2. Delivery Man</a></h3>
+<div class="sect3">
+<h4 id="viewing-help-code-help-code-2"><a class="link" href="#viewing-help-code-help-code-2">3.2.1. Viewing help : <code>/help</code></a></h4>
+<div class="paragraph">
+<p>Format: <code>/help</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="login-to-system-code-login-code-2"><a class="link" href="#login-to-system-code-login-code-2">3.2.2. Login to system : <code>/login</code></a></h4>
+<div class="paragraph">
+<p>Format: <code>/login u/USERNAME p/PASSWORD</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/login u/deliveryman p/password</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="logout-from-system-code-logout-code-2"><a class="link" href="#logout-from-system-code-logout-code-2">3.2.3. Logout from system : <code>/logout</code></a></h4>
+<div class="paragraph">
+<p>Format: <code>/logout</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="show-delivery-route-code-route-code"><a class="link" href="#show-delivery-route-code-route-code">3.2.4. Show delivery route : <code>/route</code></a></h4>
+<div class="paragraph">
+<p>View the assigned route/s<br>
+Format: <code>/route</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="listing-assigned-orders-code-order-code"><a class="link" href="#listing-assigned-orders-code-order-code">3.2.5. Listing assigned orders : <code>/order</code></a></h4>
+<div class="paragraph">
+<p>List details of assigned order/s<br>
+Format: <code>/order</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="exiting-the-program-code-exit-code-2"><a class="link" href="#exiting-the-program-code-exit-code-2">3.2.6. Exiting the program : <code>/exit</code></a></h4>
+<div class="paragraph">
+<p>Exits the program.<br>
+Format: <code>/exit</code></p>
+</div>
 </div>
 </div>
 </div>
@@ -476,47 +698,119 @@ There is no need to save manually.</p>
 <div class="sect1">
 <h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="manager-2"><a class="link" href="#manager-2">5.1. Manager</a></h3>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
+<p><strong>Login</strong> : <code>/login u/USERNAME p/PASSWORD</code><br>
+e.g. <code>/login u/manager p/password</code></p>
 </li>
 <li>
-<p><strong>Clear</strong> : <code>clear</code></p>
+<p><strong>Logout</strong> : <code>/logout</code></p>
 </li>
 <li>
-<p><strong>Delete</strong> : <code>delete INDEX</code><br>
-e.g. <code>delete 3</code></p>
+<p><strong>Add order</strong> : <code>/order add f/FOOD n/NAME p/PHONE_NUMBER</code><br>
+e.g. <code>/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665</code></p>
 </li>
 <li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
+<p><strong>Clear order</strong> : <code>/order clear</code></p>
 </li>
 <li>
-<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-e.g. <code>find James Jake</code></p>
+<p><strong>Delete order</strong> : <code>/order delete INDEX</code><br>
+e.g. <code>/order delete 3</code></p>
 </li>
 <li>
-<p><strong>List</strong> : <code>list</code></p>
+<p><strong>Edit order</strong> : <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE_NUMBER]</code><br>
+e.g. <code>/order edit 2 n/James Lee</code></p>
 </li>
 <li>
-<p><strong>Help</strong> : <code>help</code></p>
+<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE]</code><br>
+e.g. <code>/order find n/James Jake</code></p>
 </li>
 <li>
-<p><strong>Select</strong> : <code>select INDEX</code><br>
-e.g.<code>select 2</code></p>
+<p><strong>Listing orders</strong> : <code>/order</code></p>
 </li>
 <li>
-<p><strong>History</strong> : <code>history</code></p>
+<p><strong>Add delivery man</strong> : <code>/deliveryman add n/NAME p/PHONE_NUMBER [a/ADDRESS]</code><br>
+e.g. <code>/deliveryman add n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665</code></p>
 </li>
 <li>
-<p><strong>Undo</strong> : <code>undo</code></p>
+<p><strong>Clear delivery men</strong> : <code>/deliveryman clear</code></p>
 </li>
 <li>
-<p><strong>Redo</strong> : <code>redo</code></p>
+<p><strong>Delete delivery man</strong> : <code>/deliveryman delete INDEX</code><br>
+e.g. <code>/deliveryman delete 3</code></p>
+</li>
+<li>
+<p><strong>Edit delivery man</strong> : <code>/deliveryman edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS]</code><br>
+e.g. <code>/deliveryman edit 2 n/James Lee</code></p>
+</li>
+<li>
+<p><strong>Find delivery man</strong> : <code>/deliveryman find n/NAME</code><br>
+e.g. <code>/deliveryman find n/James Jake</code></p>
+</li>
+<li>
+<p><strong>Listing delivery men</strong> : <code>/deliveryman</code></p>
+</li>
+<li>
+<p><strong>Create a route</strong> : <code>/route create</code></p>
+</li>
+<li>
+<p><strong>Delete a route</strong> : <code>/route delete INDEX</code><br>
+e.g. <code>/route delete 1</code></p>
+</li>
+<li>
+<p><strong>Listing all routes</strong> : <code>/route</code></p>
+</li>
+<li>
+<p><strong>Clear routes</strong> : <code>/route clear</code></p>
+</li>
+<li>
+<p><strong>Add order to route</strong> : <code>/route add r/ROUTE_INDEX o/ORDER_INDEX</code><br>
+e.g. <code>/route add o/1, 2, 3 r/1</code></p>
+</li>
+<li>
+<p><strong>Assign route to delivery man</strong> : <code>/assign d/DELIVERYMAN_INDEX r/ROUTE_INDEX</code><br>
+e.g. <code>/assign d/1 r/1</code></p>
+</li>
+<li>
+<p><strong>History</strong> : <code>/history</code></p>
+</li>
+<li>
+<p><strong>Help</strong> : <code>/help</code></p>
+</li>
+<li>
+<p><strong>Exit the program</strong> : <code>/exit</code></p>
 </li>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-19 14:46:20 UTC</div></div></div></body></html>
+<div class="sect2">
+<h3 id="delivery-man-2"><a class="link" href="#delivery-man-2">5.2. Delivery man</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Login</strong> : <code>/login u/USERNAME p/PASSWORD</code><br>
+e.g. <code>/login u/deliveryman p/password</code></p>
+</li>
+<li>
+<p><strong>Logout</strong> : <code>/logout</code></p>
+</li>
+<li>
+<p><strong>View delivery route</strong> : <code>/route</code></p>
+</li>
+<li>
+<p><strong>View assigned orders</strong> : <code>/order</code></p>
+</li>
+<li>
+<p><strong>Help</strong> : <code>/help</code></p>
+</li>
+<li>
+<p><strong>Exit the program</strong> : <code>/exit</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-19 15:10:27 UTC</div></div></div></body></html>
