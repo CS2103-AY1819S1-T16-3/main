@@ -234,7 +234,7 @@ Format: `/deliveryman clear`
 Creates a new route and add it to the list of routes +
 Format: `/route create`
 
-==== Listing all delivery men : `/route`
+==== Listing all existing routes : `/route`
 
 Shows a list of all existing routes and assigned delivery men +
 Format: `/route`
