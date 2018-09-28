@@ -15,12 +15,12 @@ import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
-public class XmlOrdersStorage implements OrdersStorage {
+public class XmlOrdersListStorage implements OrdersStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
     private Path filePath;
 
-    public XmlOrdersStorage(Path filePath) {
+    public XmlOrdersListStorage(Path filePath) {
         this.filePath = filePath;
     }
 
