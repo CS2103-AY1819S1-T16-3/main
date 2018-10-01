@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.order.Food;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.storage.XmlAdaptedName;
 
 /**
  * JAXB-friendly version of the Order.
@@ -29,7 +29,7 @@ public class XmlAdaptedOrder {
     private String address;
 
     @XmlElement
-    private Set<XmlAdaptedName> food = new HashSet<>();
+    private Set<XmlAdaptedFood> food = new HashSet<>();
 
     /**
      * Constructs an XmlAdaptedOrder.
@@ -40,7 +40,7 @@ public class XmlAdaptedOrder {
     /**
      * Constructs an {@code XmlAdaptedOrder} with the given person details.
      */
-    public XmlAdaptedOrder(String name, String phone, String address, Set<XmlAdaptedName> food) {
+    public XmlAdaptedOrder(String name, String phone, String address, Set<XmlAdaptedFood> food) {
         this.name = name;
         this.phone = phone;
         this.address = address;
@@ -59,7 +59,7 @@ public class XmlAdaptedOrder {
         phone = source.getPhone().value;
         address = source.getAddress().value;
         food = source.getFood().stream()
-                .map(XmlAdaptedName::new)
+                .map(XmlAdaptedFood::new)
                 .collect(Collectors.toSet());
     }
 
@@ -69,8 +69,8 @@ public class XmlAdaptedOrder {
      * @throws IllegalValueException if there were any data constraints violated in the adapted order
      */
     public Order toModelType() throws IllegalValueException {
-        final Set<Name> orderFood = new HashSet<>();
-        for (XmlAdaptedName f : food) {
+        final Set<Food> orderFood = new HashSet<>();
+        for (XmlAdaptedFood f : food) {
             orderFood.add(f.toModelType());
         }
 
@@ -98,7 +98,7 @@ public class XmlAdaptedOrder {
         }
         final Address modelAddress = new Address(address);
 
-        final Set<Name> modelFood = new HashSet<>(orderFood);
+        final Set<Food> modelFood = new HashSet<>(orderFood);
         return new Order(modelName, modelPhone, modelAddress, modelFood);
     }
 

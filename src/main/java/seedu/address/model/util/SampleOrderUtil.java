@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.OrdersList;
 import seedu.address.model.ReadOnlyOrdersList;
+import seedu.address.model.order.Food;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -48,9 +49,9 @@ public class SampleOrderUtil {
         return sampleOl;
     }
 
-    public static Set<Name> getOrderSet(String... names) {
+    public static Set<Food> getOrderSet(String... names) {
         return Arrays.stream(names)
-                .map(Name::new)
+                .map(Food::new)
                 .collect(Collectors.toSet());
     }
 }

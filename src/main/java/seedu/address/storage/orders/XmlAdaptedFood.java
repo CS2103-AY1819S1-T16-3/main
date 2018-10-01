@@ -1,28 +1,28 @@
-package seedu.address.storage;
+package seedu.address.storage.orders;
 
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Name;
+import seedu.address.model.order.Food;
 
 /**
  * JAXB-friendly adapted version of the Name.
  */
-public class XmlAdaptedName {
+public class XmlAdaptedFood {
     @XmlValue
-    private String name;
+    private String foodName;
 
     /**
-     * Constructs an XmlAdaptedName.
+     * Constructs an XmlAdaptedFood.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedName() {}
+    public XmlAdaptedFood() {}
 
     /**
-     * Constructs a {@code XmlAdaptedName} with the given {@code name}.
+     * Constructs a {@code XmlAdaptedFood} with the given {@code foodName}.
      */
-    public XmlAdaptedName(String name) {
-        this.name = name;
+    public XmlAdaptedFood(String foodName) {
+        this.foodName = foodName;
     }
 
     /**
@@ -30,8 +30,8 @@ public class XmlAdaptedName {
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedName(Name source) {
-        name = source.fullName;
+    public XmlAdaptedFood(Food source) {
+        foodName = source.foodName;
     }
 
     /**
@@ -39,11 +39,11 @@ public class XmlAdaptedName {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted order
      */
-    public Name toModelType() throws IllegalValueException {
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+    public Food toModelType() throws IllegalValueException {
+        if (!Food.isValidFood(foodName)) {
+            throw new IllegalValueException(Food.MESSAGE_NAME_CONSTRAINTS);
         }
-        return new Name(name);
+        return new Food(foodName);
     }
 
     @Override
@@ -52,10 +52,10 @@ public class XmlAdaptedName {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedName)) {
+        if (!(other instanceof XmlAdaptedFood)) {
             return false;
         }
 
-        return name.equals(((XmlAdaptedName) other).name);
+        return foodName.equals(((XmlAdaptedFood) other).foodName);
     }
 }
