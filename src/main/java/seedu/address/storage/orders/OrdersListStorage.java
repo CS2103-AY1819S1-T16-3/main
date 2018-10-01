@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.orders;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyOrdersList;

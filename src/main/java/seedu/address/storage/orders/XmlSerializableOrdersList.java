@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.orders;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.OrdersList;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@XmlRootElement(name = "orders")
+@XmlRootElement(name = "orderslist")
 public class XmlSerializableOrdersList {
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
 
