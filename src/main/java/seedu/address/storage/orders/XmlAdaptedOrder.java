@@ -1,10 +1,11 @@
-package seedu.address.storage;
+package seedu.address.storage.orders;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Order;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.storage.XmlAdaptedName;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.HashSet;

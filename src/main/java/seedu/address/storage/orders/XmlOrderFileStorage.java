@@ -1,7 +1,8 @@
-package seedu.address.storage;
+package seedu.address.storage.orders;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.storage.orders.XmlSerializableOrdersList;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;

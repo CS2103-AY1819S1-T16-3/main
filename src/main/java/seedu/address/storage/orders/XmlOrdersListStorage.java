@@ -1,10 +1,11 @@
-package seedu.address.storage;
+package seedu.address.storage.orders;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyOrdersList;
+import seedu.address.storage.XmlAddressBookStorage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
 
-public class XmlOrdersListStorage implements OrdersStorage {
+public class XmlOrdersListStorage implements OrdersListStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
     private Path filePath;

@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-public interface OrdersStorage {
+public interface OrdersListStorage {
     /**
      * Returns the file path of the data file.
      */
