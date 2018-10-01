@@ -105,14 +105,16 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<Order> getFilteredOrderList() {
-        return FXCollections.unmodifiableObservableList(filteredOrders);
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Orders List Accessors =============================================================
+
+    @Override
+    public ObservableList<Order> getFilteredOrderList() {
+        return FXCollections.unmodifiableObservableList(filteredOrders);
     }
 
     @Override
