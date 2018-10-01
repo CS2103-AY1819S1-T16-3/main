@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.order;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -6,11 +6,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.order.FindOrderCommand;
+import seedu.address.logic.commands.order.OrderFindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.OrderCommand;
+import seedu.address.logic.commands.order.OrderCommand;
+import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.order.FindOrderCommandParser;
 
 /**
  * Parses order input.
@@ -35,8 +35,8 @@ public class OrderCommandParser implements Parser<OrderCommand> {
 
         switch (commandWord) {
 
-        case FindOrderCommand.COMMAND_WORD:
-            return new FindOrderCommandParser().parse(arguments);
+        case OrderFindCommand.COMMAND_WORD:
+            return new OrderFindCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
