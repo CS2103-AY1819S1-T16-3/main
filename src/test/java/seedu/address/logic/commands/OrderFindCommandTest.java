@@ -19,7 +19,7 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.order.FindOrderCommand;
+import seedu.address.logic.commands.order.OrderFindCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -28,9 +28,9 @@ import seedu.address.model.order.OrderNameContainsKeywordPredicate;
 import seedu.address.model.order.OrderPhoneContainsKeywordPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindOrderCommand}.
+ * Contains integration tests (interaction with the Model) for {@code OrderFindCommand}.
  */
-public class FindOrderCommandTest {
+public class OrderFindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalOrdersList(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalOrdersList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -42,14 +42,14 @@ public class FindOrderCommandTest {
         OrderContainsAnyKeywordsPredicate secondPredicate =
                 new OrderNameContainsKeywordPredicate(Collections.singletonList("second"));
 
-        FindOrderCommand findFirstOrderCommand = new FindOrderCommand(firstPredicate);
-        FindOrderCommand findSecondOrderCommand = new FindOrderCommand(secondPredicate);
+        OrderFindCommand findFirstOrderCommand = new OrderFindCommand(firstPredicate);
+        OrderFindCommand findSecondOrderCommand = new OrderFindCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstOrderCommand.equals(findFirstOrderCommand));
 
         // same values -> returns true
-        FindOrderCommand findFirstOrderCommandCopy = new FindOrderCommand(firstPredicate);
+        OrderFindCommand findFirstOrderCommandCopy = new OrderFindCommand(firstPredicate);
         assertTrue(findFirstOrderCommand.equals(findFirstOrderCommandCopy));
 
         // different types -> returns false
@@ -67,13 +67,13 @@ public class FindOrderCommandTest {
         String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 0);
 
         OrderContainsAnyKeywordsPredicate namePredicate = prepareNamePredicate(" ");
-        FindOrderCommand commandName = new FindOrderCommand(namePredicate);
+        OrderFindCommand commandName = new OrderFindCommand(namePredicate);
         expectedModel.updateFilteredOrderList(namePredicate);
         assertCommandSuccess(commandName, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredOrderList());
 
         OrderContainsAnyKeywordsPredicate phonePredicate = preparePhonePredicate(" ");
-        FindOrderCommand commandPhone = new FindOrderCommand(phonePredicate);
+        OrderFindCommand commandPhone = new OrderFindCommand(phonePredicate);
         expectedModel.updateFilteredOrderList(phonePredicate);
         assertCommandSuccess(commandPhone, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredOrderList());
@@ -83,7 +83,7 @@ public class FindOrderCommandTest {
     public void execute_multipleKeywords_multipleOrdersFound() {
         String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 3);
         OrderContainsAnyKeywordsPredicate predicate = prepareNamePredicate("Kurz Elle Kunz");
-        FindOrderCommand command = new FindOrderCommand(predicate);
+        OrderFindCommand command = new OrderFindCommand(predicate);
         expectedModel.updateFilteredOrderList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL_TO, ELLE_TO, FIONA_TO), model.getFilteredOrderList());
@@ -93,7 +93,7 @@ public class FindOrderCommandTest {
     public void execute_fullNameKeyword_singleOrderFound() {
         String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 1);
         OrderContainsAnyKeywordsPredicate predicate = prepareNamePredicate("Ah Beng");
-        FindOrderCommand command = new FindOrderCommand(predicate);
+        OrderFindCommand command = new OrderFindCommand(predicate);
         expectedModel.updateFilteredOrderList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(AH_BENG_TO), model.getFilteredOrderList());
@@ -103,7 +103,7 @@ public class FindOrderCommandTest {
     public void execute_phoneKeyword_singleOrderFound() {
         String expectedMessage = String.format(MESSAGE_ORDERS_LISTED_OVERVIEW, 1);
         OrderContainsAnyKeywordsPredicate predicate = preparePhonePredicate(" 9876 5432 ");
-        FindOrderCommand command = new FindOrderCommand(predicate);
+        OrderFindCommand command = new OrderFindCommand(predicate);
         expectedModel.updateFilteredOrderList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
