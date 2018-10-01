@@ -10,10 +10,14 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.OrdersListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.OrdersList;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyOrdersList;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.orders.OrdersListStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -23,12 +27,20 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private OrdersListStorage ordersListStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+    }
+
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage, OrdersListStorage ordersListStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+        this.ordersListStorage = ordersListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -90,4 +102,45 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+
+    // ================ Orders List methods ==============================
+
+    @Override
+    public Path getOrdersListFilePath() {
+        return ordersListStorage.getOrdersListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyOrdersList> readOrdersList() throws DataConversionException, IOException {
+        return readOrdersList(ordersListStorage.getOrdersListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyOrdersList> readOrdersList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return ordersListStorage.readOrdersList(filePath);
+    }
+
+    @Override
+    public void saveOrdersList(ReadOnlyOrdersList ordersList) throws IOException {
+        saveOrdersList(ordersList, ordersListStorage.getOrdersListFilePath());
+    }
+
+    @Override
+    public void saveOrdersList(ReadOnlyOrdersList ordersList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        ordersListStorage.saveOrdersList(ordersList, filePath);
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleOrdersListChangedEvent(OrdersListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveOrdersList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 }
