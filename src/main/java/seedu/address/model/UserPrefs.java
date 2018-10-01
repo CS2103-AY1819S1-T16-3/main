@@ -44,7 +44,7 @@ public class UserPrefs {
         return ordersListFilePath;
     }
 
-    public void setOrdersFilePath(Path ordersListFilePath) {
+    public void setOrdersListsFilePath(Path ordersListFilePath) {
         this.ordersListFilePath = ordersListFilePath;
     }
 
