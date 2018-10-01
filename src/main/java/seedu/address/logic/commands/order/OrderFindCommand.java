@@ -14,7 +14,7 @@ import seedu.address.model.order.OrderContainsAnyKeywordsPredicate;
  * Finds and lists all orders in orders list whose name or phone contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindOrderCommand extends OrderCommand {
+public class OrderFindCommand extends OrderCommand {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -25,7 +25,7 @@ public class FindOrderCommand extends OrderCommand {
 
     private final OrderContainsAnyKeywordsPredicate predicate;
 
-    public FindOrderCommand(OrderContainsAnyKeywordsPredicate predicate) {
+    public OrderFindCommand(OrderContainsAnyKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -40,7 +40,7 @@ public class FindOrderCommand extends OrderCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindOrderCommand // instanceof handles nulls
-                && predicate.equals(((FindOrderCommand) other).predicate)); // state check
+                || (other instanceof OrderFindCommand // instanceof handles nulls
+                && predicate.equals(((OrderFindCommand) other).predicate)); // state check
     }
 }

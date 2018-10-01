@@ -1,4 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.order;
+
+import seedu.address.logic.commands.Command;
 
 /**
  * Base Command for all order commands
