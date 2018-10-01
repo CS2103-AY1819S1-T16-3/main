@@ -34,6 +34,9 @@ public class TypicalOrders {
     public static final Order GEORGE_TO = new OrderBuilder().withName("George Best").withPhone("9482442")
             .withAddress("4th street")
             .withFood("Nasi Braniyi").build();
+    public static final Order AH_BENG_TO = new OrderBuilder().withName("Ah Beng").withPhone("81234566")
+            .withAddress("San Fran")
+            .withFood("Tom Yum Maggi").build();
 
     private TypicalOrders() {} // prevents instantiation
 
@@ -49,6 +52,6 @@ public class TypicalOrders {
     }
 
     public static List<Order> getTypicalOrders() {
-        return new ArrayList<>(Arrays.asList(ALICE_TO, BENSON_TO, CARL_TO, DANIEL_TO, ELLE_TO, FIONA_TO, GEORGE_TO));
+        return new ArrayList<>(Arrays.asList(ALICE_TO, BENSON_TO, CARL_TO, DANIEL_TO, ELLE_TO, FIONA_TO, GEORGE_TO, AH_BENG_TO));
     }
 }
