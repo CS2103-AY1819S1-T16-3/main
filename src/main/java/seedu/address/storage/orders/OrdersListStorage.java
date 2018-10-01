@@ -1,12 +1,15 @@
 package seedu.address.storage.orders;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyOrdersList;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyOrdersList;
+
+/**
+ * Represents a storage for {@link seedu.address.model.OrdersList}.
+ */
 public interface OrdersListStorage {
     /**
      * Returns the file path of the data file.

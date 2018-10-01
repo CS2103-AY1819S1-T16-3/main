@@ -1,13 +1,18 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.OrderContainsAnyKeywordsPredicate;
 
-import static java.util.Objects.requireNonNull;
 
+/**
+ * Finds and lists all orders in orders list whose name or phone contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
 public class FindOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "find";
 

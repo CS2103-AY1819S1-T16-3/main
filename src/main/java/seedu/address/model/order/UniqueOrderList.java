@@ -1,16 +1,15 @@
 package seedu.address.model.order;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.model.order.exceptions.DuplicateOrderException;
-import seedu.address.model.order.exceptions.OrderNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.model.order.exceptions.OrderNotFoundException;
 /**
  * A list of orders that enforces uniqueness between its elements and does not allow nulls.
  * An order is considered unique by comparing using {@code Order#isSameOrder(Order) }. As such, adding and updating of

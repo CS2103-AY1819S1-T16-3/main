@@ -1,16 +1,20 @@
 package seedu.address.storage.orders;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.OrdersList;
 import seedu.address.model.ReadOnlyOrdersList;
 import seedu.address.model.order.Order;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * An Immutable OrdersList that is serializable to XML format
+ */
 @XmlRootElement(name = "orderslist")
 public class XmlSerializableOrdersList {
     public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";

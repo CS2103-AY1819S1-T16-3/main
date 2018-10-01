@@ -3,6 +3,9 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@code OrdersList} that keeps track of its own history.
+ */
 public class VersionedOrdersList extends OrdersList {
 
     private final List<ReadOnlyOrdersList> ordersListStateList;

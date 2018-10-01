@@ -1,14 +1,18 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.UniqueOrderList;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
-public class OrdersList implements ReadOnlyOrdersList{
+/**
+ * Wraps all data at the orders-lost level
+ * Duplicates are not allowed (by .isSameOrders comparison)
+ */
+public class OrdersList implements ReadOnlyOrdersList {
 
     private final UniqueOrderList orders;
 

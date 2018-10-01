@@ -1,11 +1,6 @@
 package seedu.address.storage.orders;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyOrdersList;
-import seedu.address.storage.XmlAddressBookStorage;
+import static java.util.Objects.requireNonNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,8 +9,16 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.ReadOnlyOrdersList;
+import seedu.address.storage.XmlAddressBookStorage;
 
+/**
+ * A class to access OrdersList data stored as an xml file on the hard disk.
+ */
 public class XmlOrdersListStorage implements OrdersListStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
