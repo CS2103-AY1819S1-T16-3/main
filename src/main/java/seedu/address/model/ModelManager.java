@@ -58,6 +58,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
+    @Override
+    public ReadOnlyOrdersList getOrdersList() { return versionedOrdersList; }
+
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
