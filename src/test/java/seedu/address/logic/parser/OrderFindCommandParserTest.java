@@ -29,17 +29,17 @@ public class OrderFindCommandParserTest {
     public void parse_validArgs_returnsOrderFindCommand() {
         OrderFindCommand expectedNameOrderFindCommand =
                 new OrderFindCommand(new OrderNameContainsKeywordPredicate(Arrays.asList("Alex")));
-        assertParseSuccess(parser, "find n/Alex", expectedNameOrderFindCommand);
+        assertParseSuccess(parser, " n/Alex", expectedNameOrderFindCommand);
 
         OrderFindCommand expectedPhoneOrderFindCommand =
                 new OrderFindCommand(new OrderPhoneContainsKeywordPredicate("81223455"));
-        assertParseSuccess(parser, "find p/81223455", expectedPhoneOrderFindCommand);
+        assertParseSuccess(parser, " p/81223455", expectedPhoneOrderFindCommand);
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Supplying both name and phone
-        assertParseFailure(parser, "find n/testname p/12345",
+        assertParseFailure(parser, " n/testname p/12345",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, OrderFindCommand.MESSAGE_USAGE));
     }
 }
