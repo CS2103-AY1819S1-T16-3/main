@@ -20,7 +20,8 @@ public class OrderFindCommand extends OrderCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Finds the order whose name or phone number contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: n/NAME p/PHONE\n"
+            + "Example: " + COMMAND_WORD + " n/John \n"
             + "Example: " + COMMAND_WORD + " p/1234578";
 
     private final OrderContainsAnyKeywordsPredicate predicate;
