@@ -20,7 +20,7 @@ import seedu.address.storage.XmlAddressBookStorage;
  * A class to access OrdersList data stored as an xml file on the hard disk.
  */
 public class XmlOrdersListStorage implements OrdersListStorage {
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlOrdersListStorage.class);
 
     private Path filePath;
 

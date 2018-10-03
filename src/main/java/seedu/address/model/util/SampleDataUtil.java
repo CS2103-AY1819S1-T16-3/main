@@ -63,24 +63,24 @@ public class SampleDataUtil {
 
     public static Order[] getSampleOrders() {
         Order[] orders = {
-                new Order(new Name("Julius Sander"), new Phone("87438807"),
-                        new Address("Blk 30 Geylang Street 29, #06-40"),
-                        getOrderSet("Roti Prata")),
-                new Order(new Name("Monika Manuela"), new Phone("99272758"),
-                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                        getOrderSet("Maggi Goreng")),
-                new Order(new Name("Charlotte Oliveiro"), new Phone("93210283"),
-                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                        getOrderSet("Ice Milo")),
-                new Order(new Name("Koh Chi Hao"), new Phone("81889100"),
-                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                        getOrderSet("Teh Tarik")),
-                new Order(new Name("Tan Jin Ying"), new Phone("92492021"),
-                        new Address("Blk 47 Tampines Street 20, #17-35"),
-                        getOrderSet("Nasi Goreng Pataya")),
-                new Order(new Name("Rahul"), new Phone("92624417"),
-                        new Address("Blk 45 Aljunied Street 85, #11-31"),
-                        getOrderSet("Chicken Tikka Masala"))
+            new Order(new Name("Julius Sander"), new Phone("87438807"),
+                new Address("Blk 30 Geylang Street 29, #06-40"),
+                getOrderSet("Roti Prata")),
+            new Order(new Name("Monika Manuela"), new Phone("99272758"),
+                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                getOrderSet("Maggi Goreng")),
+            new Order(new Name("Charlotte Oliveiro"), new Phone("93210283"),
+                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                getOrderSet("Ice Milo")),
+            new Order(new Name("Koh Chi Hao"), new Phone("81889100"),
+                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                getOrderSet("Teh Tarik")),
+            new Order(new Name("Tan Jin Ying"), new Phone("92492021"),
+                new Address("Blk 47 Tampines Street 20, #17-35"),
+                getOrderSet("Nasi Goreng Pataya")),
+            new Order(new Name("Rahul"), new Phone("92624417"),
+                new Address("Blk 45 Aljunied Street 85, #11-31"),
+                getOrderSet("Chicken Tikka Masala"))
         };
 
         return orders;

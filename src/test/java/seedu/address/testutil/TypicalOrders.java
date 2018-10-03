@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.OrdersList;
-import seedu.address.model.order.Order;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.OrdersList;
+import seedu.address.model.order.Order;
 
 /**
  * A utility class containing a list of {@code Order} objects to be used in tests.
@@ -52,6 +52,7 @@ public class TypicalOrders {
     }
 
     public static List<Order> getTypicalOrders() {
-        return new ArrayList<>(Arrays.asList(ALICE_TO, BENSON_TO, CARL_TO, DANIEL_TO, ELLE_TO, FIONA_TO, GEORGE_TO, AH_BENG_TO));
+        return new ArrayList<>(
+                Arrays.asList(ALICE_TO, BENSON_TO, CARL_TO, DANIEL_TO, ELLE_TO, FIONA_TO, GEORGE_TO, AH_BENG_TO));
     }
 }

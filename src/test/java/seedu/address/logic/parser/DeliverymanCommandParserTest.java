@@ -28,7 +28,8 @@ public class DeliverymanCommandParserTest {
         String keyword = "foo";
         DeliverymanFindCommand command = (DeliverymanFindCommand) parser.parse(
                 DeliverymanFindCommand.COMMAND_WORD + " n/" + keyword);
-        assertEquals(new DeliverymanFindCommand(new DeliverymanNameContainsKeywordsPredicate(Arrays.asList(keyword))), command);
+        assertEquals(new DeliverymanFindCommand(
+                new DeliverymanNameContainsKeywordsPredicate(Arrays.asList(keyword))), command);
     }
 
     @Test
