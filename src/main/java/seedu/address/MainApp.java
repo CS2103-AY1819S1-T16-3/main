@@ -97,19 +97,25 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        }
 
+        try {
             ordersListOptional = storage.readOrdersList();
             if (!ordersListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Orders List");
             }
             initialOrdersListData = ordersListOptional.orElseGet(SampleDataUtil::getSampleOrdersList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty Orders List");
             initialOrdersListData = new OrdersList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty Orders List");
             initialOrdersListData = new OrdersList();
         }
 
