@@ -13,6 +13,8 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path ordersListFilePath = Paths.get("data", "orders.xml");
+    private Path deliverymenListFilePath = Paths.get("data", "deliverymen.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -36,6 +38,22 @@ public class UserPrefs {
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getOrdersListFilePath() {
+        return ordersListFilePath;
+    }
+
+    public void setOrdersListsFilePath(Path ordersListFilePath) {
+        this.ordersListFilePath = ordersListFilePath;
+    }
+
+    public Path getDeliverymenListFilePath() {
+        return deliverymenListFilePath;
+    }
+
+    public void setDeliverymenListFilePath(Path deliverymenListFilePath) {
+        this.deliverymenListFilePath = deliverymenListFilePath;
     }
 
     @Override

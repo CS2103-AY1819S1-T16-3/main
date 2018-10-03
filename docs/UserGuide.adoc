@@ -190,7 +190,7 @@ Edits the name and phone number of the 1st delivery man to be `John Doe` and `12
 ==== Finding delivery man by name : `/deliveryman find`
 
 Find delivery men whose name contain in the given parameter. +
-Format: `/deliveryman find n/NAME +
+Format: `/deliveryman find n/NAME` +
 
 ****
 * The search is case insensitive. e.g `tom` will match `Tom`
@@ -234,7 +234,7 @@ Format: `/deliveryman clear`
 Creates a new route and add it to the list of routes +
 Format: `/route create`
 
-==== Listing all delivery men : `/route`
+==== Listing all existing routes : `/route`
 
 Shows a list of all existing routes and assigned delivery men +
 Format: `/route`

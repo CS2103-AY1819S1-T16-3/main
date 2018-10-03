@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,10 +24,13 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
+    private final VersionedOrdersList versionedOrdersList;
+    private final FilteredList<Order> filteredOrders;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyOrdersList ordersList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -34,10 +38,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
+        versionedOrdersList = new VersionedOrdersList(ordersList);
+        filteredOrders = new FilteredList<>(versionedOrdersList.getOrdersList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new OrdersList(), new UserPrefs());
     }
 
     @Override
@@ -50,6 +57,9 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }
+
+    @Override
+    public ReadOnlyOrdersList getOrdersList() { return versionedOrdersList; }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
@@ -98,6 +108,19 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Orders List Accessors =============================================================
+
+    @Override
+    public ObservableList<Order> getFilteredOrderList() {
+        return FXCollections.unmodifiableObservableList(filteredOrders);
+    }
+
+    @Override
+    public void updateFilteredOrderList(Predicate<Order> predicate) {
+        requireNonNull(predicate);
+        filteredOrders.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
