@@ -12,7 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.UsersListChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.model.user.User;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,21 +25,30 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
+    private final VersionedUsersList versionedUsersList;
+    private final FilteredList<User> filteredUsers;
+
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, usersList and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUsersList usersList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook
+                + " and users list "
+                + usersList
+                + " and user prefs "
+                + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedUsersList = new VersionedUsersList(usersList);
+        filteredUsers = new FilteredList<>(versionedUsersList.getUserList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new UsersList(), new UserPrefs());
     }
 
     @Override
@@ -51,7 +62,9 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook;
     }
 
-    /** Raises an event to indicate the model has changed */
+    /**
+     * Raises an event to indicate the model has changed
+     */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
@@ -127,6 +140,55 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+
+    //=========== Filtered User List Accessors =============================================================
+    @Override
+    public boolean hasUser(User user) {
+        requireNonNull(user);
+        return versionedUsersList.hasUser(user);
+    }
+
+    @Override
+    public void addUser(User user) {
+        versionedUsersList.addUser(user);
+        updateFilteredUsersList(PREDICATE_SHOW_ALL_USERS);
+        indicateUsersListChanged();
+    }
+
+    @Override
+    public void commitUsersList() {
+        versionedUsersList.commit();
+    }
+
+    @Override
+    public void updateFilteredUsersList(Predicate<User> predicate) {
+        requireNonNull(predicate);
+        filteredUsers.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<User> getFilteredUsersList() {
+        return FXCollections.unmodifiableObservableList(filteredUsers);
+    }
+
+    @Override
+    public boolean loginUser(User user) {
+        requireNonNull(user);
+        return versionedUsersList.login(user);
+    }
+
+    @Override
+    public ReadOnlyUsersList getUsersList() {
+        return versionedUsersList;
+    }
+
+    /**
+     * Raises an event to indicate the model has changed
+     */
+    private void indicateUsersListChanged() {
+        raise(new UsersListChangedEvent(versionedUsersList));
     }
 
     @Override

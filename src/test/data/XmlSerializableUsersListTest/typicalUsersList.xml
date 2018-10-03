@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userslist>
+    <!--Valid User-->
+    <users>
+        <name>Alice Pauline</name>
+        <username>alicepauline</username>
+        <password>alicepauline01</password>
+    </users>
+
+    <users>
+        <name>Benson Meier</name>
+        <username>bensonmeier</username>
+        <password>bensonmeier02</password>
+    </users>
+
+    <users>
+        <name>Carl Kurz</name>
+        <username>carlkurz</username>
+        <password>carlkurz03</password>
+    </users>
+
+
+</userslist>

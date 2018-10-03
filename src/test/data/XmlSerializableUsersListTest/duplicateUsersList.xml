@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userslist>
+
+    <users>
+        <name>Marcus Koh</name>
+        <username>manager01</username>
+        <password>password123</password>
+    </users>
+
+    <!--User with same identity-->
+    <users>
+        <name>Marcus Koh</name>
+        <username>manager01</username>
+        <password>password123</password>
+    </users>
+
+</userslist>

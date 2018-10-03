@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +61,23 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+
+    public static final String VALID_MANAGER_NAME_ALICE = "Alice Pauline";
+    public static final String VALID_MANAGER_NAME_BENSON = "Benson Meier";
+    public static final String VALID_MANAGER_USERNAME_ALICE = "alicepauline";
+    public static final String VALID_MANAGER_USERNAME_BENSON = "bensonmeier";
+    public static final String VALID_MANAGER_PASSWORD_ALICE = "alicepauline01";
+    public static final String VALID_MANAGER_PASSWORD_BENSON = "bensonmeier02";
+
+    public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_MANAGER_NAME_ALICE;
+    public static final String NAME_DESC_BENSON = " " + PREFIX_NAME + VALID_MANAGER_NAME_BENSON;
+    public static final String USERNAME_DESC_ALICE = " " + PREFIX_USERNAME + VALID_MANAGER_USERNAME_ALICE;
+    public static final String USERNAME_DESC_BENSON = " " + PREFIX_USERNAME + VALID_MANAGER_USERNAME_BENSON;
+    public static final String PASSWORD_DESC_ALICE = " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_ALICE;
+    public static final String PASSWORD_DESC_BENSON = " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_BENSON;
+
+    public static final String INVALID_USERNAME_DESC = " " + PREFIX_USERNAME + "James&"; // '&' not allowed in usernames
+    public static final String INVALID_PASSWORD_DESC = " " + PREFIX_PASSWORD + "Jam&"; // '&' not allowed in password
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)

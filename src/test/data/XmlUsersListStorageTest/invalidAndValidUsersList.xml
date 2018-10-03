@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<userslist>
+    <!--Valid User-->
+    <users>
+        <name>Marcus Koh</name>
+        <username>manager01</username>
+        <password>password123</password>
+    </users>
+
+    <!--User with invalid password-->
+    <users>
+        <name>marcuskoh</name>
+        <username>kohchihao</username>
+        <password>pass</password>
+    </users>
+</userslist>
