@@ -13,7 +13,7 @@ public class LogoutCommand extends Command{
 
     public static final String COMMAND_WORD = "/logout";
 
-    public static final String MESSAGE_SUCCESS = "Logout Success for %1$s";
+    public static final String MESSAGE_SUCCESS = "Logout Success";
 
     public static final String MESSAGE_FAILURE = "No User to logout";
 
@@ -22,6 +22,11 @@ public class LogoutCommand extends Command{
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        return null;
+        if (model.isUserLoggedIn()) {
+            model.clearUserInSession();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
     }
 }
