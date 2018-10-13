@@ -64,9 +64,9 @@ public class UserSessionTest {
     }
 
     @Test
-    public void logoutUser() {
+    public void clearUserInSession() {
         userSession.setUserSession(BENSON_MANAGER);
-        userSession.logoutUser();
+        userSession.clearUserSession();
         assertNull(userSession.getLoggedInUserDetails());
     }
 
