@@ -47,7 +47,7 @@ public class UserSession {
     /**
      * To clear user session details.
      */
-    public void logoutUser() {
+    public void clearUserSession() {
         this.isLoggedIn = false;
         this.loggedInUser = null;
     }
