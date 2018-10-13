@@ -158,6 +158,11 @@ public interface Model {
      */
     User getLoggedInUserDetails();
 
+    /**
+     * Clear the user session details.
+     */
+    void clearUserInSession();
+
     // ======================== Route related methods =========================
 
     /** Clears existing backing model and replaces with the provided new data. */
