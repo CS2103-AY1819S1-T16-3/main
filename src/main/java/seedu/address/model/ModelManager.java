@@ -365,6 +365,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void clearUserInSession() {
+        userSession.clearUserSession();
+        //TODO indicateUserLogoutEvent
+    }
+
+    @Override
     public boolean canUndoRouteList() {
         return versionedRouteList.canUndo();
     }
