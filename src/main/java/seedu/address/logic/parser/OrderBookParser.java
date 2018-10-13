@@ -11,6 +11,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SignUpCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -78,6 +79,9 @@ public class OrderBookParser {
 
         case DeliverymanCommand.COMMAND_WORD:
             return new DeliverymanCommandParser().parse(arguments);
+
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
