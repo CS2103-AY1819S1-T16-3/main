@@ -61,6 +61,9 @@ public class LogicManager extends ComponentManager implements Logic {
         return new ListElementPointer(history.getHistory());
     }
 
+    /**
+     * Returns true if it is not an authenticated command.
+     */
     private boolean isNotAuthenticatedCommand(Command command) {
         return command instanceof LoginCommand || command instanceof SignUpCommand
                 || command instanceof HelpCommand || command instanceof HistoryCommand
