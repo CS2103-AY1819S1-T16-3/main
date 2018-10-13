@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Logout the user from FoodZoom.
  */
-public class LogoutCommand extends Command{
+public class LogoutCommand extends Command {
 
     public static final String COMMAND_WORD = "/logout";
 
