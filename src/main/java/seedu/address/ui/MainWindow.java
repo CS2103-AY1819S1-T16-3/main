@@ -16,6 +16,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.model.UserLoggedOutEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
@@ -29,6 +30,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String DISPLAYING_ORDER_LIST_PANEL = "Displaying Order list panel";
+    private static final String HIDE_ORDER_LIST_PANEL = "Hiding order list panel";
+    private static final String HIDE_BROWER_PANEL = "Hiding browser panel";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -146,6 +149,17 @@ public class MainWindow extends UiPart<Stage> {
         orderListPanelPlaceholder.setVisible(true);
     }
 
+    /**
+     * Hide order list panel after logout successful.
+     */
+    void hideOrderListPanel() {
+        orderListPanelPlaceholder.setVisible(false);
+    }
+
+    void hideBrowserPanel() {
+        browserPlaceholder.setVisible(false);
+    }
+
     void hide() {
         primaryStage.hide();
     }
@@ -216,5 +230,14 @@ public class MainWindow extends UiPart<Stage> {
     private void handleUserLoggedInEvent(UserLoggedInEvent event) {
         logger.info(DISPLAYING_ORDER_LIST_PANEL);
         displayOrderListPanel();
+    }
+
+    @Subscribe
+    private void handleUserLoggedOutEvent(UserLoggedOutEvent event) {
+        logger.info(HIDE_BROWER_PANEL);
+        hideBrowserPanel();
+
+        logger.info(HIDE_ORDER_LIST_PANEL);
+        hideOrderListPanel();
     }
 }

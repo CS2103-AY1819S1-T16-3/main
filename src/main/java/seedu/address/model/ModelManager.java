@@ -15,6 +15,7 @@ import seedu.address.commons.events.model.DeliverymenListChangedEvent;
 import seedu.address.commons.events.model.OrderBookChangedEvent;
 import seedu.address.commons.events.model.RouteListChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
+import seedu.address.commons.events.model.UserLoggedOutEvent;
 import seedu.address.commons.events.model.UsersListChangedEvent;
 import seedu.address.model.deliveryman.Deliveryman;
 import seedu.address.model.deliveryman.DeliverymenList;
@@ -147,6 +148,12 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new UserLoggedInEvent(user));
     }
 
+    /**
+     * Raises an event to indicate user have logged out.
+     */
+    private void indicateUserLoggedOut() {
+        raise(new UserLoggedOutEvent());
+    }
 
     @Override
     public boolean hasOrder(Order order) {
@@ -367,7 +374,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void clearUserInSession() {
         userSession.clearUserSession();
-        //TODO indicateUserLogoutEvent
+        indicateUserLoggedOut();
     }
 
     @Override
