@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <deliverymenlist>
     <!-- Person with invalid email field -->
-    <deliverymen>
+    <deliverymen id="wow">
         <name>Hans Mu5+er</name>
     </deliverymen>
 </deliverymenlist>

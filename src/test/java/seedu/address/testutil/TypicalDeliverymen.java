@@ -13,13 +13,13 @@ import seedu.address.model.deliveryman.DeliverymenList;
 public class TypicalDeliverymen {
 
     public static final Deliveryman CHIKAO = new DeliverymanBuilder().withName("Hoh Chi Kao")
-            .build();
+            .withId(0).build();
     public static final Deliveryman MANIKA = new DeliverymanBuilder().withName("Manika Monuela")
-            .build();
+            .withId(1).build();
     public static final Deliveryman RAJUL = new DeliverymanBuilder().withName("Rajul Rahesh")
-            .build();
+            .withId(2).build();
     public static final Deliveryman YINJING = new DeliverymanBuilder().withName("Tan Yin Jing")
-            .build();
+            .withId(3).build();
 
     /**
      * Returns a {@code DeliverymenList} with all the typical Deliverymen.

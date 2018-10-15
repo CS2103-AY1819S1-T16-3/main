@@ -43,6 +43,7 @@ public class XmlUtilTest {
 
     private static final String INVALID_PHONE = "9482asf424";
 
+    private static final int VALID_ID = 1;
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_ADDRESS = "4th street";
@@ -105,7 +106,7 @@ public class XmlUtilTest {
 
         XmlAdaptedDeliveryman actualDeliveryman = XmlUtil.getDataFromFile(
             INVALID_DELIVERYMAN_FIELD_FILE, XmlAdaptedDeliverymanWithRootElement.class);
-        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_NAME);
+        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_ID, VALID_NAME);
         assertNotEquals(expectedDeliveryman, actualDeliveryman);
     }
 
@@ -119,7 +120,7 @@ public class XmlUtilTest {
 
         XmlAdaptedDeliveryman actualDeliveryman = XmlUtil.getDataFromFile(
             VALID_DELIVERYMAN_FILE, XmlAdaptedDeliverymanWithRootElement.class);
-        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_NAME);
+        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_ID, VALID_NAME);
         assertEquals(expectedDeliveryman, actualDeliveryman);
     }
 

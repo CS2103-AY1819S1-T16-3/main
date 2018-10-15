@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <deliverymenlist>
 
-    <deliverymen>
+    <deliverymen id="1">
         <name>Alice Pauline</name>
     </deliverymen>
 
     <!-- Person with same identity as Alice Pauline -->
-    <deliverymen>
+    <deliverymen id="2">
         <name>Alice Pauline</name>
     </deliverymen>
 
