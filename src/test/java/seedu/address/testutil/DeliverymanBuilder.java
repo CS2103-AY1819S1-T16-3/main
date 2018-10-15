@@ -10,6 +10,7 @@ public class DeliverymanBuilder {
     public static final String DEFAULT_NAME = "Deliver E";
 
     private Name name;
+    private int id = -1;
 
     public DeliverymanBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -19,6 +20,7 @@ public class DeliverymanBuilder {
      * Initializes the DeliverymanBuilder with the data of {@code deliverymanToCopy}.
      */
     public DeliverymanBuilder(Deliveryman deliverymanToCopy) {
+        id = deliverymanToCopy.getId();
         name = deliverymanToCopy.getName();
     }
 
@@ -30,7 +32,20 @@ public class DeliverymanBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code id} of the {@code Deliveryman} that we are building
+     * @param id
+     */
+    public DeliverymanBuilder withId(int id) {
+        this.id = id;
+        return this;
+    }
+
     public Deliveryman build() {
-        return new Deliveryman(name);
+        if (id >= 0) {
+            return new Deliveryman(id, name);
+        } else {
+            return new Deliveryman(name);
+        }
     }
 }
