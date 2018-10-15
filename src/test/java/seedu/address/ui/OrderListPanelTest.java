@@ -94,7 +94,7 @@ public class OrderListPanelTest extends GuiUnitTest {
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<orderbook>\n");
         for (int i = 0; i < orderCount; i++) {
-            builder.append("<orders>\n");
+            builder.append("<orders id=\"" + i + "\">\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<address>a</address>\n");

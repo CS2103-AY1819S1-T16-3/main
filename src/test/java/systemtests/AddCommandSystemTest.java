@@ -52,6 +52,7 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
     @Test
     public void add() {
         Model model = getModel();
+        int currId = 0;
 
         /* Login */
         String loginCommand = LoginCommand.COMMAND_WORD + " ";
@@ -64,7 +65,7 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
         /* Case: add an order to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Order toAdd = AMY;
+        Order toAdd = new OrderBuilder(AMY).withId(currId++).build();
         String addCommand = OrderCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD;
         command = "   " + addCommand + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + "   " + ADDRESS_DESC_AMY + "   " + DATE_DESC_AMY + "  " + FOOD_DESC_BURGER + " ";
@@ -82,7 +83,7 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add an order with all fields same as another order in the order book except name -> added */
-        toAdd = new OrderBuilder(AMY).withName(VALID_NAME_BOB).build();
+        toAdd = new OrderBuilder(AMY).withId(currId++).withName(VALID_NAME_BOB).build();
         command = addCommand + NAME_DESC_BOB + PHONE_DESC_AMY + ADDRESS_DESC_AMY + DATE_DESC_AMY
                 + FOOD_DESC_BURGER;
         assertCommandSuccess(command, toAdd);
@@ -90,28 +91,28 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
         /* Case: add an order with all fields same as another order in the address book except phone
          * -> added
          */
-        toAdd = new OrderBuilder(AMY).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new OrderBuilder(AMY).withId(currId++).withPhone(VALID_PHONE_BOB).build();
         command = OrderCommand.COMMAND_WORD + " " + OrderUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
         deleteAllOrders();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(new OrderBuilder(ALICE).withId(currId++).build());
 
         /* Case: add an order, command with parameters in random order -> added */
-        toAdd = BOB;
+        toAdd = new OrderBuilder(BOB).withId(currId++).build();
         command = addCommand + DATE_DESC_BOB + FOOD_DESC_RICE + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add an order -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(new OrderBuilder(HOON).withId(currId++).build());
 
 
         /* ------------------------ Perform add operation while an order card is selected --------------------------- */
 
         /* Case: selects first card in the order list, add an order -> added, card selection remains unchanged */
         selectOrder(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(new OrderBuilder(CARL).withId(currId).build());
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 

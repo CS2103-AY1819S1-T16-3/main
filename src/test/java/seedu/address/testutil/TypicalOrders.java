@@ -54,9 +54,9 @@ public class TypicalOrders {
             .withAddress("chicago ave").withDate("01-10-2018 10:00:00").withFood("Bubble Tea").build();
 
     // Manually added - Order's details found in {@code CommandTestUtil}
-    public static final Order AMY = new OrderBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+    public static final Order AMY = new OrderBuilder().withId(0).withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withAddress(VALID_ADDRESS_AMY).withDate(VALID_DATE_AMY).withFood(VALID_FOOD_BURGER).build();
-    public static final Order BOB = new OrderBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+    public static final Order BOB = new OrderBuilder().withId(1).withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withAddress(VALID_ADDRESS_BOB).withDate(VALID_DATE_BOB).withFood(VALID_FOOD_RICE)
             .build();
 
