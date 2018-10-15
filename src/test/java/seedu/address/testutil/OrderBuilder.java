@@ -27,6 +27,7 @@ public class OrderBuilder {
     private Address address;
     private OrderDate date;
     private Set<Food> food;
+    private int id = -1;
 
     public OrderBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -40,11 +41,21 @@ public class OrderBuilder {
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
     public OrderBuilder(Order orderToCopy) {
+        id = orderToCopy.getId();
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
         address = orderToCopy.getAddress();
         date = orderToCopy.getDate();
         food = new HashSet<>(orderToCopy.getFood());
+    }
+
+    /**
+     * Sets the {@code id} of the {@code Order} that we are building
+     * @param id
+     */
+    public OrderBuilder withId(int id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -88,8 +99,15 @@ public class OrderBuilder {
     }
 
 
+    /**
+     * Builds and returns an order.
+     */
     public Order build() {
-        return new Order(name, phone, address, date, food);
+        if (id >= 0) {
+            return new Order(id, name, phone, address, date, food);
+        } else {
+            return new Order(name, phone, address, date, food);
+        }
     }
 
 }

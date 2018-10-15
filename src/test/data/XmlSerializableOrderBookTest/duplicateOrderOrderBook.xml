@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <orderbook>
 
-    <orders>
+    <orders id="0">
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <address>123, Jurong West Ave 6, #08-111</address>
@@ -10,7 +10,7 @@
     </orders>
 
     <!-- Order with same identity as Alice Pauline -->
-    <orders>
+    <orders id="1">
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <address>4th street</address>

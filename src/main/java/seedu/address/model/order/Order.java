@@ -108,7 +108,8 @@ public class Order extends IdObject {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getName().equals(getName())
+        return otherOrder.getId() == getId()
+                && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getAddress().equals(getAddress())
                 && (otherOrder.getDate().equals(getDate()))

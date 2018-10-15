@@ -23,32 +23,34 @@ import seedu.address.model.order.Order;
  */
 public class TypicalOrders {
     public static final Order ALICE = new OrderBuilder().withName("Alice Pauline")
+            .withId(0)
             .withAddress("123, Jurong West Ave 6, #08-111")
             .withPhone("94351253")
             .withDate("01-10-2018 10:00:00")
             .withFood("Roti Prata").build();
 
     public static final Order BENSON = new OrderBuilder().withName("Benson Meier")
+            .withId(1)
             .withAddress("311, Clementi Ave 2, #02-25")
             .withPhone("98765432")
             .withDate("01-10-2018 10:00:00")
             .withFood("Egg Fried Rice", "Milo").build();
 
-    public static final Order CARL = new OrderBuilder().withName("Carl Kurz").withPhone("95352563")
+    public static final Order CARL = new OrderBuilder().withId(2).withName("Carl Kurz").withPhone("95352563")
             .withAddress("wall street").withDate("01-10-2018 10:00:00").withFood("Milkshake").build();
-    public static final Order DANIEL = new OrderBuilder().withName("Daniel Meier").withPhone("87652533")
+    public static final Order DANIEL = new OrderBuilder().withId(3).withName("Daniel Meier").withPhone("87652533")
             .withAddress("10th street").withDate("01-10-2018 10:00:00").withFood("Fish and Chips").build();
-    public static final Order ELLE = new OrderBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Order ELLE = new OrderBuilder().withId(4).withName("Elle Meyer").withPhone("9482224")
             .withAddress("michegan ave").withDate("01-10-2018 10:00:00").withFood("Chicken Chop").build();
-    public static final Order FIONA = new OrderBuilder().withName("Fiona Kunz").withPhone("9482427")
+    public static final Order FIONA = new OrderBuilder().withId(5).withName("Fiona Kunz").withPhone("9482427")
             .withAddress("little tokyo").withDate("01-10-2018 10:00:00").withFood("Tuna Sandwich").build();
-    public static final Order GEORGE = new OrderBuilder().withName("George Best").withPhone("9482442")
+    public static final Order GEORGE = new OrderBuilder().withId(6).withName("George Best").withPhone("9482442")
             .withAddress("4th street").withDate("01-10-2018 10:00:00").withFood("Ice cream").build();
 
     //Manually added
-    public static final Order HOON = new OrderBuilder().withName("Hoon Meier").withPhone("8482424")
+    public static final Order HOON = new OrderBuilder().withId(7).withName("Hoon Meier").withPhone("8482424")
             .withAddress("little india").withDate("01-10-2018 10:00:00").withFood("Chocolate Milkshake").build();
-    public static final Order IDA = new OrderBuilder().withName("Ida Mueller").withPhone("8482131")
+    public static final Order IDA = new OrderBuilder().withId(8).withName("Ida Mueller").withPhone("8482131")
             .withAddress("chicago ave").withDate("01-10-2018 10:00:00").withFood("Bubble Tea").build();
 
     // Manually added - Order's details found in {@code CommandTestUtil}

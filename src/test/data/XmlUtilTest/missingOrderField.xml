@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Order with missing name field -->
-<order>
+<order id="1">
     <phone>9482424</phone>
     <address>4th street</address>
     <date>01-10-2018 10:00:00</date>

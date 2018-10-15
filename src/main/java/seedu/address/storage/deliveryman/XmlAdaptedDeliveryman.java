@@ -80,6 +80,7 @@ public class XmlAdaptedDeliveryman {
         }
 
         XmlAdaptedDeliveryman otherDman = (XmlAdaptedDeliveryman) other;
-        return Objects.equals(name, otherDman.name);
+        return id.equals(otherDman.id)
+            && Objects.equals(name, otherDman.name);
     }
 }
