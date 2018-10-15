@@ -41,6 +41,9 @@ public class DeliverymanBuilder {
         return this;
     }
 
+    /**
+     * Builds the {@code Deliveryman}
+     */
     public Deliveryman build() {
         if (id >= 0) {
             return new Deliveryman(id, name);
