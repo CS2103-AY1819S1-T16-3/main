@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.IdObject;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -14,7 +15,9 @@ import seedu.address.model.person.Phone;
  * Represents an Order in the order book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Order {
+public class Order extends IdObject {
+    /** Tracker for assigning id. */
+    private static int idCounter = 0;
 
     // Identity fields
     private final Name name;
@@ -27,6 +30,22 @@ public class Order {
      * Every field must be present and not null.
      */
     public Order(Name name, Phone phone, Address address, OrderDate orderDate, Set<Food> food) {
+        super(idCounter++);
+        requireAllNonNull(name, phone, address, orderDate, food);
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.food.addAll(food);
+
+        this.orderDate = orderDate;
+    }
+
+    /**
+     * This constructor is used when the {@code id} of the order needs
+     * to be retained, such as with edits.
+     */
+    public Order(int id, Name name, Phone phone, Address address, OrderDate orderDate, Set<Food> food) {
+        super(id);
         requireAllNonNull(name, phone, address, orderDate, food);
         this.name = name;
         this.phone = phone;

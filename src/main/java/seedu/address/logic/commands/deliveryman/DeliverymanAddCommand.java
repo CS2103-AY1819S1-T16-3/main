@@ -51,6 +51,6 @@ public class DeliverymanAddCommand extends DeliverymanCommand {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof DeliverymanAddCommand && toAdd.equals(((DeliverymanAddCommand) other).toAdd));
+                || (other instanceof DeliverymanAddCommand && toAdd.isSameDeliveryman(((DeliverymanAddCommand) other).toAdd));
     }
 }
