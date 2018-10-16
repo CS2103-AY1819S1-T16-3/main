@@ -18,6 +18,7 @@ public class RouteBuilder {
 
     private Address source;
     private Set<Order> orders = new HashSet<>();
+    private int id = -1;
 
     public RouteBuilder() {
         source = new Address(DEFAULT_SOURCE);
@@ -27,8 +28,17 @@ public class RouteBuilder {
      * Initializes the RouteBuilder with the data of {@code routeToCopy}.
      */
     public RouteBuilder(Route routeToCopy) {
+        id = routeToCopy.getId();
         source = routeToCopy.getSource();
         orders = routeToCopy.getOrders();
+    }
+
+    /**
+     * Sets the {@code id } of the {@code Route} that we are building.
+     */
+    public RouteBuilder withId(int id) {
+        this.id = id;
+        return this;
     }
 
     /**
@@ -55,7 +65,13 @@ public class RouteBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns the route it builds.
+     */
     public Route build() {
+        if (id >= 0) {
+            return new Route(id, source, orders);
+        }
         return new Route(source, orders);
     }
 

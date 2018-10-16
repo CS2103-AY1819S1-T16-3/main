@@ -19,13 +19,13 @@ public class TypicalRoutes {
     private static final Order DANIEL = TypicalOrders.DANIEL;
 
     public static final Route ROUTE_ALICE_BENSON = new RouteBuilder()
-            .withOrder(ALICE).withOrder(BENSON).build();
+            .withId(0).withOrder(ALICE).withOrder(BENSON).build();
 
     public static final Route ROUTE_CARL = new RouteBuilder()
-            .withOrder(CARL).build();
+            .withId(1).withOrder(CARL).build();
 
     public static final Route ROUTE_DANIEL = new RouteBuilder()
-            .withOrder(DANIEL).build();
+            .withId(2).withOrder(DANIEL).build();
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

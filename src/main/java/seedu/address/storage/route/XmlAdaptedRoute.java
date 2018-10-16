@@ -7,7 +7,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.order.Order;
@@ -21,6 +23,10 @@ import seedu.address.storage.XmlAdaptedOrder;
 public class XmlAdaptedRoute {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Route's %s field is missing!";
+
+    @XmlAttribute
+    @XmlID
+    private String id;
 
     @XmlElement(required = true)
     private String source;
@@ -36,7 +42,8 @@ public class XmlAdaptedRoute {
     /**
      * Constructs an {@code XmlAdaptedRoute} with the given route details.
      */
-    public XmlAdaptedRoute(String source, List<XmlAdaptedOrder> orders) {
+    public XmlAdaptedRoute(int id, String source, List<XmlAdaptedOrder> orders) {
+        this.id = Integer.toString(id);
         this.source = source;
         if (orders == null) {
             this.orders = new ArrayList<>();
@@ -51,6 +58,7 @@ public class XmlAdaptedRoute {
      * @param route future changes to this will not affect the created XmlAdaptedRoute
      */
     public XmlAdaptedRoute(Route route) {
+        id = Integer.toString(route.getId());
         source = route.getSource().value;
         orders = route.getOrders().stream()
                 .map(XmlAdaptedOrder::new)
@@ -82,7 +90,15 @@ public class XmlAdaptedRoute {
 
         final Set<Order> modelOrder = new HashSet<>(orderStore);
 
-        return new Route(modelSource, modelOrder);
+        int modelId;
+
+        try {
+            modelId = Integer.parseInt(id);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("Not an ID!");
+        }
+
+        return new Route(modelId, modelSource, modelOrder);
     }
 
     @Override

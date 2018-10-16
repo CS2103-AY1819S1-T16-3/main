@@ -83,7 +83,8 @@ public class Route extends IdObject {
         }
 
         Route otherRoute = (Route) other;
-        return otherRoute.getSource().equals(getSource())
+        return getId() == otherRoute.getId()
+                && otherRoute.getSource().equals(getSource())
                 && otherRoute.getOrders().equals(getOrders());
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <routelist>
     <!-- Route with invalid destination field -->
-    <routes>
+    <routes id="0">
         <source>12 Clementi Rd</source>
         <destination> </destination>
     </routes>

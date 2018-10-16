@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <routelist>
-    <!-- Route with invalid source and order field -->
-    <routes>
+    <!-- Route with invalid source and destination field -->
+    <routes id="0">
         <source> </source>
         <orders>
             <name>Ha!ns Mu@ster</name>
