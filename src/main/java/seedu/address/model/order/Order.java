@@ -137,4 +137,8 @@ public class Order extends IdObject {
         return builder.toString();
     }
 
+    /** resets the counter for IDs. Used mostly for tests.*/
+    public static void resetCounter() {
+        idCounter = 0;
+    }
 }

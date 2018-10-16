@@ -52,6 +52,7 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
     @Test
     public void add() {
         Model model = getModel();
+        Order.resetCounter();
         int currId = 0;
 
         /* Login */
