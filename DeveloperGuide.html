@@ -31,9 +31,10 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#login-command">3.2. Login Command</a></li>
-<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#find-order-feature">3.3. Find Order Feature</a></li>
+<li><a href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -939,20 +940,161 @@ nothing to do with login at all.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
+<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.3. Find Order Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>find</code> order command allows searching of orders in FoodZoom.
+It allows finding of orders based on either the name or phone specified in the order.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the sequence flow from the <code>LogicManager</code> to the <code>ModelManager</code> when a user enter a <code>find</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/OrderFindSequenceDiagram.png" alt="OrderFindSequenceDiagram" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
+</div>
+<div class="paragraph">
+<p>From the sequence diagram:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When <code>LogicManager</code> receive the <code>execute</code> command, it class the <code>parseCommand</code> method in <code>OrderBookParser</code>.</p>
+</li>
+<li>
+<p><code>OrderBookParser</code> will receive <code>/order</code> as the command and instantiate <code>OrderCommandParser</code> to further parse the command.</p>
+</li>
+<li>
+<p>If the arguments specified in the <code>find</code> command are valid, a <code>FindCommand</code> will be created and return back to the <code>LogicManger</code></p>
+</li>
+<li>
+<p><code>LogicManger</code> will proceed to call the <code>execute</code> command of <code>FindCommand</code></p>
+</li>
+<li>
+<p><code>FindCommand</code> will updated the list in the <code>Model</code> and create a new <code>CommandResult</code> to be returned.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Currently, FoodZoom only allows find for other based on name or phone, but not specifying both name and phone together.</p>
+</div>
+<div class="paragraph">
+<p>This differentiation is handled by <code>FindCommandParser</code> which checks for the fields specified.
+It throws a <code>ParseException</code> error if either both name and phone is specified together or when fields other than name or phone is being specified.</p>
+</div>
+<div class="paragraph">
+<p><code>FindCommandParser</code> will return an <code>OrderNameContainsKeywordPredicate</code> if a valid name is specified or return an <code>OrderPhoneContainsKeyPredicate</code>.</p>
+</div>
+<div class="paragraph">
+<p>In order for <code>FindCommand</code> to take a general predicate, both <code>OrderNameContainsKeywordPredicate</code> and <code>OrderPhoneContainsKeywordPredicate</code> implements the interface <code>OrderContainsKeywordPredicated</code> and <code>OrderContainsKeywordPredicate</code> extends from a <code>Predicate</code> of <code>Order</code>. <br>
+The following shows how is one of the predicate implemented:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
+ * Tests that a {@code Order}'s {@code Name} matches any of the keywords given.
+ */</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">OrderNameContainsKeywordPredicate</span> <span class="directive">implements</span> OrderContainsAnyKeywordsPredicate {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">boolean</span> test(Order order) {
+        <span class="comment">// test method...</span>
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.2. Design Consideration</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-findcommand-code"><a class="link" href="#aspect-implementation-of-code-findcommand-code">Aspect: Implementation of <code>FindCommand</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Name and Phone has its own predicate having its own test method.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It adheres to the Single Responsibility Principle (SRP) and the Separation of Concern (SoC). Each Predicate will only handles its own search parameters.</p>
+</li>
+<li>
+<p>Cons: More classes will be needed, which results in more code being written</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> One predicate class which handles name and phone.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Reduces the number of classes, which makes it for new developers to understand.</p>
+</li>
+<li>
+<p>Cons: It decreases the cohesion as one class will need to handle different predicates.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-findcommandparser-code"><a class="link" href="#aspect-implementation-of-code-findcommandparser-code">Aspect: Implementation of <code>FindCommandParser</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> <code>FindCommandParser</code> handles all the parsing</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It makes it easy for new developers to understand as <code>FindCommandParser</code> handles all the parsing of the predicates.</p>
+</li>
+<li>
+<p>Cons: It violates the Single Responsibility Principles (SRP). <code>FindCommandParser</code> has to break down the arguments as well as check which argument is present.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Having a utilities class to handle the break down and checking of which command is present.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It adheres to SRP as handling of argument is pass on to a utility class.</p>
+</li>
+<li>
+<p>Cons: Increase in the complexity of the code for new developers as more classes are needed and more lines of code will be written</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.4. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -983,7 +1125,7 @@ nothing to do with login at all.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2750,4 +2892,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-16 12:25:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-16 12:41:47 UTC</div></div></div></body></html>
