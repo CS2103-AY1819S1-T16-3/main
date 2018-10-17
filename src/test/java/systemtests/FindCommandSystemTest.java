@@ -4,10 +4,14 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ORDER_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_ORDERS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWORD_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_ALICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.testutil.TypicalOrders.BENSON;
 import static seedu.address.testutil.TypicalOrders.CARL;
 import static seedu.address.testutil.TypicalOrders.DANIEL;
@@ -20,6 +24,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.DeleteCommand;
@@ -35,10 +40,16 @@ public class FindCommandSystemTest extends OrderBookSystemTest {
     public void find() {
         String findCommand = OrderCommand.COMMAND_WORD + " " + FindCommand.COMMAND_WORD;
 
+        /* Login */
+        String loginCommand = LoginCommand.COMMAND_WORD + " ";
+        String command = loginCommand + PREFIX_USERNAME + VALID_MANAGER_USERNAME_ALICE
+                + " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_ALICE;
+        executeCommand(command);
+
         /* Case: find multiple persons in order book by name, command with leading spaces and trailing spaces
          * -> 2 orders found
          */
-        String command = "   " + findCommand + " " + KEYWORD_NAME_MATCHING_MEIER + "   ";
+        command = "   " + findCommand + " " + KEYWORD_NAME_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);

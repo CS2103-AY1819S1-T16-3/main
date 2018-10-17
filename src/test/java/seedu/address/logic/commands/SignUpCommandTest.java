@@ -9,11 +9,16 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWOR
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWORD_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_BENSON;
+import static seedu.address.logic.commands.LoginCommand.MESSAGE_ALREADY_LOGGED_IN;
+import static seedu.address.logic.commands.LoginCommand.MESSAGE_REDIRECT_TO_LOGOUT;
+import static seedu.address.logic.commands.SignUpCommand.MESSAGE_LOGGED_IN;
+import static seedu.address.logic.commands.SignUpCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalDeliverymen.getTypicalDeliverymenList;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 import static seedu.address.testutil.TypicalRoutes.getTypicalRouteList;
 import static seedu.address.testutil.user.TypicalUsers.BENSON_MANAGER;
 import static seedu.address.testutil.user.TypicalUsers.HOON_MANAGER;
+import static seedu.address.testutil.user.TypicalUsers.IDA_MANAGER;
 import static seedu.address.testutil.user.TypicalUsers.getTypicalUsersList;
 
 import org.junit.Rule;
@@ -46,12 +51,37 @@ public class SignUpCommandTest {
     }
 
     @Test
+    public void execute_userAcceptedByModel_cannotSignupAfterSignup() throws Exception {
+        User validUser = new UserBuilder(HOON_MANAGER).build();
+
+        CommandResult commandResult = new SignUpCommand(validUser).execute(model, commandHistory);
+
+        String expectedResult = String.format(MESSAGE_SUCCESS, validUser)
+                + "\n"
+                + MESSAGE_LOGGED_IN;
+        assertEquals(expectedResult, commandResult.feedbackToUser);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+
+        User anotherUser = new UserBuilder(IDA_MANAGER).build();
+        commandResult = new SignUpCommand(anotherUser).execute(model, commandHistory);
+        expectedResult = String.format(MESSAGE_ALREADY_LOGGED_IN, validUser.getUsername())
+                + "\n"
+                + MESSAGE_REDIRECT_TO_LOGOUT;
+        assertEquals(expectedResult, commandResult.feedbackToUser);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+
+    }
+
+    @Test
     public void execute_userAcceptedByModel_signUpSuccessful() throws Exception {
         User validUser = new UserBuilder(HOON_MANAGER).build();
 
         CommandResult commandResult = new SignUpCommand(validUser).execute(model, commandHistory);
 
-        assertEquals(String.format(SignUpCommand.MESSAGE_SUCCESS, validUser), commandResult.feedbackToUser);
+        String expectedResult = String.format(MESSAGE_SUCCESS, validUser)
+                + "\n"
+                + MESSAGE_LOGGED_IN;
+        assertEquals(expectedResult, commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
