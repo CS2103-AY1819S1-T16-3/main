@@ -1,6 +1,9 @@
 package seedu.address.storage.deliveryman;
 
+import static seedu.address.model.IdObject.MESSAGE_INVALID_ID;
+
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -28,8 +31,8 @@ public class XmlAdaptedDeliveryman {
     /**
      * Constructs an {@code XmlAdapterDeliveryman} with the given person details.
      */
-    public XmlAdaptedDeliveryman(int id, String name) {
-        this.id = Integer.toString(id);
+    public XmlAdaptedDeliveryman(String name) {
+        this.id = UUID.randomUUID().toString();
         this.name = name;
     }
 
@@ -39,7 +42,7 @@ public class XmlAdaptedDeliveryman {
      * @param source
      */
     public XmlAdaptedDeliveryman(Deliveryman source) {
-        id = Integer.toString(source.getId());
+        id = source.getId().toString();
         name = source.getName().fullName;
     }
 
@@ -56,12 +59,12 @@ public class XmlAdaptedDeliveryman {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
 
-        int modelId;
+        UUID modelId;
 
         try {
-            modelId = Integer.parseInt(id);
+            modelId = UUID.fromString(id);
         } catch (NumberFormatException e) {
-            throw new IllegalValueException("Not an ID!");
+            throw new IllegalValueException(MESSAGE_INVALID_ID);
         }
 
         final Name modelName = new Name(name);

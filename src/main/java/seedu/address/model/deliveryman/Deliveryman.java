@@ -3,6 +3,7 @@ package seedu.address.model.deliveryman;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.address.model.IdObject;
 import seedu.address.model.person.Name;
@@ -12,23 +13,17 @@ import seedu.address.model.person.Name;
  * Guarantees: has a name that is unique.
  */
 public class Deliveryman extends IdObject {
-    /** Tracker for assigning id. */
-    private static int idCounter = 0;
 
     private final Name name;
     //TODO:  add field for orders/routes attached to deliveryman.
 
     public Deliveryman(Name name) {
-        super(idCounter++);
         requireAllNonNull(name);
         this.name = name;
     }
 
-    /**
-     * This constructor is used when {@code id} of the deliveryman
-     * needs to be retained, such as for edits.
-     */
-    public Deliveryman(int id, Name name) {
+    /** This constructor is used when the {@code id} is specified. */
+    public Deliveryman(UUID id, Name name) {
         super(id);
         requireAllNonNull(name);
         this.name = name;
@@ -64,8 +59,9 @@ public class Deliveryman extends IdObject {
         }
 
         Deliveryman otherPerson = (Deliveryman) other;
-        return getId() == (otherPerson.getId())
-            && otherPerson.getName().equals(getName());
+        return ((getId() == null && otherPerson.getId() == null)
+                || getId().equals(otherPerson.getId()))
+                && otherPerson.getName().equals(getName());
     }
 
     @Override
@@ -79,4 +75,5 @@ public class Deliveryman extends IdObject {
         builder.append(getName());
         return builder.toString();
     }
+
 }

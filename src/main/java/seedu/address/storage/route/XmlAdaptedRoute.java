@@ -1,10 +1,13 @@
 package seedu.address.storage.route;
 
+import static seedu.address.model.IdObject.MESSAGE_INVALID_ID;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,8 +45,8 @@ public class XmlAdaptedRoute {
     /**
      * Constructs an {@code XmlAdaptedRoute} with the given route details.
      */
-    public XmlAdaptedRoute(int id, String source, List<XmlAdaptedOrder> orders) {
-        this.id = Integer.toString(id);
+    public XmlAdaptedRoute(String source, String destination) {
+        this.id = UUID.randomUUID().toString();
         this.source = source;
         if (orders == null) {
             this.orders = new ArrayList<>();
@@ -58,7 +61,7 @@ public class XmlAdaptedRoute {
      * @param route future changes to this will not affect the created XmlAdaptedRoute
      */
     public XmlAdaptedRoute(Route route) {
-        id = Integer.toString(route.getId());
+        id = route.getId().toString();
         source = route.getSource().value;
         orders = route.getOrders().stream()
                 .map(XmlAdaptedOrder::new)
@@ -90,12 +93,12 @@ public class XmlAdaptedRoute {
 
         final Set<Order> modelOrder = new HashSet<>(orderStore);
 
-        int modelId;
+        UUID modelId;
 
         try {
-            modelId = Integer.parseInt(id);
-        } catch (NumberFormatException e) {
-            throw new IllegalValueException("Not an ID!");
+            modelId = UUID.fromString(id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(MESSAGE_INVALID_ID);
         }
 
         return new Route(modelId, modelSource, modelOrder);

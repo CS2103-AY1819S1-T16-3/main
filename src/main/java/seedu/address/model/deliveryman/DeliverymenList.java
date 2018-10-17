@@ -56,7 +56,12 @@ public class DeliverymenList {
         return deliverymenList.contains(deliveryman);
     }
 
+    /**
+     * Adds a deliveryman to the {@code deliverymenList}
+     * @param d
+     */
     public void addDeliveryman(Deliveryman d) {
+        d.assignId();
         deliverymenList.add(d);
     }
 

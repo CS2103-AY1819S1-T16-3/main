@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.IdObject;
 import seedu.address.model.order.Order;
@@ -16,9 +17,6 @@ import seedu.address.model.person.Address;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Route extends IdObject {
-    /** Tracker for assigning id. */
-    private static int idCounter = 0;
-
     private static final String DEFAULT_SOURCE = "12 Clementi Rd";
 
     // Identity fields
@@ -30,14 +28,19 @@ public class Route extends IdObject {
      * @param orders The orders delivered in this route.
      */
     public Route(Set<Order> orders) {
-        super(idCounter++);
         requireNonNull(orders);
         this.source = new Address(DEFAULT_SOURCE);
         this.orders.addAll(orders);
     }
 
     public Route(Address source, Set<Order> orders) {
-        super(idCounter++);
+        requireAllNonNull(source, orders);
+        this.source = source;
+        this.orders.addAll(orders);
+    }
+
+    public Route(UUID id, Address source, Set<Order> orders) {
+        super(id);
         requireAllNonNull(source, orders);
         this.source = source;
         this.orders.addAll(orders);
@@ -83,7 +86,8 @@ public class Route extends IdObject {
         }
 
         Route otherRoute = (Route) other;
-        return getId() == otherRoute.getId()
+        return ((getId() == null && otherRoute.getId() == null)
+                || getId().equals(otherRoute.getId()))
                 && otherRoute.getSource().equals(getSource())
                 && otherRoute.getOrders().equals(getOrders());
     }
@@ -104,4 +108,5 @@ public class Route extends IdObject {
         getOrders().forEach(builder::append);
         return builder.toString();
     }
+
 }

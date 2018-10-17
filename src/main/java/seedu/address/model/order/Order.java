@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.model.IdObject;
 import seedu.address.model.person.Address;
@@ -16,8 +17,6 @@ import seedu.address.model.person.Phone;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Order extends IdObject {
-    /** Tracker for assigning id. */
-    private static int idCounter = 0;
 
     // Identity fields
     private final Name name;
@@ -30,7 +29,6 @@ public class Order extends IdObject {
      * Every field must be present and not null.
      */
     public Order(Name name, Phone phone, Address address, OrderDate orderDate, Set<Food> food) {
-        super(idCounter++);
         requireAllNonNull(name, phone, address, orderDate, food);
         this.name = name;
         this.phone = phone;
@@ -41,10 +39,9 @@ public class Order extends IdObject {
     }
 
     /**
-     * This constructor is used when the {@code id} of the order needs
-     * to be retained, such as with edits.
+     * This constructor is used to create an {@code order} with a specified id.
      */
-    public Order(int id, Name name, Phone phone, Address address, OrderDate orderDate, Set<Food> food) {
+    public Order(UUID id, Name name, Phone phone, Address address, OrderDate orderDate, Set<Food> food) {
         super(id);
         requireAllNonNull(name, phone, address, orderDate, food);
         this.name = name;
@@ -54,7 +51,6 @@ public class Order extends IdObject {
 
         this.orderDate = orderDate;
     }
-
     public Name getName() {
         return name;
     }
@@ -108,7 +104,8 @@ public class Order extends IdObject {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getId() == getId()
+        return ((getId() == null && otherOrder.getId() == null)
+                || getId().equals(otherOrder.getId()))
                 && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getAddress().equals(getAddress())
@@ -137,8 +134,4 @@ public class Order extends IdObject {
         return builder.toString();
     }
 
-    /** resets the counter for IDs. Used mostly for tests.*/
-    public static void resetCounter() {
-        idCounter = 0;
-    }
 }

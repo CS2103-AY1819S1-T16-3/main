@@ -73,6 +73,7 @@ public class OrderBook implements ReadOnlyOrderBook {
      * The order must not already exist in the order book.
      */
     public void addOrder(Order o) {
+        o.assignId();
         orders.add(o);
     }
 

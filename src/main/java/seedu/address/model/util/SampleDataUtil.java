@@ -29,7 +29,7 @@ import seedu.address.model.user.User;
  */
 public class SampleDataUtil {
     public static Order[] getSampleOrders() {
-        return new Order[]{
+        Order[] orders = new Order[]{
             new Order(new Name("Alex Yeoh"), new Phone("87438807"),
                         new Address("Blk 30 Geylang Street 29, #06-40"), new OrderDate("01-10-2018 10:00:00"),
                         getFoodSet("Ice Tea")),
@@ -50,6 +50,7 @@ public class SampleDataUtil {
                         new Address("Blk 45 Aljunied Street 85, #11-31"), new OrderDate("01-10-2018 10:00:00"),
                         getFoodSet("Sugercane Juice"))
         };
+        return orders;
     }
 
     public static Route[] getSampleRoutes() {
@@ -80,7 +81,6 @@ public class SampleDataUtil {
         OrderBook sampleAb = new OrderBook();
         for (Order sampleOrder : getSampleOrders()) {
             sampleAb.addOrder(sampleOrder);
-
         }
         return sampleAb;
     }
