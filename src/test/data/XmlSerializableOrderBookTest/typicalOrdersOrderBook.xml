@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- OrderBook save file which contains the same Order values as in TypicalOrders#getTypicalOrderBook() -->
 <orderbook>
-    <orders id="0">
+    <orders id="92c54d56-e971-407a-81e7-5df71c3c82fc">
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <address>123, Jurong West Ave 6, #08-111</address>
         <date>01-10-2018 10:00:00</date>
         <food>Roti Prata</food>
     </orders>
-    <orders id="1">
+    <orders id="e328789f-c707-49a9-8147-d93e213fb1d7">
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <address>311, Clementi Ave 2, #02-25</address>
@@ -16,35 +16,35 @@
         <food>Egg Fried Rice</food>
         <food>Milo</food>
     </orders>
-    <orders id="2">
+    <orders id="6c974f14-e5f5-4652-ba14-4df75e259b25">
         <name>Carl Kurz</name>
         <phone>95352563</phone>
         <address>wall street</address>
         <date>01-10-2018 10:00:00</date>
         <food>Milkshake</food>
     </orders>
-    <orders id="3">
+    <orders id="ec11e415-4794-44c2-9d29-861d359d8b76">
         <name>Daniel Meier</name>
         <phone>87652533</phone>
         <address>10th street</address>
         <date>01-10-2018 10:00:00</date>
         <food>Fish and Chips</food>
     </orders>
-    <orders id="4">
+    <orders id="d0abc707-2363-46b2-8c45-92667f3d9e0e">
         <name>Elle Meyer</name>
         <phone>9482224</phone>
         <address>michegan ave</address>
         <date>01-10-2018 10:00:00</date>
         <food>Chicken Chop</food>
     </orders>
-    <orders id="5">
+    <orders id="77bd3598-2d3a-450e-a37b-a79de94792dc">
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
         <address>little tokyo</address>
         <date>01-10-2018 10:00:00</date>
         <food>Tuna Sandwich</food>
     </orders>
-    <orders id="6">
+    <orders id="e7dc53e1-a1a0-4208-8f29-a6b24f215ff9">
         <name>George Best</name>
         <phone>9482442</phone>
         <address>4th street</address>

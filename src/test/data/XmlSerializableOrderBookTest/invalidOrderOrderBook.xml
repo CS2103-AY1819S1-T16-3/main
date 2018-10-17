@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <orderbook>
     <!-- Order with invalid phone field -->
-    <orders id="1">
+    <orders id="e7dc53e1-a1a0-4208-8f29-a6b24f215ff9">
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424ab</phone>
         <address isPrivate="false">4th street</address>
