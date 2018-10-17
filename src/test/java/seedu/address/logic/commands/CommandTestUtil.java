@@ -80,10 +80,19 @@ public class CommandTestUtil {
 
     public static final String VALID_MANAGER_NAME_ALICE = "Alice Pauline";
     public static final String VALID_MANAGER_NAME_BENSON = "Benson Meier";
+    public static final String VALID_MANAGER_NAME_IDA = "Ida Mueller";
+    public static final String VALID_MANAGER_NAME_HOON = "Hoon Meier";
+    public static final String VALID_MANAGER_NAME_KENNY = "Kenny Chan";
     public static final String VALID_MANAGER_USERNAME_ALICE = "alicepauline";
     public static final String VALID_MANAGER_USERNAME_BENSON = "bensonmeier";
+    public static final String VALID_MANAGER_USERNAME_IDA = "idamueller";
+    public static final String VALID_MANAGER_USERNAME_HOON = "hoonmeier";
+    public static final String VALID_MANAGER_USERNAME_KENNY = "kennychan";
     public static final String VALID_MANAGER_PASSWORD_ALICE = "alicepauline01";
     public static final String VALID_MANAGER_PASSWORD_BENSON = "bensonmeier02";
+    public static final String VALID_MANAGER_PASSWORD_IDA = "idamueller05";
+    public static final String VALID_MANAGER_PASSWORD_HOON = "hoonmeier04";
+    public static final String VALID_MANAGER_PASSWORD_KENNY = "kennychan06";
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_MANAGER_NAME_ALICE;
     public static final String NAME_DESC_BENSON = " " + PREFIX_NAME + VALID_MANAGER_NAME_BENSON;

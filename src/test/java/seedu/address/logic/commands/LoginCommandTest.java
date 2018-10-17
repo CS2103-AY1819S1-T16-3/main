@@ -41,6 +41,30 @@ public class LoginCommandTest {
     }
 
     @Test
+    public void execute_userAcceptedByModel_cannotLoginAfterLogin() throws Exception {
+        User validUser = new UserBuilder()
+                .withUsername(VALID_MANAGER_USERNAME_ALICE)
+                .withPassword(VALID_MANAGER_PASSWORD_ALICE)
+                .build();
+
+        CommandResult commandResult = new LoginCommand(validUser).execute(model, commandHistory);
+
+        assertEquals(String.format(LoginCommand.MESSAGE_SUCCESS, validUser), commandResult.feedbackToUser);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+
+        User anotherUser = new UserBuilder()
+                .withUsername(VALID_MANAGER_USERNAME_BENSON)
+                .withPassword(VALID_MANAGER_PASSWORD_BENSON)
+                .build();
+
+        commandResult = new LoginCommand(anotherUser).execute(model, commandHistory);
+        String expectedResult = String.format(LoginCommand.MESSAGE_ALREADY_LOGGED_IN, validUser.getUsername())
+                + "\n"
+                + LoginCommand.MESSAGE_REDIRECT_TO_LOGOUT;
+        assertEquals(expectedResult, commandResult.feedbackToUser);
+    }
+
+    @Test
     public void execute_userAcceptedByModel_loginSuccessful() throws Exception {
         User validUser = new UserBuilder()
                 .withUsername(VALID_MANAGER_USERNAME_ALICE)

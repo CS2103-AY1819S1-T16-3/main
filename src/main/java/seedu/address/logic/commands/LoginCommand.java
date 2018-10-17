@@ -20,6 +20,11 @@ public class LoginCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Login Failure for %1$s";
 
+    public static final String MESSAGE_ALREADY_LOGGED_IN = "You are already logged in as %1$s";
+
+    public static final String MESSAGE_REDIRECT_TO_LOGOUT = "Please logout before attempting to login to another "
+            + "account";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Login to FoodZoom. "
             + "Parameters: "
             + PREFIX_USERNAME + "USERNAME "
@@ -41,6 +46,14 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.isUserLoggedIn()) {
+            User loggedInUser = model.getLoggedInUserDetails();
+            String result = String.format(MESSAGE_ALREADY_LOGGED_IN, loggedInUser.getUsername())
+                    + "\n"
+                    + MESSAGE_REDIRECT_TO_LOGOUT;
+            return new CommandResult(result);
+        }
+
         if (model.isRegisteredUser(toLogin)) {
             model.storeUserInSession(toLogin);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toLogin));

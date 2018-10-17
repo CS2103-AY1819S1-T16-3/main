@@ -20,10 +20,14 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_FOOD_BURGER;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWORD_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -35,6 +39,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.EditCommand;
@@ -56,12 +61,18 @@ public class EditCommandSystemTest extends OrderBookSystemTest {
         Model model = getModel();
         String editCommand = OrderCommand.COMMAND_WORD + " " + EditCommand.COMMAND_WORD;
 
+        /* Login */
+        String loginCommand = LoginCommand.COMMAND_WORD + " ";
+        String command = loginCommand + PREFIX_USERNAME + VALID_MANAGER_USERNAME_ALICE
+                + " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_ALICE;
+        executeCommand(command);
+
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
          */
         Index index = INDEX_FIRST;
-        String command = " " + editCommand + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+        command = " " + editCommand + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + DATE_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + FOOD_DESC_BURGER + " ";
         Order editedOrder = new OrderBuilder(BOB).withFood(VALID_FOOD_BURGER).build();
         assertCommandSuccess(command, index, editedOrder);
