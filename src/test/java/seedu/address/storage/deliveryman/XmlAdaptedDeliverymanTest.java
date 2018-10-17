@@ -22,14 +22,14 @@ public class XmlAdaptedDeliverymanTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedDeliveryman deliveryman =
-            new XmlAdaptedDeliveryman(0, INVALID_NAME);
+            new XmlAdaptedDeliveryman(INVALID_NAME);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, deliveryman::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedDeliveryman deliveryman = new XmlAdaptedDeliveryman(0, (String) null);
+        XmlAdaptedDeliveryman deliveryman = new XmlAdaptedDeliveryman((String) null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, deliveryman::toModelType);
     }

@@ -23,7 +23,6 @@ public class XmlAdaptedOrderTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_DATE = "12/10/2018";
 
-    private static final int VALID_ID = 1;
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
@@ -41,14 +40,14 @@ public class XmlAdaptedOrderTest {
     @Test
     public void toModelType_invalidOrder_throwsIllegalValueException() {
         XmlAdaptedOrder order =
-                new XmlAdaptedOrder(VALID_ID, INVALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
+                new XmlAdaptedOrder(INVALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedOrder order = new XmlAdaptedOrder(VALID_ID, null,
+        XmlAdaptedOrder order = new XmlAdaptedOrder(null,
             VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
@@ -57,14 +56,14 @@ public class XmlAdaptedOrderTest {
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         XmlAdaptedOrder order =
-                new XmlAdaptedOrder(VALID_ID, VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
+                new XmlAdaptedOrder(VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedOrder order = new XmlAdaptedOrder(VALID_ID,
+        XmlAdaptedOrder order = new XmlAdaptedOrder(
             VALID_NAME, null, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
@@ -74,14 +73,14 @@ public class XmlAdaptedOrderTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedOrder order =
-                new XmlAdaptedOrder(VALID_ID, VALID_NAME, VALID_PHONE, INVALID_ADDRESS, VALID_DATE, VALID_FOOD);
+                new XmlAdaptedOrder(VALID_NAME, VALID_PHONE, INVALID_ADDRESS, VALID_DATE, VALID_FOOD);
         String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedOrder order = new XmlAdaptedOrder(VALID_ID,
+        XmlAdaptedOrder order = new XmlAdaptedOrder(
             VALID_NAME, VALID_PHONE, null, VALID_DATE, VALID_FOOD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
@@ -90,7 +89,7 @@ public class XmlAdaptedOrderTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         XmlAdaptedOrder order =
-                new XmlAdaptedOrder(VALID_ID, VALID_NAME, VALID_PHONE, VALID_ADDRESS, INVALID_DATE, VALID_FOOD);
+                new XmlAdaptedOrder(VALID_NAME, VALID_PHONE, VALID_ADDRESS, INVALID_DATE, VALID_FOOD);
         String expectedMessage = OrderDate.MESSAGE_DATE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
@@ -98,7 +97,7 @@ public class XmlAdaptedOrderTest {
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
         XmlAdaptedOrder order =
-                new XmlAdaptedOrder(VALID_ID, VALID_NAME, VALID_PHONE, VALID_ADDRESS, null, VALID_FOOD);
+                new XmlAdaptedOrder(VALID_NAME, VALID_PHONE, VALID_ADDRESS, null, VALID_FOOD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "Date");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }
@@ -106,7 +105,7 @@ public class XmlAdaptedOrderTest {
     @Test
     public void toModelType_nullFood_throwsIllegalValueException() {
         XmlAdaptedOrder order =
-                new XmlAdaptedOrder(VALID_ID, VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_DATE, null);
+                new XmlAdaptedOrder(VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_DATE, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Food.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, order::toModelType);
     }

@@ -18,7 +18,6 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalRoutes;
 
 public class XmlAdaptedRouteTest {
-    private static final int VALID_ID = 1;
     private static final String INVALID_ADDRESS = " ";
     private static final List<XmlAdaptedOrder> VALID_ORDERS = TypicalRoutes.ROUTE_ALICE_BENSON.getOrders().stream()
             .map(XmlAdaptedOrder::new)

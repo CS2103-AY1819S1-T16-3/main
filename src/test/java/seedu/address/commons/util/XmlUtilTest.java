@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,7 +44,7 @@ public class XmlUtilTest {
 
     private static final String INVALID_PHONE = "9482asf424";
 
-    private static final int VALID_ID = 1;
+    private static final UUID VALID_ID = UUID.randomUUID();
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_ADDRESS = "4th street";
@@ -91,7 +92,7 @@ public class XmlUtilTest {
         XmlAdaptedOrder actualOrder = XmlUtil.getDataFromFile(
                 MISSING_ORDER_FIELD_FILE, XmlAdaptedOrderWithRootElement.class);
         XmlAdaptedOrder expectedOrder = new XmlAdaptedOrder(
-                VALID_ID, null, VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
+                null, VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         assertEquals(expectedOrder, actualOrder);
     }
 
@@ -100,12 +101,12 @@ public class XmlUtilTest {
         XmlAdaptedOrder actualOrder = XmlUtil.getDataFromFile(
                 INVALID_ORDER_FIELD_FILE, XmlAdaptedOrderWithRootElement.class);
         XmlAdaptedOrder expectedOrder = new XmlAdaptedOrder(
-                VALID_ID, VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
+                VALID_NAME, INVALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         assertEquals(expectedOrder, actualOrder);
 
         XmlAdaptedDeliveryman actualDeliveryman = XmlUtil.getDataFromFile(
             INVALID_DELIVERYMAN_FIELD_FILE, XmlAdaptedDeliverymanWithRootElement.class);
-        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_ID, VALID_NAME);
+        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_NAME);
         assertNotEquals(expectedDeliveryman, actualDeliveryman);
     }
 
@@ -114,12 +115,12 @@ public class XmlUtilTest {
         XmlAdaptedOrder actualOrder = XmlUtil.getDataFromFile(
                 VALID_ORDER_FILE, XmlAdaptedOrderWithRootElement.class);
         XmlAdaptedOrder expectedOrder = new XmlAdaptedOrder(
-                VALID_ID, VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
+                VALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_DATE, VALID_FOOD);
         assertEquals(expectedOrder, actualOrder);
 
         XmlAdaptedDeliveryman actualDeliveryman = XmlUtil.getDataFromFile(
             VALID_DELIVERYMAN_FILE, XmlAdaptedDeliverymanWithRootElement.class);
-        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_ID, VALID_NAME);
+        XmlAdaptedDeliveryman expectedDeliveryman = new XmlAdaptedDeliveryman(VALID_NAME);
         assertEquals(expectedDeliveryman, actualDeliveryman);
     }
 
