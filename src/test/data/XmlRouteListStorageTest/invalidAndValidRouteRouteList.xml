@@ -3,7 +3,7 @@
     <!-- Valid route -->
     <routes id="0a52f570-4f41-4460-b303-e0567910e9b3">
         <source>12 Clementi Rd</source>
-        <orders>
+        <orders id="92c54d56-e971-407a-81e7-5df71c3c82fc">
             <name>Jane Doe</name>
             <phone>84625432</phone>
             <address>6 College Ave</address>
@@ -14,7 +14,7 @@
     <!-- Route with invalid source and destination field -->
     <routes id="778909e5-f134-472a-bfd8-d34b35cf0b62">
         <source> </source>
-        <orders>
+        <orders id="92c54d56-e971-407a-81e7-5df71c3c82fc">
             <name>Ha!ns Mu@ster</name>
             <phone>84625432</phone>
             <address>6 College Ave</address>

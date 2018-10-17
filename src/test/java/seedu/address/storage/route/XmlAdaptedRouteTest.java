@@ -18,6 +18,7 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.TypicalRoutes;
 
 public class XmlAdaptedRouteTest {
+    private static final String VALID_ID = "7cb51189-7e4c-4e5d-8f19-0da850c78cb9";
     private static final String INVALID_ADDRESS = " ";
     private static final List<XmlAdaptedOrder> VALID_ORDERS = TypicalRoutes.ROUTE_ALICE_BENSON.getOrders().stream()
             .map(XmlAdaptedOrder::new)
@@ -31,21 +32,21 @@ public class XmlAdaptedRouteTest {
 
     @Test
     public void toModelType_invalidSource_throwsIllegalValueException() {
-        XmlAdaptedRoute route = new XmlAdaptedRoute(VALID_ID, INVALID_ADDRESS, VALID_ORDERS);
+        XmlAdaptedRoute route = new XmlAdaptedRoute(INVALID_ADDRESS, VALID_ORDERS);
         String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, route::toModelType);
     }
 
     @Test
     public void toModelType_nullSource_throwsIllegalValueException() {
-        XmlAdaptedRoute route = new XmlAdaptedRoute(VALID_ID, null, VALID_ORDERS);
+        XmlAdaptedRoute route = new XmlAdaptedRoute(null, VALID_ORDERS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, route::toModelType);
     }
 
     @Test
     public void toModelType_nullOrders_throwsIllegalValueException() {
-        XmlAdaptedRoute route = new XmlAdaptedRoute(VALID_ID, VALID_ADDRESS_AMY, null);
+        XmlAdaptedRoute route = new XmlAdaptedRoute(VALID_ADDRESS_AMY, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Order.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, route::toModelType);
     }

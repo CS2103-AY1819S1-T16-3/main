@@ -45,7 +45,7 @@ public class XmlAdaptedRoute {
     /**
      * Constructs an {@code XmlAdaptedRoute} with the given route details.
      */
-    public XmlAdaptedRoute(String source, String destination) {
+    public XmlAdaptedRoute(String source, List<XmlAdaptedOrder> orders) {
         this.id = UUID.randomUUID().toString();
         this.source = source;
         if (orders == null) {

@@ -13,19 +13,22 @@ import seedu.address.testutil.route.RouteBuilder;
  * A utility class containing a list of {@code Route} objects to be used in tests.
  */
 public class TypicalRoutes {
+    public static final String ALICE_ID = "92c54d56-e971-407a-81e7-5df71c3c82fc";
+    public static final String CARL_ID = "6c974f14-e5f5-4652-ba14-4df75e259b25";
+    public static final String DANIEL_ID = "ec11e415-4794-44c2-9d29-861d359d8b76";
     private static final Order ALICE = TypicalOrders.ALICE;
     private static final Order BENSON = TypicalOrders.BENSON;
     private static final Order CARL = TypicalOrders.CARL;
     private static final Order DANIEL = TypicalOrders.DANIEL;
 
     public static final Route ROUTE_ALICE_BENSON = new RouteBuilder()
-            .withId(0).withOrder(ALICE).withOrder(BENSON).build();
+            .withId(ALICE_ID).withOrder(ALICE).withOrder(BENSON).build();
 
     public static final Route ROUTE_CARL = new RouteBuilder()
-            .withId(1).withOrder(CARL).build();
+            .withId(CARL_ID).withOrder(CARL).build();
 
     public static final Route ROUTE_DANIEL = new RouteBuilder()
-            .withId(2).withOrder(DANIEL).build();
+            .withId(DANIEL_ID).withOrder(DANIEL).build();
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

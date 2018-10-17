@@ -71,9 +71,9 @@ public class RouteBuilder {
      */
     public Route build() {
         if (id != null) {
-            return new Route(id, source, destination);
+            return new Route(id, source, orders);
         } else {
-            return new Route(source, destination);
+            return new Route(source, orders);
         }
     }
 
