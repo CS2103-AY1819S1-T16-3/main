@@ -31,6 +31,13 @@ public class XmlAdaptedDeliveryman {
     /**
      * Constructs an {@code XmlAdapterDeliveryman} with the given person details.
      */
+    public XmlAdaptedDeliveryman(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    /**
+     * Constructs an {@code XmlAdapterDeliveryman} with the given person details.
+     */
     public XmlAdaptedDeliveryman(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;

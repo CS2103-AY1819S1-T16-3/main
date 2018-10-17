@@ -55,6 +55,22 @@ public class XmlAdaptedOrder {
     /**
      * Constructs an {@code XmlAdaptedOrder} with the given order details.
      */
+    public XmlAdaptedOrder(String id, String name, String phone, String address, String date, List<XmlAdaptedFood> food) {
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.date = date;
+
+        if (food == null) {
+            this.food = new ArrayList<>();
+        } else {
+            this.food = new ArrayList<>(food);
+        }
+    }
+    /**
+     * Constructs an {@code XmlAdaptedOrder} with the given order details.
+     */
     public XmlAdaptedOrder(String name, String phone, String address, String date, List<XmlAdaptedFood> food) {
         this.id = UUID.randomUUID().toString();
         this.name = name;

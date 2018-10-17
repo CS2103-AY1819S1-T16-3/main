@@ -11,6 +11,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 import org.junit.Test;
 
@@ -94,7 +95,7 @@ public class OrderListPanelTest extends GuiUnitTest {
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<orderbook>\n");
         for (int i = 0; i < orderCount; i++) {
-            builder.append("<orders id=\"" + i + "\">\n");
+            builder.append("<orders id=\"" + UUID.randomUUID().toString() + "\">\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<address>a</address>\n");
