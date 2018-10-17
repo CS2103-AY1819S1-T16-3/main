@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- deliverymenlist save file which contains the same Person values as in Typicaldeliverymen#getTypicaldeliverymenlist() -->
 <deliverymenlist>
-    <deliverymen id="0">
+    <deliverymen id="0a52f570-4f41-4460-b303-e0567910e9b3">
         <name>Hoh Chi Kao</name>
     </deliverymen>
-    <deliverymen id="1">
+    <deliverymen id="e6f8a44a-fc0c-4a38-b650-4f5a9947fd31">
         <name>Manika Monuela</name>
     </deliverymen>
-    <deliverymen id="2">
+    <deliverymen id="778909e5-f134-472a-bfd8-d34b35cf0b62">
         <name>Rajul Rahesh</name>
     </deliverymen>
-    <deliverymen id="3">
+    <deliverymen id="71cac1b0-33ea-4d0e-b1bd-c9e72cd3351f">
         <name>Tan Yin Jing</name>
     </deliverymen>
 </deliverymenlist>

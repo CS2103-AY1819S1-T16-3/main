@@ -32,6 +32,8 @@ public class XmlSerializableDeliverymenListTest {
             XmlSerializableDeliverymenList.class);
         DeliverymenList deliverymenListFromFile = dataFromFile.toModelType();
         DeliverymenList typicalDeliverymenDeliverymenList = TypicalDeliverymen.getTypicalDeliverymenList();
+        assertEquals(typicalDeliverymenDeliverymenList.getDeliverymenList().get(1),
+            deliverymenListFromFile.getDeliverymenList().get(1));
         assertEquals(deliverymenListFromFile, typicalDeliverymenDeliverymenList);
     }
 

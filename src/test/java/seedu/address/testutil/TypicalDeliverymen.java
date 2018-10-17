@@ -20,9 +20,9 @@ public class TypicalDeliverymen {
     public static final Deliveryman CHIKAO = new DeliverymanBuilder().withName("Hoh Chi Kao")
             .withId(CHIKAO_ID).build();
     public static final Deliveryman MANIKA = new DeliverymanBuilder().withName("Manika Monuela")
-            .withId(RAJUL_ID).build();
-    public static final Deliveryman RAJUL = new DeliverymanBuilder().withName("Rajul Rahesh")
             .withId(MANIKA_ID).build();
+    public static final Deliveryman RAJUL = new DeliverymanBuilder().withName("Rajul Rahesh")
+            .withId(RAJUL_ID).build();
     public static final Deliveryman YINJING = new DeliverymanBuilder().withName("Tan Yin Jing")
             .withId(YINJING_ID).build();
 
