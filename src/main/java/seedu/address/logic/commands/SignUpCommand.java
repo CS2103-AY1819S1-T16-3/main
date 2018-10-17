@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.LoginCommand.MESSAGE_ALREADY_LOGGED_IN;
+import static seedu.address.logic.commands.LoginCommand.MESSAGE_REDIRECT_TO_LOGOUT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
@@ -28,6 +30,7 @@ public class SignUpCommand extends Command {
             + PREFIX_PASSWORD + "johndoepassword";
 
     public static final String MESSAGE_SUCCESS = "New user added: %1$s";
+    public static final String MESSAGE_LOGGED_IN = "You have been logged into FoodZoom.";
     public static final String MESSAGE_DUPLICATE_USER = "This user already exists in FoodZoom.";
 
     private final User toAdd;
@@ -43,6 +46,14 @@ public class SignUpCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (model.isUserLoggedIn()) {
+            User loggedInUser = model.getLoggedInUserDetails();
+            String result = String.format(MESSAGE_ALREADY_LOGGED_IN, loggedInUser.getUsername())
+                    + "\n"
+                    + MESSAGE_REDIRECT_TO_LOGOUT;
+            return new CommandResult(result);
+        }
+
         if (model.hasUser(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_USER);
         }
@@ -50,7 +61,10 @@ public class SignUpCommand extends Command {
         model.addUser(toAdd);
         model.storeUserInSession(toAdd);
         model.commitUsersList();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        String result = String.format(MESSAGE_SUCCESS, toAdd)
+                + "\n"
+                + MESSAGE_LOGGED_IN;
+        return new CommandResult(result);
     }
 
     @Override

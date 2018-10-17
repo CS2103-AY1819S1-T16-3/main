@@ -18,4 +18,6 @@ public class Messages {
         "Invalid deliveryman command format! \n%1$s";
     public static final String MESSAGE_DELIVERYMEN_LISTED_OVERVIEW = "%1$d deliverymen listed!";
 
+    public static final String MESSAGE_REQUIRE_LOGIN = "Please login first!";
+
 }
