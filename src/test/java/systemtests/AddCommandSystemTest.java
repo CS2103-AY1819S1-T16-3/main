@@ -1,5 +1,7 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -27,6 +29,7 @@ import static seedu.address.testutil.TypicalOrders.AMY;
 import static seedu.address.testutil.TypicalOrders.BOB;
 import static seedu.address.testutil.TypicalOrders.CARL;
 import static seedu.address.testutil.TypicalOrders.HOON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
@@ -38,6 +41,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.AddCommand;
 import seedu.address.logic.commands.order.OrderCommand;
 import seedu.address.model.Model;
+import seedu.address.model.OrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderDate;
 import seedu.address.model.person.Address;
@@ -214,6 +218,23 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
         assertSelectedCardUnchanged();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
+    }
+
+    @Override
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains an equivalent last object.
+     */
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new OrderBook(expectedModel.getOrderBook()).getOrderList().size(),
+            testApp.readStorageOrderBook().getOrderList().size());
+        int sizeOfList = new OrderBook(expectedModel.getOrderBook()).getOrderList().size();
+        assertTrue(new OrderBook(expectedModel.getOrderBook()).getOrderList().get(sizeOfList - 1).isSameOrder(
+            testApp.readStorageOrderBook().getOrderList().get(sizeOfList - 1)));
+        assertListMatching(getOrderListPanel(), expectedModel.getFilteredOrderList());
     }
 
     /**

@@ -8,7 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -49,7 +48,8 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_DATE = "01-10-2018 10:00:00";
-    private static final List<XmlAdaptedFood> VALID_FOOD = Collections.singletonList(new XmlAdaptedFood("milo"));
+    private static final List<XmlAdaptedFood> VALID_FOOD =
+        Collections.singletonList(new XmlAdaptedFood("milo"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -55,7 +55,8 @@ public class XmlAdaptedOrder {
     /**
      * Constructs an {@code XmlAdaptedOrder} with the given order details.
      */
-    public XmlAdaptedOrder(String id, String name, String phone, String address, String date, List<XmlAdaptedFood> food) {
+    public XmlAdaptedOrder(String id, String name, String phone, String address, String date,
+                           List<XmlAdaptedFood> food) {
         this.id = id;
         this.name = name;
         this.phone = phone;
