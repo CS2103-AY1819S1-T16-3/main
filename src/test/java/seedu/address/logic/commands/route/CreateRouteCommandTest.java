@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.route;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.route.CreateRouteCommand.MESSAGE_SUCCESS_ALL_VALID;
 import static seedu.address.logic.commands.route.CreateRouteCommand.MESSAGE_SUCCESS_SOME_INVALID;
 import static seedu.address.testutil.TypicalDeliverymen.getTypicalDeliverymenList;
@@ -22,6 +22,8 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -139,6 +141,24 @@ public class CreateRouteCommandTest {
 
         // different destination -> returns false
         assertFalse(addFirstCommand.equals(addSecondCommand));
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.order;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_FOOD_BURGER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.testutil.TypicalDeliverymen.getTypicalDeliverymenList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -23,8 +23,11 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.order.EditCommand.EditOrderDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -248,4 +251,23 @@ public class EditCommandTest {
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST, DESC_BOB)));
     }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage, Model expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
 }
