@@ -6,7 +6,7 @@ import java.util.UUID;
  * Represents the Objects that need an ID for storage & reference
  */
 public abstract class IdObject {
-    public static final String MESSAGE_INVALID_ID = "Not an valid ID! Please check SML File.";
+    public static final String MESSAGE_INVALID_ID = "Not an valid ID! Please check XML File.";
 
     private UUID id;
 
