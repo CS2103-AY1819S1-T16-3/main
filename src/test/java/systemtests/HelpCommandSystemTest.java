@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWORD_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_ALICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -12,6 +16,7 @@ import org.junit.Test;
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.order.DeleteCommand;
 import seedu.address.logic.commands.order.OrderCommand;
 import seedu.address.logic.commands.order.SelectCommand;
@@ -59,6 +64,12 @@ public class HelpCommandSystemTest extends OrderBookSystemTest {
         // open help window and give it focus
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
+
+        /* Login */
+        String loginCommand = LoginCommand.COMMAND_WORD + " ";
+        String command = loginCommand + PREFIX_USERNAME + VALID_MANAGER_USERNAME_ALICE
+                + " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_ALICE;
+        executeCommand(command);
 
         // assert that while the help window is open the UI updates correctly for a command execution
         executeCommand(OrderCommand.COMMAND_WORD + " " + SelectCommand.COMMAND_WORD + " "

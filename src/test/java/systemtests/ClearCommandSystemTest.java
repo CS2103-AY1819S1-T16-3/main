@@ -1,10 +1,15 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWORD_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_ALICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.ClearCommand;
@@ -18,6 +23,12 @@ public class ClearCommandSystemTest extends OrderBookSystemTest {
     public void clear() {
         final Model defaultModel = getModel();
 
+        /* Login */
+        String loginCommand = LoginCommand.COMMAND_WORD + " ";
+        String command = loginCommand + PREFIX_USERNAME + VALID_MANAGER_USERNAME_ALICE
+                + " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_ALICE;
+        executeCommand(command);
+
         String clearCommand = OrderCommand.COMMAND_WORD + " " + ClearCommand.COMMAND_WORD;
 
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
@@ -27,7 +38,7 @@ public class ClearCommandSystemTest extends OrderBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: undo clearing address book -> original address book restored */
-        String command = UndoCommand.COMMAND_WORD;
+        command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();

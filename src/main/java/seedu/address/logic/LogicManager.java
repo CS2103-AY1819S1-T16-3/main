@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.core.Messages.MESSAGE_REQUIRE_LOGIN;
+
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -7,6 +9,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.SignUpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.OrderBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,7 +40,11 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = orderBookParser.parseCommand(commandText);
-            return command.execute(model, history);
+            if (model.isUserLoggedIn() || isNotAuthenticatedCommand(command)) {
+                return command.execute(model, history);
+            } else {
+                return new CommandResult(MESSAGE_REQUIRE_LOGIN);
+            }
         } finally {
             history.add(commandText);
         }
@@ -48,5 +58,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    private boolean isNotAuthenticatedCommand(Command command) {
+        return command instanceof LoginCommand || command instanceof SignUpCommand
+                || command instanceof HelpCommand || command instanceof HistoryCommand;
+
     }
 }

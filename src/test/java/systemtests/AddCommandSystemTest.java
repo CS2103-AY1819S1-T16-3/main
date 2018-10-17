@@ -16,8 +16,12 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_PASSWORD_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MANAGER_USERNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 import static seedu.address.testutil.TypicalOrders.ALICE;
 import static seedu.address.testutil.TypicalOrders.AMY;
 import static seedu.address.testutil.TypicalOrders.BOB;
@@ -28,6 +32,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.AddCommand;
@@ -48,6 +53,12 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
     public void add() {
         Model model = getModel();
 
+        /* Login */
+        String loginCommand = LoginCommand.COMMAND_WORD + " ";
+        String command = loginCommand + PREFIX_USERNAME + VALID_MANAGER_USERNAME_ALICE
+                + " " + PREFIX_PASSWORD + VALID_MANAGER_PASSWORD_ALICE;
+        executeCommand(command);
+
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         /* Case: add an order to a non-empty address book, command with leading spaces and trailing spaces
@@ -55,7 +66,7 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
          */
         Order toAdd = AMY;
         String addCommand = OrderCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD;
-        String command = "   " + addCommand + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+        command = "   " + addCommand + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + "   " + ADDRESS_DESC_AMY + "   " + DATE_DESC_AMY + "  " + FOOD_DESC_BURGER + " ";
         assertCommandSuccess(command, toAdd);
 
