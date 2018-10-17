@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Routelist save file which contains the same Route values as in TypicalRoutes#getTypicalRouteList() -->
 <routelist>
-    <routes id="0">
+    <routes id="2e6c71e8-6976-4d61-8f58-627211e4f0fc">
         <source>12 Clementi Rd</source>
         <orders>
             <name>Alice Pauline</name>
@@ -19,7 +19,7 @@
             <food>Milo</food>
         </orders>
     </routes>
-    <routes id="1">
+    <routes id="427cc898-d6bd-48b5-8703-d6a746905c0c">
         <source>12 Clementi Rd</source>
         <orders>
             <name>Carl Kurz</name>
@@ -29,7 +29,7 @@
             <food>Milkshake</food>
         </orders>
     </routes>
-    <routes id="2">
+    <routes id="9e1c61c1-5cae-40bf-95b5-8fb5265805c3">
         <source>12 Clementi Rd</source>
         <orders>
             <name>Daniel Meier</name>

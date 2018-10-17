@@ -31,6 +31,8 @@ public class XmlSerializableRouteListTest {
                 XmlSerializableRouteList.class);
         RouteList routeListFromFile = dataFromFile.toModelType();
         RouteList typicalRouteRouteList = TypicalRoutes.getTypicalRouteList();
+        assertEquals(typicalRouteRouteList.getRouteList().get(0).getId(),
+            routeListFromFile.getRouteList().get(0).getId());
         assertEquals(routeListFromFile, typicalRouteRouteList);
     }
 

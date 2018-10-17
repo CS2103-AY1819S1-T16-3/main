@@ -69,7 +69,9 @@ public class RouteList implements ReadOnlyRouteList {
      * The route must not already exist in the route book.
      */
     public void addRoute(Route route) {
-        route.assignId();
+        if (route.getId() == null) {
+            route.assignId();
+        }
         routes.add(route);
     }
 

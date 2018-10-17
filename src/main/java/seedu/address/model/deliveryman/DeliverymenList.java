@@ -61,7 +61,9 @@ public class DeliverymenList {
      * @param d
      */
     public void addDeliveryman(Deliveryman d) {
-        d.assignId();
+        if (d.getId() == null) {
+            d.assignId();
+        }
         deliverymenList.add(d);
     }
 
