@@ -33,9 +33,10 @@
 <li><a href="#login-command">3.2. Login Command</a></li>
 <li><a href="#find-order-feature">3.3. Find Order Feature</a></li>
 <li><a href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></li>
-<li><a href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.6. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
+<li><a href="#create-route-feature">3.5. Create Route Feature</a></li>
+<li><a href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.7. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1205,20 +1206,116 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.5. [Proposed] Data Encryption</a></h3>
+<h3 id="create-route-feature"><a class="link" href="#create-route-feature">3.5. Create Route Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>create</code> route command allows creation of routes in FoodZoom.
+It allows creating routes based on the order ids.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the sequence flow from the <code>LogicManager</code> to the <code>ModelManager</code> when a user enter a <code>/route create</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CreateRouteCommandSequenceDiagram1.png" alt="CreateRouteCommandSequenceDiagram1" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.5.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/CreateRouteCommandSequenceDiagram2.png" alt="CreateRouteCommandSequenceDiagram2" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.5.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
+</div>
+<div class="paragraph">
+<p>From the sequence diagram:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When <code>LogicManager</code> receive the <code>execute</code> command, it calls the <code>parseCommand</code> method in <code>OrderBookParser</code>.</p>
+</li>
+<li>
+<p><code>OrderBookParser</code> will receive <code>/route</code> as the command and instantiate <code>RouteCommandParser</code> to further parse the command.</p>
+</li>
+<li>
+<p>If the arguments specified in the <code>create</code> command are valid, a <code>CreateRouteCommand</code> will be created and return back to the <code>LogicManger</code></p>
+</li>
+<li>
+<p><code>LogicManger</code> will proceed to call the <code>execute</code> command of <code>CreateRouteCommand</code></p>
+</li>
+<li>
+<p><code>CreateRouteCommand</code> will proceed to call the <code>getFilteredOrderList</code> method of <code>Model</code></p>
+</li>
+<li>
+<p>Iterate through the <code>orderIds</code>, if valid, add the <code>Index</code> and the corresponding <code>Order</code> to the set of <code>Index</code> and <code>Order</code> respectively.</p>
+</li>
+<li>
+<p>Create a <code>Route</code> from the set of <code>Order</code></p>
+</li>
+<li>
+<p>A new route would be added and create a new <code>CommandResult</code> to be returned.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.5.2. Design Consideration</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-createroutecommandparser-code"><a class="link" href="#aspect-implementation-of-code-createroutecommandparser-code">Aspect: Implementation of <code>CreateRouteCommandParser</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> <code>RouteCommandParser</code> is parsed first, then pass to <code>CreateRouteCommandParser</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Better modularization for <code>Route</code> commands, better cohesion, adheres to the Single Responsibility Principle.</p>
+</li>
+<li>
+<p>Cons: More complicated file &amp; package structure.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> <code>CreateRouteCommand</code> is parsed straight from <code>OrderBookParser</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to manage the file structure.</p>
+</li>
+<li>
+<p>Cons: Poor modularization of the <code>Command</code> classes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1249,7 +1346,7 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3016,4 +3113,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 10:51:58 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 12:05:40 UTC</div></div></div></body></html>
