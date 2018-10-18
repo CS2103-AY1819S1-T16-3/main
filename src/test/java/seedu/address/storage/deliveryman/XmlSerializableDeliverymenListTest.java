@@ -1,10 +1,12 @@
 package seedu.address.storage.deliveryman;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.google.common.collect.Streams;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -35,6 +37,9 @@ public class XmlSerializableDeliverymenListTest {
         assertEquals(typicalDeliverymenDeliverymenList.getDeliverymenList().get(1),
             deliverymenListFromFile.getDeliverymenList().get(1));
         assertEquals(deliverymenListFromFile, typicalDeliverymenDeliverymenList);
+        assertTrue(Streams.zip(deliverymenListFromFile.getDeliverymenList().stream(),
+            typicalDeliverymenDeliverymenList.getDeliverymenList().stream(),
+            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
     }
 
     @Test

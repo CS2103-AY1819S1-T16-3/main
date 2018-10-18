@@ -1,6 +1,7 @@
 package seedu.address.storage.route;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,6 +13,7 @@ import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.model.route.Route;
 import seedu.address.model.route.RouteList;
 import seedu.address.testutil.TypicalRoutes;
 
@@ -33,7 +35,9 @@ public class XmlSerializableRouteListTest {
         RouteList routeListFromFile = dataFromFile.toModelType();
         RouteList typicalRouteRouteList = TypicalRoutes.getTypicalRouteList();
         assertEquals(routeListFromFile, typicalRouteRouteList);
-        assertTrue(Streams);
+        assertTrue(Streams.zip(routeListFromFile.getRouteList().stream(),
+            typicalRouteRouteList.getRouteList().stream(),
+            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
     }
 
     @Test

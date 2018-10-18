@@ -1,10 +1,12 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.google.common.collect.Streams;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -31,6 +33,9 @@ public class XmlSerializableOrderBookTest {
         OrderBook orderBookFromFile = dataFromFile.toModelType();
         OrderBook typicalOrdersOrderBook = TypicalOrders.getTypicalOrderBook();
         assertEquals(orderBookFromFile, typicalOrdersOrderBook);
+        assertTrue(Streams.zip(orderBookFromFile.getOrderList().stream(),
+            typicalOrdersOrderBook.getOrderList().stream(),
+            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
     }
 
     @Test

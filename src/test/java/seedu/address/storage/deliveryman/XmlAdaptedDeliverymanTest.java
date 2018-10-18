@@ -1,6 +1,7 @@
 package seedu.address.storage.deliveryman;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.storage.deliveryman.XmlAdaptedDeliveryman.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalDeliverymen.RAJUL;
 
@@ -17,6 +18,7 @@ public class XmlAdaptedDeliverymanTest {
     public void toModelType_validDeliverymanDetails_returnsDeliveryman() throws Exception {
         XmlAdaptedDeliveryman deliveryman = new XmlAdaptedDeliveryman(RAJUL);
         assertEquals(RAJUL, deliveryman.toModelType());
+        assertTrue(RAJUL.hasSameId(deliveryman.toModelType()));
     }
 
     @Test

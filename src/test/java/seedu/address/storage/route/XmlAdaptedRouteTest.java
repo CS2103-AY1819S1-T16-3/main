@@ -1,6 +1,7 @@
 package seedu.address.storage.route;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.storage.route.XmlAdaptedRoute.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalRoutes.ROUTE_ALICE_BENSON;
@@ -28,6 +29,7 @@ public class XmlAdaptedRouteTest {
     public void toModelType_validRouteDetails_returnsRoute() throws Exception {
         XmlAdaptedRoute route = new XmlAdaptedRoute(ROUTE_ALICE_BENSON);
         assertEquals(ROUTE_ALICE_BENSON, route.toModelType());
+        assertTrue(ROUTE_ALICE_BENSON.hasSameId(route.toModelType()));
     }
 
     @Test
