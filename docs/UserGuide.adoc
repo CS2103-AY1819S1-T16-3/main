@@ -23,8 +23,8 @@ FoodZoom is a food delivery management platform targeted at food business lookin
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `foodzoom.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your FoodZoom.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -34,7 +34,7 @@ e.g. typing *`/help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`/order list`* : lists all orders
-* **`/order add`**`f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01` : adds the food `Roti Prata`, customers phone number `12345678` and customer address `block 123, Clementi Drive, #01-01` to the list of orders.
+* **`/order add`**`f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01 dt/10-10-2018 10:10:10` : adds the food `Roti Prata`, customers phone number `12345678`, customer address `block 123, Clementi Drive, #01-01` and order date and time to `10-10`2018 10:10:10` to the list of orders.
 * **`/order delete`**`3` : deletes the 3rd order shown in the current list of orders
 * *`/exit`* : exits the app
 
@@ -71,37 +71,37 @@ Examples:
 
 * `/login u/manager pw/password`
 
-=== Logout from system : `/logout` `[Not Implemented Yet]`
+=== Logout from system : `/logout` `[Coming in v2.0]`
 
 Format: `/logout`
 
 === Adding an order : `/order add` `[Since v1.1]`
 
 Adds an order to the list of orders +
-Format: `/order add f/FOOD n/NAME p/PHONE a/ADDRESS`
+Format: `/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME`
 
-[NOTE]
-====
-Able to add more than 1 food items by specifying more food tags. e.g. `f/Roti Prata f/Ice Milo`.
-====
+****
+* Able to add more than 1 food items by specifying more food tags. e.g. `f/Roti Prata f/Ice Milo`.
+* DATETIME format is `dd-MM-YYYY h:m:s` where dd is date, MM is month,  YYYY is year, h is 24 hour of the day, m is minutes, s is seconds. e.g. 14-10-2018 23:30:00.
+****
 
 Examples:
 
-* `/order add f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01`
-* `/order add a/block 55 Computing Drive n/Harry f/Tissue Prata f/Nasi Briyani p/81889111`
+* `/order add f/Roti Prata n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01 dt/26-12-2018 10:10:54`
+* `/order add a/block 55 Computing Drive n/Harry f/Tissue Prata f/Nasi Briyani p/81889111 dt/14-12-2018 14:10:54`
 
 === Listing all orders : `/order list` `[Since v1.1]`
 
 Shows a list of all orders in chronological order +
 Format: `/order list`
 
-=== Editing an order : `/order edit` `[Not Implemented Yet]`
+=== Editing an order : `/order edit` `[Since v1.2]`
 
 Edits an existing order in the list of orders. +
-Format: `/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS]`
+Format: `/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATETIME]`
 
 ****
-* Edits the order at the specified `INDEX`. The index refers to the index number shown by `/order`. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the order at the specified `INDEX`. The index refers to the index number shown by `/order list`. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When a parameter is specified, e.g. `f/`, `n/`, empty fields are not allowed. Value must be specified.
@@ -116,7 +116,7 @@ Edits the phone number and name of the 1st order to be `91234567` and `Jonathan`
 `/order edit 2 f/Maggi Goreng f/Ice Milo` +
 Edits the food of the 2nd order to be `Maggi Goreng, Ice Milo`.
 
-=== Finding orders by name or phone : `/order find` `[Not Implemented Yet]`
+=== Finding orders by name or phone : `/order find` `[Since v1.2]`
 
 Find orders whose name or phone contain in the given parameter. +
 Format: `/order find [n/NAME] [p/PHONE]` +
@@ -150,7 +150,7 @@ Examples:
 * `/order list` +
 `/order delete 2` +
 Deletes the 2nd order in the list of orders.
-* `/order find tom` +
+* `/order find n/tom` +
 `/order delete 1` +
 Deletes the 1st order in the results of the `find` command.
 
@@ -159,7 +159,7 @@ Deletes the 1st order in the results of the `find` command.
 Clears all entries from the list of orders. +
 Format: `/order clear`
 
-=== Adding a delivery man : `/deliveryman add` `[Not Implemented Yet]`
+=== Adding a delivery man : `/deliveryman add` `[Since v1.2]`
 
 Adds a delivery man to the list of delivery men +
 Format: `/deliveryman add n/NAME p/PHONE [a/ADDRESS]`
@@ -170,18 +170,18 @@ Examples:
 * `/deliveryman add a/block 55 Computing Drive n/Harry p/81889111`
 * `/deliveryman add n/Willy p/23456789`
 
-=== Listing all delivery men : `/deliveryman list` `[Not Implemented Yet]`
+=== Listing all delivery men : `/deliveryman list` `[Since v1.2]`
 
 Shows a list of all delivery men in chronological order +
 Format: `/deliveryman list`
 
-=== Editing a delivery man : `/deliveryman edit` `[Not Implemented Yet]`
+=== Editing a delivery man : `/deliveryman edit` `[Coming in v2.0]`
 
 Edits an existing delivery man in the list of delivery men. +
 Format: `/delivery man edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]`
 
 ****
-* Edits the delivery man at the specified `INDEX`. The index refers to the index number shown by `/deilveryman`. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the delivery man at the specified `INDEX`. The index refers to the index number shown by `/deilveryman lisr`. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When a parameter is specified, e.g. `n/`, `p/` empty fields are not allowed. A value must be specified.
@@ -193,7 +193,7 @@ Examples:
 `/deliveryman edit 1 n/John Doe p/12345678` +
 Edits the name and phone number of the 1st delivery man to be `John Doe` and `12345678` respectively.
 
-=== Finding delivery man by name : `/deliveryman find` `[Not Implemented Yet]`
+=== Finding delivery man by name : `/deliveryman find` `[Since v1.2]`
 
 Find delivery men whose name contain in the given parameter. +
 Format: `/deliveryman find n/NAME` +
@@ -210,13 +210,13 @@ Examples:
 * `/deliveryman find n/john` +
 Returns `john` and `John Doe`
 
-=== Deleting a delivery man : `/deliveryman delete` `[Not Implemented Yet]`
+=== Deleting a delivery man : `/deliveryman delete` `[Since v1.2]`
 
 Deletes the specified delivery man from the list of delivery men +
 Format: `/deliveryman delete INDEX`
 
 ****
-* Deletes a delivery at the specified `INDEX`.
+* Deletes a delivery man at the specified `INDEX`.
 * The index refers to the index number shown in the displayed delivery men list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -226,32 +226,37 @@ Examples:
 * `/deliveryman list` +
 `/deliveryman delete 2` +
 Deletes the 2nd delivery man in the list of delivery men.
-* `/deliveryman find tom` +
+* `/deliveryman find n/tom` +
 `/deliveryman delete 1` +
 Deletes the 1st delivery man in the results of the `find` command.
 
-=== Clearing all delivery men entries : `/deliveryman clear` `[Not Implemented Yet]`
+=== Clearing all delivery men entries : `/deliveryman clear` `[Coming in v2.0]`
 
 Clears all entries from the list of delivery men. +
 Format: `/deliveryman clear`
 
 === Creating a new route: `/route create` `[Since v1.1]`
 
-Creates a new route from the restaurant's address to the destination specified +
-Format: `/route create a/ADDRESS`
+Creates a route with a set of orders +
+Format: `/route create o/ORDER_ID`
+
+****
+* All fields need to have at least a value. e.g. `o/` is not allowed.
+* Able to add more than 1 orders by specifying more tags. e.g. `o/1 o/2 o/3`.
+****
 
 Examples:
 
-* `/route create a/311, Clementi Ave 2, #02-25`
+* `/route create o/1 o/3`
 
-=== Listing all available routes: `/route list` `[Not Implemented Yet]`
+=== Listing all available routes: `/route list` `[Coming in v2.0]`
 
 Shows a list of all existing routes and assigned delivery men +
 Format: `/route list`
 
-=== Adding an order to a route : `/route add` `[Not Implemented Yet]`
+=== Adding an order to a route : `/route add` `[Coming in v2.0]`
 
-Add an existing orders to an existing route +
+Add an existing order to an existing route +
 Format: `/route add r/ROUTE_INDEX o/ORDER_INDEX`
 
 ****
@@ -265,12 +270,12 @@ Examples:
 `/order list` +
 `/route add r/1 o/2` +
 Adds the 2nd order to the 1st route.
-* `/order list` +
-`/route list` +
+* `/route list` +
+`/order list` +
 `/route add r/3 o/4 o/5 o/6` +
-Adds the 4th, 5th, 6th orders to the 3rd route.
+Adds the 4th, 5th, 6th order to the 3rd route.
 
-=== Deleting a route: `/route delete` `[Not Implemented Yet]`
+=== Deleting a route: `/route delete` `[Coming in v2.0]`
 
 Deletes the specified route from the list of routes +
 Format: `/route delete INDEX`
@@ -287,12 +292,12 @@ Examples:
 `/route delete 2` +
 Deletes the 2nd route in the list of routes.
 
-=== Clearing all routes : `/route clear` `[Not Implemented Yet]`
+=== Clearing all routes : `/route clear` `[Coming in v2.0]`
 
 Clears all entries from the list of routes. +
 Format: `/route clear`
 
-=== Assign route to delivery man : `/assign` `[Not Implemented Yet]`
+=== Assign route to delivery man : `/assign` `[Coming in v2.0]`
 
 Assign a delivery man to an existing route +
 Format: `/assign d/DELIVERYMAN_INDEX r/ROUTE_INDEX`
@@ -303,10 +308,6 @@ Examples:
 `/deliveryman list` +
 `/assign d/2 r/1` +
 Add the 2nd delivery man to the 1st route.
-* `/deliveryman list` +
-`/route list` +
-`/assign d/3 r/4` +
-Add the 3rd delivery man to the 4th route.
 
 === Listing entered commands : `/history` `[Since v1.1]`
 
@@ -329,16 +330,16 @@ FoodZoom data are saved in the hard disk automatically after any command that ch
 There is no need to save manually.
 
 // tag::dataencryption[]
-=== Encrypting data files `[Not Implemented Yet]`
+=== Encrypting data files `[Coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-=== Viewing help : `/help` `(Deliveryman Command)` `[Not Implemented Yet]`
+=== Viewing help : `/help` `(Deliveryman Command)` `[Coming in v2.0]`
 
 Format: `/help`
 
-=== Login to system : `/login` `(Deliveryman Command)` `[Not Implemented Yet]`
+=== Login to system : `/login` `(Deliveryman Command)` `[Coming in v2.0]`
 
 Format: `/login u/USERNAME pw/PASSWORD`
 
@@ -346,21 +347,21 @@ Examples:
 
 * `/login u/deliveryman pw/password`
 
-=== Logout from system : `/logout` `(Deliveryman Command)` `[Not Implemented Yet]`
+=== Logout from system : `/logout` `(Deliveryman Command)` `[Coming in v2.0]`
 
 Format: `/logout`
 
-=== Show delivery route : `/route list` `(Deliveryman Command)` `[Not Implemented Yet]`
+=== Show delivery route : `/route list` `(Deliveryman Command)` `[Coming in v2.0]`
 
 View the assigned route/s +
 Format: `/route list`
 
-=== Listing assigned orders : `/order list` `(Deliveryman Command)` `[Not Implemented Yet]`
+=== Listing assigned orders : `/order list` `(Deliveryman Command)` `[Coming in v2.0]`
 
 List details of assigned order/s +
 Format: `/order list`
 
-=== Exiting the program : `/exit` `(Deliveryman Command)` `[Not Implemented Yet]`
+=== Exiting the program : `/exit` `(Deliveryman Command)` `[Coming in v2.0]`
 
 Exits the program. +
 Format: `/exit`
@@ -372,43 +373,43 @@ Format: `/exit`
 
 == Command Summary
 
-* *Login* : `/login u/USERNAME pw/PASSWORD` +
-e.g. `/login u/manager pw/password`
 * *Sign Up* : `/signup n/NAME u/USERNAME pw/PASSWORD` +
 e.g. `/signup n/John Doe u/johndoe pw/johndoepassword`
+* *Login* : `/login u/USERNAME pw/PASSWORD` +
+e.g. `/login u/manager pw/password`
 * *Logout* : `/logout`
-* *Add order* : `/order add f/FOOD n/NAME p/PHONE_NUMBER a/ADDRESS` +
-e.g. `/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665`
-* *Clear order* : `/order clear`
-* *Delete order* : `/order delete INDEX` +
-e.g. `/order delete 3`
-* *Edit order* : `/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE_NUMBER]` +
+* *Add order* : `/order add f/FOOD n/NAME p/PHONE_NUMBER a/ADDRESS dt/DATETIME` +
+e.g. `/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665 dt/14-12-2018 10:18:00`
+* *Listing orders* : `/order list`
+* *Edit order* : `/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dt/DATETIME]` +
 e.g. `/order edit 2 n/James Lee`
 * *Find order* : `/order find [n/NAME] [p/PHONE]` +
 e.g. `/order find n/James Jake`
-* *Listing orders* : `/order list`
+* *Delete order* : `/order delete INDEX` +
+e.g. `/order delete 3`
+* *Clear order* : `/order clear`
 * *Add delivery man* : `/deliveryman add n/NAME p/PHONE_NUMBER [a/ADDRESS]` +
 e.g. `/deliveryman add n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665`
-* *Clear delivery men* : `/deliveryman clear`
-* *Delete delivery man* : `/deliveryman delete INDEX` +
-e.g. `/deliveryman delete 3`
+* *Listing delivery men* : `/deliveryman list`
 * *Edit delivery man* : `/deliveryman edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS]` +
 e.g. `/deliveryman edit 2 n/James Lee`
 * *Find delivery man* : `/deliveryman find n/NAME` +
 e.g. `/deliveryman find n/James Jake`
-* *Listing delivery men* : `/deliveryman list`
-* *Create a route* : `/route create a/ADDRESS` +
-e.g. `/route create a/311, Clementi Ave 2, #02-25`
-* *Delete a route* : `/route delete INDEX` +
-e.g. `/route delete 1`
+* *Delete delivery man* : `/deliveryman delete INDEX` +
+e.g. `/deliveryman delete 3`
+* *Clear delivery men* : `/deliveryman clear`
+* *Create a route* : `/route create o/ORDER_ID` +
+e.g. `/route create o/1 o/3`
 * *Listing all routes* : `/route list`
-* *Clear routes* : `/route clear`
 * *Add order to route* : `/route add r/ROUTE_INDEX o/ORDER_INDEX` +
 e.g. `/route add o/1 o/2 o/3 r/1`
+* *Delete a route* : `/route delete INDEX` +
+e.g. `/route delete 1`
+* *Clear routes* : `/route clear`
 * *Assign route to delivery man* : `/assign d/DELIVERYMAN_INDEX r/ROUTE_INDEX` +
 e.g. `/assign d/1 r/1`
-* *History* : `/history`
 * *Help* : `/help`
+* *History* : `/history`
 * *Exit the program* : `/exit`
 
 * *Login (Deliveryman)* : `/login u/USERNAME pw/PASSWORD` +
