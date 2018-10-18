@@ -181,7 +181,7 @@ Edits an existing delivery man in the list of delivery men. +
 Format: `/delivery man edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]`
 
 ****
-* Edits the delivery man at the specified `INDEX`. The index refers to the index number shown by `/deilveryman lisr`. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the delivery man at the specified `INDEX`. The index refers to the index number shown by `/deilveryman list`. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When a parameter is specified, e.g. `n/`, `p/` empty fields are not allowed. A value must be specified.
