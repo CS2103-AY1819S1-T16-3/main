@@ -6,10 +6,11 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.google.common.collect.Streams;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
@@ -34,8 +35,7 @@ public class XmlSerializableOrderBookTest {
         OrderBook typicalOrdersOrderBook = TypicalOrders.getTypicalOrderBook();
         assertEquals(orderBookFromFile, typicalOrdersOrderBook);
         assertTrue(Streams.zip(orderBookFromFile.getOrderList().stream(),
-            typicalOrdersOrderBook.getOrderList().stream(),
-            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
+            typicalOrdersOrderBook.getOrderList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
     }
 
     @Test

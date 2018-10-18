@@ -10,11 +10,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.google.common.collect.Streams;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
+import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.route.ReadOnlyRouteList;
@@ -84,8 +85,7 @@ public class XmlRouteListStorageTest {
         ReadOnlyRouteList readBack = xmlRouteListStorage.readRouteList(filePath).get();
         assertEquals(original, new RouteList(readBack));
         assertTrue(Streams.zip(original.getRouteList().stream(),
-            readBack.getRouteList().stream(),
-            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
+            readBack.getRouteList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
         //Modify data, overwrite exiting file, and read back
         original.removeRoute(ROUTE_ALICE_BENSON);
@@ -93,8 +93,7 @@ public class XmlRouteListStorageTest {
         readBack = xmlRouteListStorage.readRouteList(filePath).get();
         assertEquals(original, new RouteList(readBack));
         assertTrue(Streams.zip(original.getRouteList().stream(),
-            readBack.getRouteList().stream(),
-            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
+            readBack.getRouteList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
         //Save and read without specifying file path
         original.addRoute(ROUTE_ALICE_BENSON);
@@ -102,8 +101,7 @@ public class XmlRouteListStorageTest {
         readBack = xmlRouteListStorage.readRouteList().get(); //file path not specified
         assertEquals(original, new RouteList(readBack));
         assertTrue(Streams.zip(original.getRouteList().stream(),
-            readBack.getRouteList().stream(),
-            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
+            readBack.getRouteList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
     }
 

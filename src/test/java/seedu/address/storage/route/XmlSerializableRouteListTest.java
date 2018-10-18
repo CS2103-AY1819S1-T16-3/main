@@ -9,11 +9,11 @@ import java.nio.file.Paths;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.route.Route;
 import seedu.address.model.route.RouteList;
 import seedu.address.testutil.TypicalRoutes;
 
@@ -36,8 +36,7 @@ public class XmlSerializableRouteListTest {
         RouteList typicalRouteRouteList = TypicalRoutes.getTypicalRouteList();
         assertEquals(routeListFromFile, typicalRouteRouteList);
         assertTrue(Streams.zip(routeListFromFile.getRouteList().stream(),
-            typicalRouteRouteList.getRouteList().stream(),
-            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
+            typicalRouteRouteList.getRouteList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
     }
 
     @Test

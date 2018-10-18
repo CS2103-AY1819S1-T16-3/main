@@ -6,10 +6,11 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.google.common.collect.Streams;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
@@ -38,8 +39,8 @@ public class XmlSerializableDeliverymenListTest {
             deliverymenListFromFile.getDeliverymenList().get(1));
         assertEquals(deliverymenListFromFile, typicalDeliverymenDeliverymenList);
         assertTrue(Streams.zip(deliverymenListFromFile.getDeliverymenList().stream(),
-            typicalDeliverymenDeliverymenList.getDeliverymenList().stream(),
-            (a, b) -> a.hasSameId(b)).allMatch(x -> x));
+            typicalDeliverymenDeliverymenList.getDeliverymenList().stream(), (a, b) -> a.hasSameId(b))
+            .allMatch(x -> x));
     }
 
     @Test
