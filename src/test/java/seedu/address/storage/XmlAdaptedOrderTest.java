@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.storage.XmlAdaptedOrder.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalOrders.BENSON;
 
@@ -35,6 +36,7 @@ public class XmlAdaptedOrderTest {
     public void toModelType_validOrderDetails_returnsOrder() throws Exception {
         XmlAdaptedOrder order = new XmlAdaptedOrder(BENSON);
         assertEquals(BENSON, order.toModelType());
+        assertTrue(BENSON.hasSameId(order.toModelType()));
     }
 
     @Test

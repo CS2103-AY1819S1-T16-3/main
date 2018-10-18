@@ -2,6 +2,7 @@ package seedu.address.storage.deliveryman;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalDeliverymen.RAJUL;
 import static seedu.address.testutil.TypicalDeliverymen.getTypicalDeliverymenList;
 
@@ -13,6 +14,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
+import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.deliveryman.DeliverymenList;
@@ -82,18 +85,24 @@ public class XmlDeliverymenListStorageTest {
         xmlDeliverymenListStorage.saveDeliverymenList(original, filePath);
         DeliverymenList readBack = xmlDeliverymenListStorage.readDeliverymenList(filePath).get();
         assertEquals(original, new DeliverymenList(readBack));
+        assertTrue(Streams.zip(original.getDeliverymenList().stream(),
+            readBack.getDeliverymenList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
         //Modify data, overwrite exiting file, and read back
         original.removeDeliveryman(RAJUL);
         xmlDeliverymenListStorage.saveDeliverymenList(original, filePath);
         readBack = xmlDeliverymenListStorage.readDeliverymenList(filePath).get();
         assertEquals(original, new DeliverymenList(readBack));
+        assertTrue(Streams.zip(original.getDeliverymenList().stream(),
+            readBack.getDeliverymenList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
         //Save and read without specifying file path
         original.addDeliveryman(RAJUL);
         xmlDeliverymenListStorage.saveDeliverymenList(original); //file path not specified
         readBack = xmlDeliverymenListStorage.readDeliverymenList().get(); //file path not specified
         assertEquals(original, new DeliverymenList(readBack));
+        assertTrue(Streams.zip(original.getDeliverymenList().stream(),
+            readBack.getDeliverymenList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
     }
 

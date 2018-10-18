@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalOrders.ALICE;
 import static seedu.address.testutil.TypicalOrders.HOON;
 import static seedu.address.testutil.TypicalOrders.IDA;
@@ -15,6 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
+import com.google.common.collect.Streams;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.OrderBook;
@@ -83,6 +86,8 @@ public class XmlOrderBookStorageTest {
         xmlOrderBookStorage.saveOrderBook(original, filePath);
         ReadOnlyOrderBook readBack = xmlOrderBookStorage.readOrderBook(filePath).get();
         assertEquals(original, new OrderBook(readBack));
+        assertTrue(Streams.zip(original.getOrderList().stream(),
+            readBack.getOrderList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
         //Modify data, overwrite exiting file, and read back
         original.addOrder(HOON);
@@ -90,12 +95,16 @@ public class XmlOrderBookStorageTest {
         xmlOrderBookStorage.saveOrderBook(original, filePath);
         readBack = xmlOrderBookStorage.readOrderBook(filePath).get();
         assertEquals(original, new OrderBook(readBack));
+        assertTrue(Streams.zip(original.getOrderList().stream(),
+            readBack.getOrderList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
         //Save and read without specifying file path
         original.addOrder(IDA);
         xmlOrderBookStorage.saveOrderBook(original); //file path not specified
         readBack = xmlOrderBookStorage.readOrderBook().get(); //file path not specified
         assertEquals(original, new OrderBook(readBack));
+        assertTrue(Streams.zip(original.getOrderList().stream(),
+            readBack.getOrderList().stream(), (a, b) -> a.hasSameId(b)).allMatch(x -> x));
 
     }
 
