@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" styleClass="stack-pane" xmlns="http://javafx.com/javafx/8">
-    <TextField fx:id="commandTextField" onAction="#handleCommandEntered" onKeyPressed="#handleKeyPress"
-               promptText="Enter command here..."/>
-</StackPane>
+<?import javafx.scene.text.Font?>
 
+<BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <StackPane styleClass="stack-pane">
+         <children>
+             <TextField fx:id="commandTextField" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#handleCommandEntered" onKeyPressed="#handleKeyPress" promptText="Enter command here..." />
+         </children>
+      </StackPane>
+   </center>
+   <left>
+      <Label fx:id="commandIcon" text="FoodZoom" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

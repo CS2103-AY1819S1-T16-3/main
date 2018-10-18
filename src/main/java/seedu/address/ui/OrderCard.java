@@ -2,9 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.order.Food;
 import seedu.address.model.order.Order;
 
 /**
@@ -25,26 +24,28 @@ public class OrderCard extends UiPart<Region> {
     public final Order order;
 
     @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
     private Label id;
-    @FXML
-    private Label phone;
     @FXML
     private Label address;
     @FXML
-    private FlowPane foodList;
+    private Label foodList;
+    @FXML
+    private Label orderDate;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
-        id.setText(displayedIndex + ". ");
-        name.setText(order.getName().fullName);
-        phone.setText(order.getPhone().value);
+        id.setText("#" + displayedIndex);
+
         address.setText(order.getAddress().value);
-        order.getFood().forEach(food -> foodList.getChildren().add(new Label(food.foodName)));
+
+        StringBuilder sb = new StringBuilder();
+        for (Food food : order.getFood()) {
+            sb.append(food.foodName + ",");
+        }
+        foodList.setText(sb.toString());
+
+        orderDate.setText(order.getDate().toString());
     }
 
     @Override

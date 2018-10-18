@@ -20,8 +20,6 @@ public class GuiTestAssert {
     public static void assertCardEquals(OrderCardHandle expectedCard, OrderCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getFood(), actualCard.getFood());
     }
 
@@ -29,8 +27,6 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysOrder(Order expectedOrder, OrderCardHandle actualCard) {
-        assertEquals(expectedOrder.getName().fullName, actualCard.getName());
-        assertEquals(expectedOrder.getPhone().value, actualCard.getPhone());
         assertEquals(expectedOrder.getAddress().value, actualCard.getAddress());
         assertEquals(expectedOrder.getFood().stream().map(f -> f.foodName).collect(Collectors.toList()),
                 actualCard.getFood());

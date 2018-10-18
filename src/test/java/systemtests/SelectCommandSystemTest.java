@@ -128,12 +128,6 @@ public class SelectCommandSystemTest extends OrderBookSystemTest {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
-        if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
-            assertSelectedCardUnchanged();
-        } else {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        }
-
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();
     }

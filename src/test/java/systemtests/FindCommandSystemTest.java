@@ -30,7 +30,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.order.DeleteCommand;
 import seedu.address.logic.commands.order.FindCommand;
 import seedu.address.logic.commands.order.OrderCommand;
-
 import seedu.address.model.Model;
 import seedu.address.model.order.Food;
 
@@ -195,7 +194,7 @@ public class FindCommandSystemTest extends OrderBookSystemTest {
         /* Case: find by name while an order is selected -> selected card deselected */
         showAllOrders();
         selectOrder(Index.fromOneBased(1));
-        assertFalse(getOrderListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName));
+        assertFalse(getOrderListPanel().getHandleToSelectedCard().getFood().equals(DANIEL.getFood()));
         command = findCommand + " " + PREFIX_NAME + "Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
@@ -230,6 +229,7 @@ public class FindCommandSystemTest extends OrderBookSystemTest {
      * {@code OrderBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
+     *
      * @see OrderBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
@@ -249,6 +249,7 @@ public class FindCommandSystemTest extends OrderBookSystemTest {
      * {@code OrderBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
+     *
      * @see OrderBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

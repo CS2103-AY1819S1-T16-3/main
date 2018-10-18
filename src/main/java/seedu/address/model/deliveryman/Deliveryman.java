@@ -59,7 +59,9 @@ public class Deliveryman extends IdObject {
         }
 
         Deliveryman otherPerson = (Deliveryman) other;
-        return otherPerson.getName().equals(getName());
+        return ((getId() == null && otherPerson.getId() == null)
+                || getId().equals(otherPerson.getId()))
+                && otherPerson.getName().equals(getName());
     }
 
     @Override

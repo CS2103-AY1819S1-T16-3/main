@@ -530,6 +530,49 @@ From the sequence diagram:
 ** Pros: Easier to manage the file structure.
 ** Cons: Poor modularization of the `Command` classes.
 
+=== Add Order Feature
+
+==== Current Implementation
+The `add` order command allows the `Manager` to create a new order and add it to the list of orders.
+Adding a new order requires the customer's `name`, customer's `phone` number, customer's `address`, `food` and the `datetime`. +
+The format of the `add` command is `/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME`.
+
+The following sequence shows the sequence when the `add` command is execute by the `Manager`:
+
+image::OrderAddSequenceDiagram.png[width="650"]
+Figure 3.6.1.1 Sequence Diagram for order `find` command
+
+From the diagram above:
+
+.  `LogicManager`'s execute is called when the `Manager` keys in `/order add` and it calls upon `parseCommand` of `OrderBookParser` to parse the command
+.  `OrderBookParser` will initialize `OrderCommandParser` and invoke the method `parse` to further parse `order` command
+.  `AddCommandParser` will be invoked and passed the parameters of the add command.
+.  If all the arguments of the `add` commands are valid, `AddCommand` will be returned to the `LogicManager`
+.  `LogicManger` will then calls the method `execute` method of `AddCommand`
+.  `AddCommand` will call `addOrder` passing `Order` as an argument to `Model` and after calls `commitOrderBook` method from `Model`
+.  A `CommandResult` will be returned at the end,
+
+==== Design Consideration
+===== Aspect: Data Structure of list of order
+* **Alternative 1 (Current Approach):** Using a `UniqueOrderList`
+** Pros: The comparison is not as rigid. You can create orders with similar names/address as long as it passes a less stringent criteria.
+** Cons: You need additional overhead. You need to create an extra class and function to check.
+
+* **Alternative 2:** Using a `Set`
+** Pros: Do not need an extra function. You can use use `equals` for comparison
+** Cons: It is a strict check and as a result you will not be allowed to create orders with same address/same name etc.
+
+===== Aspect: Data Structure of `Order`
+* **Alternative 1 (Current Approach):** All parameters in `Order` are abstracted out to have a class of its own.
+** Pros: It adheres to the Single Responsibility Principles (SRP) and the Separation of Concerns (SoC) as each parameter checks whether it is valid
+** Cons: Many different classes are created which increases the complexity of the code
+
+* **Alternative 2:** Store all parameters of `Order` as `String`
+** Pros: Easy to implement.
+** Cons: Violates SRP as one single class will need to check if the arguments are valid.
+
+
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

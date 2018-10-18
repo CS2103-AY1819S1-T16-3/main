@@ -57,7 +57,7 @@ public class OrderCardTest extends GuiUnitTest {
         OrderCardHandle orderCardHandle = new OrderCardHandle(orderCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", orderCardHandle.getId());
+        assertEquals("#" + Integer.toString(expectedId), orderCardHandle.getId());
 
         // verify person details are displayed correctly
         assertCardDisplaysOrder(expectedOrder, orderCardHandle);

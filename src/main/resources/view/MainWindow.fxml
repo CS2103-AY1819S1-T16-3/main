@@ -11,15 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.layout.HBox?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
-        <Image url="@/images/address_book_32.png"/>
+        <Image url="@/images/scooter.png"/>
     </icons>
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
+                <URL value="@TestTheme.css"/>
                 <URL value="@Extensions.css"/>
             </stylesheets>
 
@@ -46,20 +47,29 @@
                     </padding>
                 </StackPane>
 
-                <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-                    <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                <SplitPane fx:id="mainSplitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="personList" minWidth="260" prefWidth="260" SplitPane.resizableWithParent="false">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
                         <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <StackPane fx:id="browserPlaceholder" prefWidth="340">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                    </StackPane>
+                    <VBox>
+                        <StackPane fx:id="displayPlaceholder" prefWidth="340">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </StackPane>
+
+                        <StackPane fx:id="deliveryMenListPanelPlaceholder">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                        </StackPane>
+                    </VBox>
                 </SplitPane>
+
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
             </VBox>

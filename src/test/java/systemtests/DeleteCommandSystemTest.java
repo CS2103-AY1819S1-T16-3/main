@@ -30,6 +30,7 @@ public class DeleteCommandSystemTest extends OrderBookSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     private static final String DELETE_COMMAND = OrderCommand.COMMAND_WORD + " " + DeleteCommand.COMMAND_WORD;
+
     @Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
@@ -159,12 +160,6 @@ public class DeleteCommandSystemTest extends OrderBookSystemTest {
                                       Index expectedSelectedCardIndex) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        } else {
-            assertSelectedCardUnchanged();
-        }
 
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();

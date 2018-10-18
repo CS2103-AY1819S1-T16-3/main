@@ -1,0 +1,190 @@
+.menu-bar {
+    -fx-background-color: derive(#14281D, 20%);
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.pane-with-border {
+    -fx-background-color: derive(#14281D, 20%);
+    -fx-border-color: derive(#14281D, 10%);
+    -fx-border-top-width: 1px;
+}
+
+
+#commandTextField {
+    -fx-background-color: derive(#F1F5F2, 20%);
+    -fx-font-family: "Times New Roman";
+    -fx-font-size: 14pt;
+    -fx-text-fill: black;
+}
+
+#commandIcon {
+    -fx-font-family: "Rockwell";
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+    -fx-text-fill: white;
+    -fx-padding: 10;
+}
+
+.result-display {
+    -fx-background-color: #F1F5F2;
+    -fx-font-family: "Chalkboard";
+    -fx-font-size: 14pt;
+    -fx-text-fill: black;
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-background-color: derive(#355834, 20%);
+    -fx-border-color: transparent transparent transparent #4d4d4d;
+}
+
+#mainSplitPane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: derive(#14281D, 20%);
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: #14281D;
+}
+
+#orderListView .list-cell {
+    -fx-background-insets: 4px ;
+    -fx-border-color: #14281D;
+}
+
+
+#orderListView .list-cell:filled:even {
+    -fx-background-color: #e5ffde;
+}
+
+
+
+#orderListView .list-cell:filled:odd {
+    -fx-background-color: derive(#e5ffde, 30%);
+}
+
+#orderListView .list-cell:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+.scroll-bar {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#orderStatus {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#id {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+#foodList {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-underline: true;
+}
+
+#address {
+    -fx-font-family: "Verdana";
+    -fx-font-style: italic;
+    -fx-font-size: 11;
+}
+
+#orderDate {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 12;
+}
+
+#deliverymanListView .list-cell {
+    -fx-background-insets: 4px ;
+    -fx-border-color: #14281D;
+}
+
+
+#deliverymanListView .list-cell:filled:even {
+    -fx-background-color: #f8deff;
+}
+
+
+
+#deliverymanListView .list-cell:filled:odd {
+    -fx-background-color: derive(#f8deff, 30%);
+}
+
+#deliverymanListView .list-cell:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+#name {
+    -fx-font-family: Verdana;
+    -fx-font-style: bold;
+    -fx-font-size: 14;
+}
+
+#deliverymanStatus {
+    -fx-text-fill: white;
+    -fx-background-color: #14281D;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+    -fx-font-family: Verdana;
+}
+
+#displayBox {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: derive(#F1F5F2, 20%);
+}
+
+#displayPending {
+    -fx-font-family: Chalkboard;
+    -fx-font-style: bold;
+    -fx-font-size: 14;
+    -fx-padding: 10;
+}
+
+#progressBar {
+    -fx-padding: 10;
+}
+

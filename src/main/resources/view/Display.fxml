@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="displayBox" dividerPositions="0.6595394736842105" minHeight="370" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox minWidth="260" prefWidth="260" SplitPane.resizableWithParent="false">
+      <HBox prefHeight="50.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="displayPending" text="Total Pending Orders" />
+            <ProgressBar fx:id="progressBar" prefWidth="200.0" progress="0.5" />
+         </children>
+      </HBox>
+        <StackPane fx:id="mapWrapper">
+         <children>
+            <ImageView fitHeight="300.0" fitWidth="550.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sgmap.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+
+    </VBox>
+
+    <VBox>
+        <StackPane prefWidth="340">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+        </StackPane>
+
+        <StackPane>
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+        </StackPane>
+      <BarChart prefHeight="220.0" prefWidth="125.0" title="Orders Completed over Time">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+    </VBox>
+</SplitPane>
