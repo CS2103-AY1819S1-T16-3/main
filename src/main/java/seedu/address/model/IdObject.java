@@ -25,4 +25,8 @@ public abstract class IdObject {
     public void assignId() {
         id = UUID.randomUUID();
     }
+
+    public boolean hasSameId(IdObject other) {
+        return getId().equals(other.getId());
+    }
 }

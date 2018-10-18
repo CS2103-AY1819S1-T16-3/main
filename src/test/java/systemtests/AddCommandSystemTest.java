@@ -220,23 +220,6 @@ public class AddCommandSystemTest extends OrderBookSystemTest {
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
-    @Override
-    /**
-     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains an equivalent last object.
-     */
-    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-                                                     Model expectedModel) {
-        assertEquals(expectedCommandInput, getCommandBox().getInput());
-        assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new OrderBook(expectedModel.getOrderBook()).getOrderList().size(),
-            testApp.readStorageOrderBook().getOrderList().size());
-        int sizeOfList = new OrderBook(expectedModel.getOrderBook()).getOrderList().size();
-        assertTrue(new OrderBook(expectedModel.getOrderBook()).getOrderList().get(sizeOfList - 1).isSameOrder(
-            testApp.readStorageOrderBook().getOrderList().get(sizeOfList - 1)));
-        assertListMatching(getOrderListPanel(), expectedModel.getFilteredOrderList());
-    }
-
     /**
      * Executes {@code command} and asserts that the,<br>
      * 1. Command box displays {@code command}.<br>

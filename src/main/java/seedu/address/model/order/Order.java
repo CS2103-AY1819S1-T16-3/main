@@ -104,9 +104,7 @@ public class Order extends IdObject {
         }
 
         Order otherOrder = (Order) other;
-        return ((getId() == null && otherOrder.getId() == null)
-                || getId().equals(otherOrder.getId()))
-                && otherOrder.getName().equals(getName())
+        return otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getAddress().equals(getAddress())
                 && (otherOrder.getDate().equals(getDate()))
