@@ -16,7 +16,7 @@
 <li><a href="#viewing-help-code-help-code-code-since-v1-1-code">3.1. Viewing help : <code>/help</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#sign-up-for-system-code-signup-code-code-since-v1-1-code">3.2. Sign up for system : <code>/signup</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#login-to-system-code-login-code-code-since-v1-1-code">3.3. Login to system : <code>/login</code> <code>[Since v1.1]</code></a></li>
-<li><a href="#logout-from-system-code-logout-code-code-coming-in-v2-0-code">3.4. Logout from system : <code>/logout</code> <code>[Coming in v2.0]</code></a></li>
+<li><a href="#logout-from-system-code-logout-code-code-since-v1-3-code">3.4. Logout from system : <code>/logout</code> <code>[Since v1.3]</code></a></li>
 <li><a href="#adding-an-order-code-order-add-code-code-since-v1-1-code">3.5. Adding an order : <code>/order add</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#listing-all-orders-code-order-list-code-code-since-v1-1-code">3.6. Listing all orders : <code>/order list</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#editing-an-order-code-order-edit-code-code-since-v1-2-code">3.7. Editing an order : <code>/order edit</code> <code>[Since v1.2]</code></a></li>
@@ -144,7 +144,24 @@ e.g. typing <strong><code>/help</code></strong> and pressing <kbd>Enter</kbd> wi
 <div class="sect2">
 <h3 id="sign-up-for-system-code-signup-code-code-since-v1-1-code"><a class="link" href="#sign-up-for-system-code-signup-code-code-since-v1-1-code">3.2. Sign up for system : <code>/signup</code> <code>[Since v1.1]</code></a></h3>
 <div class="paragraph">
+<p>Sign up for a new manager account so that the manager can use the application. Once you sign up, you will be
+automatically logged into the application.</p>
+</div>
+<div class="paragraph">
 <p>Format: <code>/signup n/NAME u/USERNAME pw/PASSWORD</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>NAME</strong>: Can be alphanumeric and spaces are allowed, it should not be blank and be 1 to 64 characters long.</p>
+</li>
+<li>
+<p><strong>USERNAME</strong>: Can be alphanumeric and spaces are <strong>NOT</strong> allowed, it should not be blank and be 3 to 64 characters long.</p>
+</li>
+<li>
+<p><strong>PASSWORD</strong>: Can be alphanumeric, should be at least <strong>6</strong> characters long and spaces are <strong>NOT</strong> allowed.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -160,7 +177,21 @@ e.g. typing <strong><code>/help</code></strong> and pressing <kbd>Enter</kbd> wi
 <div class="sect2">
 <h3 id="login-to-system-code-login-code-code-since-v1-1-code"><a class="link" href="#login-to-system-code-login-code-code-since-v1-1-code">3.3. Login to system : <code>/login</code> <code>[Since v1.1]</code></a></h3>
 <div class="paragraph">
+<p>Login into the application so that the manager can use the application. Once you login, you can use the authenticated
+ commands.</p>
+</div>
+<div class="paragraph">
 <p>Format: <code>/login u/USERNAME pw/PASSWORD</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>USERNAME</strong>: Can be alphanumeric and spaces are <strong>NOT</strong> allowed, it should not be blank and be 3 to 64 characters long.</p>
+</li>
+<li>
+<p><strong>PASSWORD</strong>: Can be alphanumeric, should be at least <strong>6</strong> characters long and spaces are <strong>NOT</strong> allowed.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -174,7 +205,10 @@ e.g. typing <strong><code>/help</code></strong> and pressing <kbd>Enter</kbd> wi
 </div>
 </div>
 <div class="sect2">
-<h3 id="logout-from-system-code-logout-code-code-coming-in-v2-0-code"><a class="link" href="#logout-from-system-code-logout-code-code-coming-in-v2-0-code">3.4. Logout from system : <code>/logout</code> <code>[Coming in v2.0]</code></a></h3>
+<h3 id="logout-from-system-code-logout-code-code-since-v1-3-code"><a class="link" href="#logout-from-system-code-logout-code-code-since-v1-3-code">3.4. Logout from system : <code>/logout</code> <code>[Since v1.3]</code></a></h3>
+<div class="paragraph">
+<p>Logout from the application.</p>
+</div>
 <div class="paragraph">
 <p>Format: <code>/logout</code></p>
 </div>
@@ -861,4 +895,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 13:38:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 11:24:51 UTC</div></div></div></body></html>

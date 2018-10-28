@@ -959,6 +959,42 @@ nothing to do with login at all.</p>
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="aspect-checking-if-user-is-logged-in"><a class="link" href="#aspect-checking-if-user-is-logged-in">Aspect: Checking if user is logged in</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Check if user is logged in after command is parsed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It is easy to implement and it doesn&#8217;t violate the SRP because it wouldn&#8217;t make sense to check if the user
+is logged in inside a method that is supposed to be parsing the user input.</p>
+</li>
+<li>
+<p>Cons: User is able to type authenticated commands like <code>/order add</code> and receive a parse exception which is the
+incorrect behavior.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Check if user is logged in before command is parsed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It is easy to implement.</p>
+</li>
+<li>
+<p>Cons: It breaks the SRP because <code>parseCommand</code> method should only be used to parse commands and not check for user
+logged in status.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -3266,4 +3302,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 13:38:32 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 11:24:51 UTC</div></div></div></body></html>
