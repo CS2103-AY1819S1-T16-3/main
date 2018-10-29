@@ -33,7 +33,7 @@
 <li><a href="#login-command">3.2. Login Command</a></li>
 <li><a href="#find-order-feature">3.3. Find Order Feature</a></li>
 <li><a href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></li>
-<li><a href="#create-route-feature">3.5. Create Route Feature</a></li>
+<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></li>
 <li><a href="#add-order-feature">3.6. Add Order Feature</a></li>
 <li><a href="#logging">3.7. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
@@ -1244,7 +1244,7 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Deliverymen are stored in the same file as <code>Order</code> s</p>
+<p><strong>Alternative 2:</strong> Deliverymen are stored in the same file as <code>Order</code></p>
 <div class="ulist">
 <ul>
 <li>
@@ -1262,7 +1262,12 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-route-feature"><a class="link" href="#create-route-feature">3.5. Create Route Feature</a></h3>
+<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></h3>
+<div class="paragraph">
+<p>This feature is deprecated as there was a design change regarding the relationship between delivery man and order.
+Previously, route was the middleman between delivery men and orders. Now, delivery men and orders are directly related.
+Route is removed as its existence will complicate implementations of other features without adding much benefit.</p>
+</div>
 <div class="sect3">
 <h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
@@ -3302,4 +3307,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-28 16:41:05 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-29 01:14:20 UTC</div></div></div></body></html>
