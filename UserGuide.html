@@ -30,16 +30,15 @@
 <li><a href="#deleting-a-delivery-man-code-deliveryman-delete-code-code-since-v1-2-code">3.15. Deleting a delivery man : <code>/deliveryman delete</code> <code>[Since v1.2]</code></a></li>
 <li><a href="#clearing-all-delivery-men-entries-code-deliveryman-clear-code-code-coming-in-v2-0-code">3.16. Clearing all delivery men entries : <code>/deliveryman clear</code> <code>[Coming in v2.0]</code></a></li>
 <li><a href="#creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code">3.17. Creating a new route: <code>/route create</code> <code>[Deprecated since v1.2.1]</code></a></li>
-<li><a href="#assign-route-to-delivery-man-code-assign-code-code-since-v1-3-code">3.18. Assign route to delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></li>
+<li><a href="#assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code">3.18. Assign orders to a delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code-code-since-v1-1-code">3.19. Listing entered commands : <code>/history</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code-code-since-v1-1-code">3.20. Exiting the program : <code>/exit</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#saving-the-data">3.21. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.22. Encrypting data files <code>[Coming in v2.0]</code></a></li>
-<li><a href="#viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.23. Viewing help : <code>/help</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
-<li><a href="#login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.24. Login to system : <code>/login</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
-<li><a href="#logout-from-system-code-logout-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.25. Logout from system : <code>/logout</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
-<li><a href="#listing-assigned-orders-code-order-list-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.26. Listing assigned orders : <code>/order list</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.27. Exiting the program : <code>/exit</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
+<li><a href="#viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.22. Viewing help : <code>/help</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
+<li><a href="#login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.23. Login to system : <code>/login</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
+<li><a href="#logout-from-system-code-logout-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.24. Logout from system : <code>/logout</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
+<li><a href="#listing-assigned-orders-code-order-list-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.25. Listing assigned orders : <code>/order list</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.26. Exiting the program : <code>/exit</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -271,6 +270,9 @@ Format: <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATE
 <li>
 <p>When a parameter is specified, e.g. <code>f/</code>, <code>n/</code>, empty fields are not allowed. Value must be specified.</p>
 </li>
+<li>
+<p>Orders that are already assigned to a deliveryman cannot be edited.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -351,6 +353,9 @@ Format: <code>/order delete INDEX</code></p>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
+<li>
+<p>Orders that are already assigned to a deliveryman cannot be deleted.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -379,12 +384,23 @@ Deletes the 1st order in the results of the <code>find</code> command.</p>
 <p>Clears all entries from the list of orders.<br>
 Format: <code>/order clear</code></p>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If there is an order already assigned to a deliveryman, order list cannot be cleared.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="adding-a-delivery-man-code-deliveryman-add-code-code-since-v1-2-code"><a class="link" href="#adding-a-delivery-man-code-deliveryman-add-code-code-since-v1-2-code">3.11. Adding a delivery man : <code>/deliveryman add</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
 <p>Adds a delivery man to the list of delivery men<br>
-Format: <code>/deliveryman add n/NAME p/PHONE [a/ADDRESS]</code></p>
+Format: <code>/deliveryman add n/NAME</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -392,13 +408,7 @@ Format: <code>/deliveryman add n/NAME p/PHONE [a/ADDRESS]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>/deliveryman add n/John Smith p/12345678 a/block 123, Clementi Drive, #01-01</code></p>
-</li>
-<li>
-<p><code>/deliveryman add a/block 55 Computing Drive n/Harry p/81889111</code></p>
-</li>
-<li>
-<p><code>/deliveryman add n/Willy p/23456789</code></p>
+<p><code>/deliveryman add n/John Smith</code></p>
 </li>
 </ul>
 </div>
@@ -506,6 +516,9 @@ Format: <code>/deliveryman delete INDEX</code></p>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
+<li>
+<p>Deliveryman that already have orders assigned cannot be deleted.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -567,7 +580,7 @@ Format: <code>/route create o/ORDER_ID</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assign-route-to-delivery-man-code-assign-code-code-since-v1-3-code"><a class="link" href="#assign-route-to-delivery-man-code-assign-code-code-since-v1-3-code">3.18. Assign route to delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></h3>
+<h3 id="assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code"><a class="link" href="#assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code">3.18. Assign orders to a delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></h3>
 <div class="paragraph">
 <p>Assign multiple orders to a delivery man<br>
 Format: <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code></p>
@@ -591,6 +604,9 @@ respectively.</p>
 </li>
 <li>
 <p>Add more than 1 orders by specifying more tags. e.g. <code>o/1 o/2 o/3</code>.</p>
+</li>
+<li>
+<p>Orders that are already assigned to a deliveryman cannot be reassigned.</p>
 </li>
 </ul>
 </div>
@@ -646,19 +662,13 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.22. Encrypting data files <code>[Coming in v2.0]</code></a></h3>
-<div class="paragraph">
-<p><em>{explain how the user can enable/disable data encryption}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.23. Viewing help : <code>/help</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
+<h3 id="viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.22. Viewing help : <code>/help</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Format: <code>/help</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.24. Login to system : <code>/login</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
+<h3 id="login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.23. Login to system : <code>/login</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Format: <code>/login u/USERNAME pw/PASSWORD</code></p>
 </div>
@@ -674,20 +684,20 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logout-from-system-code-logout-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#logout-from-system-code-logout-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.25. Logout from system : <code>/logout</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
+<h3 id="logout-from-system-code-logout-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#logout-from-system-code-logout-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.24. Logout from system : <code>/logout</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Format: <code>/logout</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-assigned-orders-code-order-list-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#listing-assigned-orders-code-order-list-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.26. Listing assigned orders : <code>/order list</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
+<h3 id="listing-assigned-orders-code-order-list-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#listing-assigned-orders-code-order-list-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.25. Listing assigned orders : <code>/order list</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>List details of assigned order/s<br>
 Format: <code>/order list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#exiting-the-program-code-exit-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.27. Exiting the program : <code>/exit</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code-code-deliveryman-command-code-code-coming-in-v2-0-code"><a class="link" href="#exiting-the-program-code-exit-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.26. Exiting the program : <code>/exit</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>/exit</code></p>
@@ -743,14 +753,14 @@ e.g. <code>/order delete 3</code></p>
 <p><strong>Clear order</strong> : <code>/order clear</code></p>
 </li>
 <li>
-<p><strong>Add delivery man</strong> : <code>/deliveryman add n/NAME p/PHONE_NUMBER [a/ADDRESS]</code><br>
-e.g. <code>/deliveryman add n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665</code></p>
+<p><strong>Add delivery man</strong> : <code>/deliveryman add n/NAME</code><br>
+e.g. <code>/deliveryman add n/James Ho</code></p>
 </li>
 <li>
 <p><strong>Listing delivery men</strong> : <code>/deliveryman list</code></p>
 </li>
 <li>
-<p><strong>Edit delivery man</strong> : <code>/deliveryman edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS]</code><br>
+<p><strong>Edit delivery man</strong> (Coming in v2.0) : <code>/deliveryman edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS]</code><br>
 e.g. <code>/deliveryman edit 2 n/James Lee</code></p>
 </li>
 <li>
@@ -762,15 +772,15 @@ e.g. <code>/deliveryman find n/James Jake</code></p>
 e.g. <code>/deliveryman delete 3</code></p>
 </li>
 <li>
-<p><strong>Clear delivery men</strong> : <code>/deliveryman clear</code></p>
+<p><strong>Clear delivery men</strong> (Coming in v2.0) : <code>/deliveryman clear</code></p>
 </li>
 <li>
-<p><strong>Create a route</strong> : <code>/route create o/ORDER_ID</code> <strong>[DEPRECATED]</strong><br>
+<p><strong>Create a route</strong> [DEPRECATED] : <code>/route create o/ORDER_INDEX</code><br>
 e.g. <code>/route create o/1 o/3</code></p>
 </li>
 <li>
-<p><strong>Assign route to delivery man</strong> : <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code><br>
-e.g. <code>/assign d/1 o/1</code></p>
+<p><strong>Assign orders to a delivery man</strong> : <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code><br>
+e.g. <code>/assign d/1 o/1 o/3</code></p>
 </li>
 <li>
 <p><strong>Help</strong> : <code>/help</code></p>
@@ -782,25 +792,25 @@ e.g. <code>/assign d/1 o/1</code></p>
 <p><strong>Exit the program</strong> : <code>/exit</code></p>
 </li>
 <li>
-<p><strong>Login (Deliveryman)</strong> : <code>/login u/USERNAME pw/PASSWORD</code><br>
+<p><strong>Login (Deliveryman)</strong> (Coming in v2.0) : <code>/login u/USERNAME pw/PASSWORD</code><br>
 e.g. <code>/login u/deliveryman pw/password</code></p>
 </li>
 <li>
-<p><strong>Logout (Deliveryman)</strong> : <code>/logout</code></p>
+<p><strong>Logout (Deliveryman)</strong> (Coming in v2.0) : <code>/logout</code></p>
 </li>
 <li>
-<p><strong>View delivery route (Deliveryman)</strong> : <code>/route list</code></p>
+<p><strong>View delivery route (Deliveryman)</strong> (Coming in v2.0) : <code>/route list</code></p>
 </li>
 <li>
-<p><strong>View assigned orders (Deliveryman)</strong> : <code>/order list</code></p>
+<p><strong>View assigned orders (Deliveryman)</strong> (Coming in v2.0) : <code>/order list</code></p>
 </li>
 <li>
-<p><strong>Help (Deliveryman)</strong> : <code>/help</code></p>
+<p><strong>Help (Deliveryman)</strong> (Coming in v2.0) : <code>/help</code></p>
 </li>
 <li>
-<p><strong>Exit the program (Deliveryman)</strong> : <code>/exit</code></p>
+<p><strong>Exit the program (Deliveryman)</strong> (Coming in v2.0) : <code>/exit</code></p>
 </li>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 09:02:09 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 11:14:16 UTC</div></div></div></body></html>
