@@ -31,10 +31,10 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
 <li><a href="#login-command">3.2. Login Command</a></li>
-<li><a href="#find-order-feature">3.3. Find Order Feature</a></li>
-<li><a href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></li>
-<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></li>
-<li><a href="#add-order-feature">3.6. Add Order Feature</a></li>
+<li><a href="#add-order-feature">3.3. Add Order Feature</a></li>
+<li><a href="#find-order-feature">3.4. Find Order Feature</a></li>
+<li><a href="#add-deliveryman-feature">3.5. Add deliveryman feature</a></li>
+<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.6. Create Route Feature [deprecated since v1.2.1]</a></li>
 <li><a href="#logging">3.7. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
 </ul>
@@ -998,12 +998,130 @@ logged in status.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.3. Find Order Feature</a></h3>
+<h3 id="add-order-feature"><a class="link" href="#add-order-feature">3.3. Add Order Feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The <code>find</code> order command allows searching of orders in FoodZoom.
-It allows finding of orders based on either the name or phone specified in the order.</p>
+<p>The <code>add</code> order command allows the <code>Manager</code> to create a new order and add it to the list of orders.
+Adding a new order requires the customer&#8217;s <code>name</code>, customer&#8217;s <code>phone</code> number, customer&#8217;s <code>address</code>, <code>food</code> and the <code>datetime</code>.<br>
+The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence shows the sequence when the <code>add</code> command is execute by the <code>Manager</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/OrderAddSequenceDiagram.png" alt="OrderAddSequenceDiagram" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
+</div>
+<div class="paragraph">
+<p>From the diagram above:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>LogicManager&#8217;s execute is called when the `Manager</code> keys in <code>/order add</code> and it calls upon <code>parseCommand</code> of <code>OrderBookParser</code> to parse the command</p>
+</li>
+<li>
+<p><code>OrderBookParser</code> will initialize <code>OrderCommandParser</code> and invoke the method <code>parse</code> to further parse <code>order</code> command</p>
+</li>
+<li>
+<p><code>AddCommandParser</code> will be invoked and passed the parameters of the add command.</p>
+</li>
+<li>
+<p>If all the arguments of the <code>add</code> commands are valid, <code>AddCommand</code> will be returned to the <code>LogicManager</code></p>
+</li>
+<li>
+<p><code>LogicManger</code> will then calls the method <code>execute</code> method of <code>AddCommand</code></p>
+</li>
+<li>
+<p><code>AddCommand</code> will call <code>addOrder</code> passing <code>Order</code> as an argument to <code>Model</code> and after calls <code>commitOrderBook</code> method from <code>Model</code></p>
+</li>
+<li>
+<p>A <code>CommandResult</code> will be returned at the end,</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.2. Design Consideration</a></h4>
+<div class="sect4">
+<h5 id="aspect-data-structure-of-list-of-order"><a class="link" href="#aspect-data-structure-of-list-of-order">Aspect: Data Structure of list of order</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (Current Approach):</strong> Using a <code>UniqueOrderList</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: The comparison is not as rigid. You can create orders with similar names/address as long as it passes a less stringent criteria.</p>
+</li>
+<li>
+<p>Cons: You need additional overhead. You need to create an extra class and function to check.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Using a <code>Set</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Do not need an extra function. You can use use <code>equals</code> for comparison</p>
+</li>
+<li>
+<p>Cons: It is a strict check and as a result you will not be allowed to create orders with same address/same name etc.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structure-of-code-order-code"><a class="link" href="#aspect-data-structure-of-code-order-code">Aspect: Data Structure of <code>Order</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (Current Approach):</strong> All parameters in <code>Order</code> are abstracted out to have a class of its own.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: It adheres to the Single Responsibility Principles (SRP) and the Separation of Concerns (SoC) as each parameter checks whether it is valid</p>
+</li>
+<li>
+<p>Cons: Many different classes are created which increases the complexity of the code</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Store all parameters of <code>Order</code> as <code>String</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Violates SRP as one single class will need to check if the arguments are valid.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.4. Find Order Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The order <code>find</code> command allows searching of orders in FoodZoom. It allows searching for orders with any order fields.</p>
 </div>
 <div class="paragraph">
 <p>The following sequence diagram shows the sequence flow from the <code>LogicManager</code> to the <code>ModelManager</code> when a user enter a <code>find</code> command:</p>
@@ -1014,7 +1132,7 @@ It allows finding of orders based on either the name or phone specified in the o
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
+<p>Figure 3.4.1.1 Sequence Diagram for order <code>find</code> command</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -1022,73 +1140,81 @@ It allows finding of orders based on either the name or phone specified in the o
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>When <code>LogicManager</code> receive the <code>execute</code> command, it class the <code>parseCommand</code> method in <code>OrderBookParser</code>.</p>
+<p>When <code>LogicManager</code> receive the <code>execute</code> command, it calls the <code>parseCommand</code> method in <code>OrderBookParser</code>.</p>
 </li>
 <li>
 <p><code>OrderBookParser</code> will receive <code>/order</code> as the command and instantiate <code>OrderCommandParser</code> to further parse the command.</p>
 </li>
 <li>
-<p>If the arguments specified in the <code>find</code> command are valid, a <code>FindCommand</code> will be created and return back to the <code>LogicManger</code></p>
+<p><code>OrderCommandParser</code> receive <code>find</code> as the command and calls <code>FindCommandParser</code> to handle the fields for the find command.</p>
 </li>
 <li>
-<p><code>LogicManger</code> will proceed to call the <code>execute</code> command of <code>FindCommand</code></p>
+<p>If at least one field is provided, <code>FindCommandParser</code> will call <code>parsePredicate</code> of <code>OrderPredicateUtil</code> to handle the given fields.</p>
 </li>
 <li>
-<p><code>FindCommand</code> will updated the list in the <code>Model</code> and create a new <code>CommandResult</code> to be returned.</p>
+<p><code>OrderPredicateUtil</code> will call its own <code>chainPredicate</code> to create the predicate for the relevant fields.</p>
+</li>
+<li>
+<p>If all fields give are valid, <code>FindCommand</code> will be created and return back to <code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> will proceed to call execute of <code>FindCommand</code>.</p>
+</li>
+<li>
+<p><code>FindCommand</code> will update the list in the <code>Model</code> and create a new <code>CommandResult</code> to be returned.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Currently, FoodZoom only allows find for other based on name or phone, but not specifying both name and phone together.</p>
+<p>The differentiation is handled by <code>OrderPredicateUtil</code> which checks for the fields provided. It throws <code>ParseException</code> if a invalid order field is specified or when any field is given without any value.</p>
 </div>
 <div class="paragraph">
-<p>This differentiation is handled by <code>FindCommandParser</code> which checks for the fields specified.
-It throws a <code>ParseException</code> error if either both name and phone is specified together or when fields other than name or phone is being specified.</p>
+<p><code>OrderPredicateUtil</code> will chain up the different fields and return a <code>Predicate&lt;Order&gt;</code> to narrow the scope
+of the search.</p>
 </div>
 <div class="paragraph">
-<p><code>FindCommandParser</code> will return an <code>OrderNameContainsKeywordPredicate</code> if a valid name is specified or return an <code>OrderPhoneContainsKeyPredicate</code>.</p>
+<p><code>Datetime</code> search can be performed in two ways. Below is a sequence diagram to show flow of how <code>datetime</code> search:</p>
 </div>
-<div class="paragraph">
-<p>In order for <code>FindCommand</code> to take a general predicate, both <code>OrderNameContainsKeywordPredicate</code> and <code>OrderPhoneContainsKeywordPredicate</code> implements the interface <code>OrderContainsKeywordPredicated</code> and <code>OrderContainsKeywordPredicate</code> extends from a <code>Predicate</code> of <code>Order</code>. <br>
-The following shows how is one of the predicate implemented:</p>
-</div>
-<div class="listingblock">
+<div class="imageblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="java"><span class="comment">/**
- * Tests that a {@code Order}'s {@code Name} matches any of the keywords given.
- */</span>
-<span class="directive">public</span> <span class="type">class</span> <span class="class">OrderNameContainsKeywordPredicate</span> <span class="directive">implements</span> OrderContainsAnyKeywordsPredicate {
-
-    <span class="annotation">@Override</span>
-    <span class="directive">public</span> <span class="type">boolean</span> test(Order order) {
-        <span class="comment">// test method...</span>
-    }
-
-}</code></pre>
+<img src="images/OrderDatePredicate.png" alt="OrderDatePredicate" width="650">
 </div>
+</div>
+<div class="paragraph">
+<p>Figure 3.4.1.2 Sequence Diagram for <code>datetime</code> search</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If one <code>datetime</code> field is given, <code>OrderDatePredicate</code> creates a <code>OrderDateSinglePredicate</code> object and run its' <code>test</code> method.</p>
+</li>
+<li>
+<p>If more than one <code>datetime</code> field is given, <code>OrderDatePredicate</code> creates a <code>OrderDateRangePredicate</code> object and run its' <code>test</code> method.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.2. Design Consideration</a></h4>
+<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.4.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-findcommand-code"><a class="link" href="#aspect-implementation-of-code-findcommand-code">Aspect: Implementation of <code>FindCommand</code></a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Name and Phone has its own predicate having its own test method.</p>
+<p><strong>Alternative 1 (current choice):</strong> All different order field having its own test method.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It adheres to the Single Responsibility Principle (SRP) and the Separation of Concern (SoC). Each Predicate will only handles its own search parameters.</p>
+<p>Pros: It adheres to the Single Responsibility Principle (SRP) and the Separation of Concern (SoC). Each predicate handles its own search values.</p>
 </li>
 <li>
-<p>Cons: More classes will be needed, which results in more code being written</p>
+<p>Cons: More classes will be needed, which results in higher complexity of the code base.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> One predicate class which handles name and phone.</p>
+<p><strong>Alternative 2:</strong> One predicate class to handle all the predicates.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1108,27 +1234,27 @@ The following shows how is one of the predicate implemented:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> <code>FindCommandParser</code> handles all the parsing</p>
+<p><strong>Alternative 1 (current choice):</strong> Further parsing of the predicates are passed to <code>OrderPredicateUtil</code> to handle</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It makes it easy for new developers to understand as <code>FindCommandParser</code> handles all the parsing of the predicates.</p>
+<p>Pros: It adheres to SRP as the handling of the predicates are passed on to <code>OrderPredicateUtil</code> class.</p>
 </li>
 <li>
-<p>Cons: It violates the Single Responsibility Principles (SRP). <code>FindCommandParser</code> has to break down the arguments as well as check which argument is present.</p>
+<p>Cons: Increase in the complexity of the code as more classes are needed, with more lines of code being written</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Having a utilities class to handle the break down and checking of which command is present.</p>
+<p><strong>Alternative 2:</strong> <code>FindCommandParser</code> to handles the predicates.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: It adheres to SRP as handling of argument is pass on to a utility class.</p>
+<p>Pros: It makes it easy for new developers to understand the code as <code>FindCommandParser</code> handles all the parsing of the predicates</p>
 </li>
 <li>
-<p>Cons: Increase in the complexity of the code for new developers as more classes are needed and more lines of code will be written</p>
+<p>Cons: It violates SRP. <code>FindCommandParser</code> has to break down the fields as well as check which fields are present.</p>
 </li>
 </ul>
 </div>
@@ -1139,9 +1265,9 @@ The following shows how is one of the predicate implemented:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></h3>
+<h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">3.5. Add deliveryman feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>add</code> deliveryman command allows the Manager to add deliveryman into FoodZoom. It ensures that the newly-added deliveryman
 is not a duplicate of an existing deliveryman.</p>
@@ -1156,10 +1282,10 @@ command:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.4.1.1 Sequence Diagram for deliveryman <code>add</code> command</p>
+<p>Figure 3.5.1.1 Sequence Diagram for deliveryman <code>add</code> command</p>
 </div>
 <div class="paragraph">
-<p>From Figure 3.4.1.1:</p>
+<p>From Figure 3.5.1.1:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1192,7 +1318,7 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommandparser-code"><a class="link" href="#implementation-of-code-deliverymanaddcommandparser-code">Implementation of <code>DeliverymanAddCommandParser</code></a></h5>
 <div class="ulist">
@@ -1262,14 +1388,14 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></h3>
+<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.6. Create Route Feature [deprecated since v1.2.1]</a></h3>
 <div class="paragraph">
 <p>This feature is deprecated as there was a design change regarding the relationship between delivery man and order.
 Previously, route was the middleman between delivery men and orders. Now, delivery men and orders are directly related.
 Route is removed as its existence will complicate implementations of other features without adding much benefit.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>create</code> route command allows creation of routes in FoodZoom.
 It allows creating routes based on the order ids.</p>
@@ -1283,7 +1409,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.5.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.6.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1291,7 +1417,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.5.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.6.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -1326,7 +1452,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.5.2. Design Consideration</a></h4>
+<h4 id="design-consideration-3"><a class="link" href="#design-consideration-3">3.6.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-createroutecommandparser-code"><a class="link" href="#aspect-implementation-of-code-createroutecommandparser-code">Aspect: Implementation of <code>CreateRouteCommandParser</code></a></h5>
 <div class="ulist">
@@ -1353,125 +1479,6 @@ It allows creating routes based on the order ids.</p>
 </li>
 <li>
 <p>Cons: Poor modularization of the <code>Command</code> classes.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="add-order-feature"><a class="link" href="#add-order-feature">3.6. Add Order Feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
-<div class="paragraph">
-<p>The <code>add</code> order command allows the <code>Manager</code> to create a new order and add it to the list of orders.
-Adding a new order requires the customer&#8217;s <code>name</code>, customer&#8217;s <code>phone</code> number, customer&#8217;s <code>address</code>, <code>food</code> and the <code>datetime</code>.<br>
-The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code>.</p>
-</div>
-<div class="paragraph">
-<p>The following sequence shows the sequence when the <code>add</code> command is execute by the <code>Manager</code>:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/OrderAddSequenceDiagram.png" alt="OrderAddSequenceDiagram" width="650">
-</div>
-</div>
-<div class="paragraph">
-<p>Figure 3.6.1.1 Sequence Diagram for order <code>find</code> command</p>
-</div>
-<div class="paragraph">
-<p>From the diagram above:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>LogicManager&#8217;s execute is called when the `Manager</code> keys in <code>/order add</code> and it calls upon <code>parseCommand</code> of <code>OrderBookParser</code> to parse the command</p>
-</li>
-<li>
-<p><code>OrderBookParser</code> will initialize <code>OrderCommandParser</code> and invoke the method <code>parse</code> to further parse <code>order</code> command</p>
-</li>
-<li>
-<p><code>AddCommandParser</code> will be invoked and passed the parameters of the add command.</p>
-</li>
-<li>
-<p>If all the arguments of the <code>add</code> commands are valid, <code>AddCommand</code> will be returned to the <code>LogicManager</code></p>
-</li>
-<li>
-<p><code>LogicManger</code> will then calls the method <code>execute</code> method of <code>AddCommand</code></p>
-</li>
-<li>
-<p><code>AddCommand</code> will call <code>addOrder</code> passing <code>Order</code> as an argument to <code>Model</code> and after calls <code>commitOrderBook</code> method from <code>Model</code></p>
-</li>
-<li>
-<p>A <code>CommandResult</code> will be returned at the end,</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-consideration-3"><a class="link" href="#design-consideration-3">3.6.2. Design Consideration</a></h4>
-<div class="sect4">
-<h5 id="aspect-data-structure-of-list-of-order"><a class="link" href="#aspect-data-structure-of-list-of-order">Aspect: Data Structure of list of order</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (Current Approach):</strong> Using a <code>UniqueOrderList</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: The comparison is not as rigid. You can create orders with similar names/address as long as it passes a less stringent criteria.</p>
-</li>
-<li>
-<p>Cons: You need additional overhead. You need to create an extra class and function to check.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Using a <code>Set</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Do not need an extra function. You can use use <code>equals</code> for comparison</p>
-</li>
-<li>
-<p>Cons: It is a strict check and as a result you will not be allowed to create orders with same address/same name etc.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-of-code-order-code"><a class="link" href="#aspect-data-structure-of-code-order-code">Aspect: Data Structure of <code>Order</code></a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (Current Approach):</strong> All parameters in <code>Order</code> are abstracted out to have a class of its own.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: It adheres to the Single Responsibility Principles (SRP) and the Separation of Concerns (SoC) as each parameter checks whether it is valid</p>
-</li>
-<li>
-<p>Cons: Many different classes are created which increases the complexity of the code</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Store all parameters of <code>Order</code> as <code>String</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: Violates SRP as one single class will need to check if the arguments are valid.</p>
 </li>
 </ul>
 </div>
@@ -3307,4 +3314,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 11:16:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 14:46:15 UTC</div></div></div></body></html>

@@ -129,6 +129,53 @@ e.g. typing <strong><code>/help</code></strong> and pressing <kbd>Enter</kbd> wi
 </div>
 </div>
 </div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Fields restrictions</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can only be alphanumeric and spaces are allowed, it should not be blank and be 1 to 64 characters long</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PHONE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phone should only contain numbers, and it should be at least 3 digits long</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADDRESS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can take any values, and it should not be blank. The last 6 characters should be a valid postal code</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FOOD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Should only contain alphanumeric characters and spaces, and it should not be blank</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DATETIME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must conform to the format <code>dd-MM-YYYY h:m:s</code>, where <em>dd</em> is date, <em>MM</em> is month, <em>YYYY</em> is year, <em>h</em> is 24 hour of the day, <em>m</em> is minutes and <em>s</em> is seconds. e.g. <code>14-10-2018 23:30:00</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">USERNAME</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can be alphanumeric and spaces are <strong>NOT</strong> allowed, it should not be blank and be 3 to 64 characters long.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PASSWORD</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can be alphanumeric, should be at least <strong>6</strong> characters long and spaces are <strong>NOT</strong> allowed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INDEX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Refers to the index number shown by the order / deliveryman list command &amp; it must be a positive integer 1, 2, 3, &#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="sect2">
 <h3 id="viewing-help-code-help-code-code-since-v1-1-code"><a class="link" href="#viewing-help-code-help-code-code-since-v1-1-code">3.1. Viewing help : <code>/help</code> <code>[Since v1.1]</code></a></h3>
 <div class="paragraph">
@@ -143,19 +190,6 @@ automatically logged into the application.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>/signup n/NAME u/USERNAME pw/PASSWORD</code></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>NAME</strong>: Can be alphanumeric and spaces are allowed, it should not be blank and be 1 to 64 characters long.</p>
-</li>
-<li>
-<p><strong>USERNAME</strong>: Can be alphanumeric and spaces are <strong>NOT</strong> allowed, it should not be blank and be 3 to 64 characters long.</p>
-</li>
-<li>
-<p><strong>PASSWORD</strong>: Can be alphanumeric, should be at least <strong>6</strong> characters long and spaces are <strong>NOT</strong> allowed.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -176,16 +210,6 @@ automatically logged into the application.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>/login u/USERNAME pw/PASSWORD</code></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>USERNAME</strong>: Can be alphanumeric and spaces are <strong>NOT</strong> allowed, it should not be blank and be 3 to 64 characters long.</p>
-</li>
-<li>
-<p><strong>PASSWORD</strong>: Can be alphanumeric, should be at least <strong>6</strong> characters long and spaces are <strong>NOT</strong> allowed.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -219,9 +243,6 @@ Format: <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code></p>
 <ul>
 <li>
 <p>Able to add more than 1 food items by specifying more food tags. e.g. <code>f/Roti Prata f/Ice Milo</code>.</p>
-</li>
-<li>
-<p>DATETIME format is <code>dd-MM-YYYY h:m:s</code> where dd is date, MM is month,  YYYY is year, h is 24 hour of the day, m is minutes, s is seconds. e.g. 14-10-2018 23:30:00.</p>
 </li>
 </ul>
 </div>
@@ -259,7 +280,7 @@ Format: <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATE
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the order at the specified <code>INDEX</code>. The index refers to the index number shown by <code>/order list</code>. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the order at the specified <code>INDEX</code>.</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -298,21 +319,28 @@ Edits the food of the 2nd order to be <code>Maggi Goreng, Ice Milo</code>.</p>
 <div class="sect2">
 <h3 id="finding-orders-by-name-or-phone-code-order-find-code-code-since-v1-2-code"><a class="link" href="#finding-orders-by-name-or-phone-code-order-find-code-code-since-v1-2-code">3.8. Finding orders by name or phone : <code>/order find</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
-<p>Find orders whose name or phone contain in the given parameter.<br>
-Format: <code>/order find [n/NAME] [p/PHONE]</code><br></p>
+<p>Find any order/s with any given order fields.<br>
+Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/food] [dt/DATETIME]</code><br></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>At least one of the optional fields must be provided.</p>
+<p>All fields are optional. However, at least one field must be specified.</p>
+</li>
+<li>
+<p>Empty value after any fields are not allowed. e.g. <code>n/</code></p>
 </li>
 <li>
 <p>The search is case insensitive. e.g <code>tom</code> will match <code>Tom</code></p>
 </li>
 <li>
-<p>Partial match is allowed for searching of names. e.g. <code>tom</code> will match <code>tom smith</code></p>
+<p>Partial match is allowed for name, phone and food. e.g. <code>alex</code> will match <code>alex lim</code></p>
+</li>
+<li>
+<p>To find for orders with a date range, use 2 date fields. e.g. <code>dt/01-10-2018 10:00:00 dt/03-10-2018
+10:00:00</code> will return order/s within the 2 dates.</p>
 </li>
 </ul>
 </div>
@@ -328,8 +356,13 @@ Format: <code>/order find [n/NAME] [p/PHONE]</code><br></p>
 Returns <code>john</code> and <code>John Doe</code></p>
 </li>
 <li>
-<p><code>/order find p/9112 2113</code><br>
-Returns <code>91122113</code></p>
+<p><code>/order find p/81231233 a/block 123, Clementi Drive, #01-01</code><br>
+Returns orders with phone number of <code>81231233</code> and address of <code>block 123,
+Clementi Drive, #01-01</code></p>
+</li>
+<li>
+<p><code>/order find dt/01-10-2018 10:00:00 dt/03-10-2018 10:00:00</code><br>
+Returns for orders that are within the datetime <code>01-10-2018 10:00:00 and 03-10-2018 10:00:00</code></p>
 </li>
 </ul>
 </div>
@@ -346,12 +379,6 @@ Format: <code>/order delete INDEX</code></p>
 <ul>
 <li>
 <p>Deletes an order at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed order list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>Orders that are already assigned to a deliveryman cannot be deleted.</p>
@@ -424,14 +451,14 @@ Format: <code>/deliveryman list</code></p>
 <h3 id="editing-a-delivery-man-code-deliveryman-edit-code-code-coming-in-v2-0-code"><a class="link" href="#editing-a-delivery-man-code-deliveryman-edit-code-code-coming-in-v2-0-code">3.13. Editing a delivery man : <code>/deliveryman edit</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing delivery man in the list of delivery men.<br>
-Format: <code>/delivery man edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]</code></p>
+Format: <code>/delivery man edit INDEX n/NAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the delivery man at the specified <code>INDEX</code>. The index refers to the index number shown by <code>/deilveryman list</code>. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Edits the delivery man at the specified <code>INDEX</code>.</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -440,7 +467,7 @@ Format: <code>/delivery man edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]</code></p>
 <p>Existing values will be updated to the input values.</p>
 </li>
 <li>
-<p>When a parameter is specified, e.g. <code>n/</code>, <code>p/</code> empty fields are not allowed. A value must be specified.</p>
+<p>When a parameter is specified, e.g. <code>n/</code>, empty fields are not allowed. A value must be specified.</p>
 </li>
 </ul>
 </div>
@@ -453,8 +480,8 @@ Format: <code>/delivery man edit INDEX [n/NAME] [p/PHONE] [a/ADDRESS]</code></p>
 <ul>
 <li>
 <p><code>/deliveryman list</code><br>
-<code>/deliveryman edit 1 n/John Doe p/12345678</code><br>
-Edits the name and phone number of the 1st delivery man to be <code>John Doe</code> and <code>12345678</code> respectively.</p>
+<code>/deliveryman edit 1 n/John Doe</code><br>
+Edits the name of the 1st delivery man to be <code>John Doe</code>.</p>
 </li>
 </ul>
 </div>
@@ -509,12 +536,6 @@ Format: <code>/deliveryman delete INDEX</code></p>
 <ul>
 <li>
 <p>Deletes a delivery man at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed delivery men list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
 <p>Deliveryman that already have orders assigned cannot be deleted.</p>
@@ -742,7 +763,7 @@ e.g. <code>/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi R
 e.g. <code>/order edit 2 n/James Lee</code></p>
 </li>
 <li>
-<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE]</code><br>
+<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/food] [dt/DATETIME]</code><br>
 e.g. <code>/order find n/James Jake</code></p>
 </li>
 <li>
@@ -760,7 +781,7 @@ e.g. <code>/deliveryman add n/James Ho</code></p>
 <p><strong>Listing delivery men</strong> : <code>/deliveryman list</code></p>
 </li>
 <li>
-<p><strong>Edit delivery man</strong> (Coming in v2.0) : <code>/deliveryman edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS]</code><br>
+<p><strong>Edit delivery man</strong> (Coming in v2.0) : <code>/deliveryman edit INDEX n/NAME</code><br>
 e.g. <code>/deliveryman edit 2 n/James Lee</code></p>
 </li>
 <li>
@@ -813,4 +834,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 11:16:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 14:46:15 UTC</div></div></div></body></html>
