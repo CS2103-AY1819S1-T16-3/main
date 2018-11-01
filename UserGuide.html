@@ -20,7 +20,7 @@
 <li><a href="#adding-an-order-code-order-add-code-code-since-v1-1-code">3.5. Adding an order : <code>/order add</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#listing-all-orders-code-order-list-code-code-since-v1-1-code">3.6. Listing all orders : <code>/order list</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#editing-an-order-code-order-edit-code-code-since-v1-2-code">3.7. Editing an order : <code>/order edit</code> <code>[Since v1.2]</code></a></li>
-<li><a href="#finding-orders-by-name-or-phone-code-order-find-code-code-since-v1-2-code">3.8. Finding orders by name or phone : <code>/order find</code> <code>[Since v1.2]</code></a></li>
+<li><a href="#finding-orders-code-order-find-code-code-since-v1-2-code">3.8. Finding orders : <code>/order find</code> <code>[Since v1.2]</code></a></li>
 <li><a href="#deleting-an-order-code-order-delete-code-code-since-v1-1-code">3.9. Deleting an order : <code>/order delete</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#clearing-all-order-entries-code-order-clear-code-code-since-v1-1-code">3.10. Clearing all order entries : <code>/order clear</code> <code>[Since v1.1]</code></a></li>
 <li><a href="#adding-a-delivery-man-code-deliveryman-add-code-code-since-v1-2-code">3.11. Adding a delivery man : <code>/deliveryman add</code> <code>[Since v1.2]</code></a></li>
@@ -392,7 +392,7 @@ Edits the food of the 2nd order to be <code>Maggi Goreng, Ice Milo</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="finding-orders-by-name-or-phone-code-order-find-code-code-since-v1-2-code"><a class="link" href="#finding-orders-by-name-or-phone-code-order-find-code-code-since-v1-2-code">3.8. Finding orders by name or phone : <code>/order find</code> <code>[Since v1.2]</code></a></h3>
+<h3 id="finding-orders-code-order-find-code-code-since-v1-2-code"><a class="link" href="#finding-orders-code-order-find-code-code-since-v1-2-code">3.8. Finding orders : <code>/order find</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
 <p>Find any order/s with any given order fields.<br>
 Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/food] [dt/DATETIME]</code><br></p>
@@ -416,6 +416,10 @@ Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/food] [dt/DATETIME]<
 <li>
 <p>To find for orders with a date range, use 2 date fields. e.g. <code>dt/01-10-2018 10:00:00 dt/03-10-2018
 10:00:00</code> will return order/s within the 2 dates.</p>
+</li>
+<li>
+<p>To find for orders from a specific date, use 1 date field. e.g <code>dt/01-10-2018 10:00:00</code> will return order/s on that
+date.</p>
 </li>
 </ul>
 </div>
@@ -909,4 +913,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 15:02:27 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 15:26:26 UTC</div></div></div></body></html>
