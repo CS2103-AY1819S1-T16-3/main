@@ -238,6 +238,9 @@ The `Storage` component,
 * can save the FoodZoom data in xml format and read it back.
 * can save the Users' data in xml format and read it back.
 
+.Interactions inside the Storage component for whenever `ModelManager.saveFoodZoom(orderBook, deliverymenList)` is called.
+image::StorageSequenceDiagram.png[width="800"]
+
 [[Design-Commons]]
 === Common classes
 
