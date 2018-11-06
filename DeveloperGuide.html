@@ -29,12 +29,12 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#login-command">3.2. Login Command</a></li>
-<li><a href="#add-order-feature">3.3. Add Order Feature</a></li>
-<li><a href="#find-order-feature">3.4. Find Order Feature</a></li>
-<li><a href="#add-deliveryman-feature">3.5. Add deliveryman feature</a></li>
-<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.6. Create Route Feature [deprecated since v1.2.1]</a></li>
+<li><a href="#login-command">3.1. Login Command</a></li>
+<li><a href="#add-order-feature">3.2. Add Order Feature</a></li>
+<li><a href="#find-order-feature">3.3. Find Order Feature</a></li>
+<li><a href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></li>
+<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></li>
+<li><a href="#assign-feature">3.6. Assign feature</a></li>
 <li><a href="#logging">3.7. Logging</a></li>
 <li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
 </ul>
@@ -607,231 +607,9 @@ the UI automatically updates when the data in the list change.</p>
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">3.1. Undo/Redo feature</a></h3>
+<h3 id="login-command"><a class="link" href="#login-command">3.1. Login Command</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">3.1.1. Current Implementation</a></h4>
-<div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedOrderBook</code>.
-It extends <code>OrderBook</code> with an undo/redo history, stored internally as an <code>orderBookStateList</code> and
-<code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedOrderBook#commit()</code>&#8201;&#8212;&#8201;Saves the current order book state in its history.</p>
-</li>
-<li>
-<p><code>VersionedOrderBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous order book state from its history.</p>
-</li>
-<li>
-<p><code>VersionedOrderBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone order book state from its history.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitOrderBook()</code>, <code>Model#undoOrderBook()</code> and
-<code>Model#redoOrderBook()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedOrderBook</code> will be initialized with the
-initial order book state, and the <code>currentStatePointer</code> pointing to that single order book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th order in the order book. The <code>delete</code> command calls
-<code>Model#commitOrderBook()</code>, causing the modified state of the order book after the <code>delete 5</code> command executes to be
-saved in the <code>orderBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted order book state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>/order add &#8230;&#8203;</code> to add a new order. The <code>add</code> command also calls
-<code>Model#commitOrderBook()</code>, causing another modified order book state to be saved into the <code>orderBookStateList</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitOrderBook()</code>, so the order book state will not be saved
-into the <code>orderBookStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the order was a mistake, and decides to undo that action by executing the
-<code>undo</code> command. The <code>undo</code> command will call <code>Model#undoOrderBook()</code>, which will shift the <code>currentStatePointer</code> once
- to the left, pointing it to the previous order book state, and restores the order book to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial order book state, then there are no previous
-order book states to restore. The <code>undo</code> command uses <code>Model#canUndoOrderBook()</code> to check if this is the case. If so,
-it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoOrderBook()</code>, which shifts the <code>currentStatePointer</code> once
- to the right, pointing to the previously undone state, and restores the address book to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>orderBookStateList.size() - 1</code>, pointing to the latest order book state,
-then there are no undone order book states to restore. The <code>redo</code> command uses <code>Model#canRedoOrderBook()</code> to check if
-this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>/order list</code>. Commands that do not modify the order book, such
- as <code>list</code>, will usually not call <code>Model#commitOrderBook()</code>, <code>Model#undoOrderBook()</code> or <code>Model#redoOrderBook()</code>.
- Thus, the <code>orderBookStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>/order clear</code>, which calls <code>Model#commitOrderBook()</code>. Since the <code>currentStatePointer</code> is not
-pointing at the end of the <code>orderBookStateList</code>, all order book states after the <code>currentStatePointer</code> will be
-purged. We designed it this way because it no longer makes sense to redo the <code>/order add &#8230;&#8203;</code> command. This is
-the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire order book.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the person being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of order book states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
-<code>HistoryManager</code> and <code>VersionedOrderBook</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="login-command"><a class="link" href="#login-command">3.2. Login Command</a></h3>
-<div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>/login</code> command allows the <code>Manager</code> to login into the FoodZoom application and use authenticated commands like
 <code>/order add</code>, <code>/order edit</code>, <code>/order list</code>, &#8230;&#8203; .Basically all the <code>/order</code> commands and <code>/deliveryman</code> commands. The
@@ -852,7 +630,7 @@ are involved in the execution of this command. The <code>Logic</code> class is r
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.2.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for <code>/login</code>.</p>
+<p>Figure 3.1.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for <code>/login</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -860,7 +638,7 @@ are involved in the execution of this command. The <code>Logic</code> class is r
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.2.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for <code>/login</code>.</p>
+<p>Figure 3.1.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for <code>/login</code>.</p>
 </div>
 <div class="paragraph">
 <p>As shown above, execution of the <code>/login</code> command comprises of the following steps:</p>
@@ -891,7 +669,7 @@ to store the <code>User</code> object inside <code>UserSession</code>. The <code
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-code-login-code-executes"><a class="link" href="#aspect-how-code-login-code-executes">Aspect: How <code>/login</code> executes</a></h5>
 <div class="ulist">
@@ -999,9 +777,9 @@ logged in status.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-order-feature"><a class="link" href="#add-order-feature">3.3. Add Order Feature</a></h3>
+<h3 id="add-order-feature"><a class="link" href="#add-order-feature">3.2. Add Order Feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>add</code> order command allows the <code>Manager</code> to create a new order and add it to the list of orders.
 Adding a new order requires the customer&#8217;s <code>name</code>, customer&#8217;s <code>phone</code> number, customer&#8217;s <code>address</code>, <code>food</code> and the <code>datetime</code>.<br>
@@ -1016,7 +794,7 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
+<p>Figure 3.2.1.1 Sequence Diagram for order <code>find</code> command</p>
 </div>
 <div class="paragraph">
 <p>From the diagram above:</p>
@@ -1048,7 +826,7 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.2. Design Consideration</a></h4>
+<h4 id="design-consideration"><a class="link" href="#design-consideration">3.2.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-data-structure-of-list-of-order"><a class="link" href="#aspect-data-structure-of-list-of-order">Aspect: Data Structure of list of order</a></h5>
 <div class="ulist">
@@ -1118,9 +896,9 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.4. Find Order Feature</a></h3>
+<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.3. Find Order Feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The order <code>find</code> command allows searching of orders in FoodZoom. It allows searching for orders with any order fields.</p>
 </div>
@@ -1133,7 +911,7 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.4.1.1 Sequence Diagram for order <code>find</code> command</p>
+<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -1182,7 +960,7 @@ of the search.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.4.1.2 Sequence Diagram for <code>datetime</code> search</p>
+<p>Figure 3.3.1.2 Sequence Diagram for <code>datetime</code> search</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1196,7 +974,7 @@ of the search.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.4.2. Design Consideration</a></h4>
+<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.3.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-findcommand-code"><a class="link" href="#aspect-implementation-of-code-findcommand-code">Aspect: Implementation of <code>FindCommand</code></a></h5>
 <div class="ulist">
@@ -1266,9 +1044,9 @@ of the search.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">3.5. Add deliveryman feature</a></h3>
+<h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>add</code> deliveryman command allows the Manager to add deliveryman into FoodZoom. It ensures that the newly-added deliveryman
 is not a duplicate of an existing deliveryman.</p>
@@ -1283,10 +1061,10 @@ command:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.5.1.1 Sequence Diagram for deliveryman <code>add</code> command</p>
+<p>Figure 3.4.1.1 Sequence Diagram for deliveryman <code>add</code> command</p>
 </div>
 <div class="paragraph">
-<p>From Figure 3.5.1.1:</p>
+<p>From Figure 3.4.1.1:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1319,7 +1097,7 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.4.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommandparser-code"><a class="link" href="#implementation-of-code-deliverymanaddcommandparser-code">Implementation of <code>DeliverymanAddCommandParser</code></a></h5>
 <div class="ulist">
@@ -1389,14 +1167,14 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.6. Create Route Feature [deprecated since v1.2.1]</a></h3>
+<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></h3>
 <div class="paragraph">
 <p>This feature is deprecated as there was a design change regarding the relationship between delivery man and order.
 Previously, route was the middleman between delivery men and orders. Now, delivery men and orders are directly related.
 Route is removed as its existence will complicate implementations of other features without adding much benefit.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>create</code> route command allows creation of routes in FoodZoom.
 It allows creating routes based on the order ids.</p>
@@ -1410,7 +1188,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.6.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.5.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1418,7 +1196,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.6.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.5.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -1435,7 +1213,7 @@ It allows creating routes based on the order ids.</p>
 <p>If the arguments specified in the <code>create</code> command are valid, a <code>CreateRouteCommand</code> will be created and return back to the <code>LogicManger</code></p>
 </li>
 <li>
-<p><code>LogicManger</code> will proceed to call the <code>execute</code> command of <code>CreateRouteCommand</code></p>
+<p><code>LogicManager</code> will proceed to call the <code>execute</code> command of <code>CreateRouteCommand</code></p>
 </li>
 <li>
 <p><code>CreateRouteCommand</code> will proceed to call the <code>getFilteredOrderList</code> method of <code>Model</code></p>
@@ -1453,7 +1231,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration-3"><a class="link" href="#design-consideration-3">3.6.2. Design Consideration</a></h4>
+<h4 id="design-consideration-3"><a class="link" href="#design-consideration-3">3.5.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-createroutecommandparser-code"><a class="link" href="#aspect-implementation-of-code-createroutecommandparser-code">Aspect: Implementation of <code>CreateRouteCommandParser</code></a></h5>
 <div class="ulist">
@@ -1480,6 +1258,105 @@ It allows creating routes based on the order ids.</p>
 </li>
 <li>
 <p>Cons: Poor modularization of the <code>Command</code> classes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assign-feature"><a class="link" href="#assign-feature">3.6. Assign feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>/assign</code> command allows assigning of multiple orders to a delivery man in FoodZoom.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the sequence flow from the <code>LogicManager</code> to the <code>ModelManager</code> when a user enter a <code>/assign</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AssignCommandSequenceDiagram1.png" alt="AssignCommandSequenceDiagram1" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.6.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for <code>/assign</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AssignCommandSequenceDiagram2.png" alt="AssignCommandSequenceDiagram2" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.6.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
+</div>
+<div class="paragraph">
+<p>From the sequence diagram:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When <code>LogicManager</code> receive the <code>execute</code> command, it calls the <code>parseCommand</code> method in <code>OrderBookParser</code>.</p>
+</li>
+<li>
+<p><code>OrderBookParser</code> will receive <code>/assign</code> as the command and instantiate <code>AssignCommandParser</code> to further parse the command.</p>
+</li>
+<li>
+<p>If the arguments specified in the <code>/assign</code> command are valid, a <code>AssignCommand</code> will be created and return back to the <code>LogicManger</code></p>
+</li>
+<li>
+<p><code>LogicManager</code> will proceed to call the <code>execute</code> command of <code>AssignCommand</code></p>
+</li>
+<li>
+<p><code>AssignCommand</code> will proceed to call the <code>getFilteredOrderList</code> and <code>getFilteredDeliverymanList</code> method of <code>Model</code></p>
+</li>
+<li>
+<p>Iterate through the <code>orderIds</code>, if valid, add the <code>order</code> corresponding to that <code>index</code> to the set of <code>Order</code>.</p>
+</li>
+<li>
+<p>Create a new <code>Deliveryman</code> to be assigned from the <code>deliveryman</code> corresponding to the deliveryman index.</p>
+</li>
+<li>
+<p>Iterate through the orders, call <code>setDeliveryman</code>.</p>
+</li>
+<li>
+<p>A new route would be added and create a new <code>CommandResult</code> to be returned.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-consideration-4"><a class="link" href="#design-consideration-4">3.6.2. Design Consideration</a></h4>
+<div class="sect4">
+<h5 id="aspect-relationship-between-code-order-code-and-code-deliveryman-code"><a class="link" href="#aspect-relationship-between-code-order-code-and-code-deliveryman-code">Aspect: Relationship between <code>Order</code> and <code>Deliveryman</code></a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Two way associations between the <code>Order</code> and <code>Deliveryman</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Performing update operations such as assigning orders or marking orders as completed and displaying information on each order and
+delivery man are more effective as they are aware of one another.</p>
+</li>
+<li>
+<p>Cons: More complicated to implement the assigning of order, and subsequently other features regarding this relationship such as removing of order.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Only the <code>Deliveryman</code> is aware of the <code>Order</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easier to implement the feature and manage the order and deliveryman states.</p>
+</li>
+<li>
+<p>Cons: Performing the update operations mentioned above will be ineffective, and it will be more difficult to display information on which delivery man an order is assigned to.</p>
 </li>
 </ul>
 </div>
@@ -3315,4 +3192,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 06:27:05 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 06:44:27 UTC</div></div></div></body></html>
