@@ -178,7 +178,7 @@ in current releases.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INDEX</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Refers to the index number shown by the order / deliveryman list command &amp; it must be a positive integer 1, 2, 3, &#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Refers to the index number shown by the order / deliveryman list command &amp; it must be a positive integer 1, 2, 3, &#8230;&#8203; and no larger than 2147483647.</p></td>
 </tr>
 </tbody>
 </table>
@@ -359,6 +359,12 @@ Format: <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code></p>
 <p>If the postal code is longer than 6 digits, much like any other field, only the last 6 digits will be taken into
 consideration</p>
 </li>
+<li>
+<p>The manager is able to add dates from any time period as long as it is valid.</p>
+</li>
+<li>
+<p>Two orders are considered the same if they have the same name, phone, and date time.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -435,7 +441,7 @@ Edits the food of the 2nd order to be <code>Maggi Goreng, Ice Milo</code>.</p>
 <h3 id="finding-orders-code-order-find-code-code-since-v1-2-code"><a class="link" href="#finding-orders-code-order-find-code-code-since-v1-2-code">3.9. Finding orders : <code>/order find</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
 <p>Find any order/s with any given order fields.<br>
-Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/food] [dt/DATETIME]</code><br></p>
+Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME]</code><br></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -675,8 +681,8 @@ Format: <code>/deliveryman find n/NAME</code><br></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>/deliveryman find n/john</code><br>
-Returns <code>john</code> and <code>John Doe</code></p>
+<p><code>/deliveryman find n/John Smith</code><br>
+Returns all delivery men with the names <code>John</code> or <code>Smith</code> e.g. <code>John Smith</code>, <code>John Doe</code>, and <code>Michael Smith</code></p>
 </li>
 </ul>
 </div>
@@ -961,7 +967,7 @@ e.g. <code>/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi R
 e.g. <code>/order edit 2 n/James Lee</code></p>
 </li>
 <li>
-<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/food] [dt/DATETIME]</code><br>
+<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME]</code><br>
 e.g. <code>/order find n/James Jake</code></p>
 </li>
 <li>
@@ -1036,4 +1042,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 05:57:56 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 06:21:22 UTC</div></div></div></body></html>
