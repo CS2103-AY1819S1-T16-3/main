@@ -19,24 +19,25 @@
 </li>
 <li><a href="#design">2. Design</a>
 <ul class="sectlevel2">
-<li><a href="#Design-Architecture">2.1. Architecture</a></li>
-<li><a href="#Design-Ui">2.2. UI component</a></li>
-<li><a href="#Design-Logic">2.3. Logic component</a></li>
-<li><a href="#Design-Model">2.4. Model component</a></li>
-<li><a href="#Design-Storage">2.5. Storage component</a></li>
-<li><a href="#Design-Commons">2.6. Common classes</a></li>
+<li><a href="#architecture">2.1. Architecture</a></li>
+<li><a href="#ui-component">2.2. UI component</a></li>
+<li><a href="#logic-component">2.3. Logic component</a></li>
+<li><a href="#model-component">2.4. Model component</a></li>
+<li><a href="#storage-component">2.5. Storage component</a></li>
+<li><a href="#common-classes">2.6. Common classes</a></li>
 </ul>
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#login-command">3.1. Login Command</a></li>
-<li><a href="#add-order-feature">3.2. Add Order Feature</a></li>
-<li><a href="#find-order-feature">3.3. Find Order Feature</a></li>
-<li><a href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></li>
-<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></li>
-<li><a href="#assign-feature">3.6. Assign feature</a></li>
-<li><a href="#logging">3.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
+<li><a href="#dashboard">3.2. Dashboard</a></li>
+<li><a href="#add-order-feature">3.3. Add Order Feature</a></li>
+<li><a href="#find-order-feature">3.4. Find Order Feature</a></li>
+<li><a href="#add-deliveryman-feature">3.5. Add deliveryman feature</a></li>
+<li><a href="#create-route-feature-deprecated-since-v1-2-1">3.6. Create Route Feature [deprecated since v1.2.1]</a></li>
+<li><a href="#assign-feature">3.7. Assign feature</a></li>
+<li><a href="#logging">3.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -81,7 +82,7 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-person">H.2. Deleting a person</a></li>
+<li><a href="#deleting-an-order">H.2. Deleting an order</a></li>
 <li><a href="#saving-data">H.3. Saving data</a></li>
 </ul>
 </li>
@@ -168,22 +169,6 @@ Do not disable them. If you have disabled them, go to <code>File</code> &gt; <co
 <li>
 <p>Open a console and run the command <code>gradlew processResources</code> (Mac/Linux: <code>./gradlew processResources</code>). It should finish with the <code>BUILD SUCCESSFUL</code> message.<br>
 This will generate all resources required by the application and tests.</p>
-</li>
-<li>
-<p>Open <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/main/java/seedu/address/storage/XmlAdaptedPerson.java"><code>XmlAdaptedPerson.java</code></a> and <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow.java</code></a> and check for any code errors</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Due to an ongoing <a href="https://youtrack.jetbrains.com/issue/IDEA-189060">issue</a> with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully</p>
-</li>
-<li>
-<p>To resolve this, place your cursor over any of the code section highlighted in red. Press <span class="keyseq"><kbd>ALT</kbd>+<kbd>ENTER</kbd></span>, and select <code>Add '--add-modules=&#8230;&#8203;' to module compiler options</code> for each error</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Repeat this for the test folder as well (e.g. check <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/test/java/seedu/address/commons/util/XmlUtilTest.java"><code>XmlUtilTest.java</code></a> and <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/test/java/seedu/address/ui/HelpWindowTest.java"><code>HelpWindowTest.java</code></a> for code errors, and if so, resolve it the same way)</p>
 </li>
 </ol>
 </div>
@@ -298,7 +283,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Get some sense of the overall design by reading <a href="#Design-Architecture">Section 2.1, &#8220;Architecture&#8221;</a>.</p>
+<p>Get some sense of the overall design by reading <a href="#Design-Architecture">[Design-Architecture]</a>.</p>
 </li>
 <li>
 <p>Take a look at <a href="#GetStartedProgramming">Appendix A, <em>Suggested Programming Tasks to Get Started</em></a>.</p>
@@ -313,7 +298,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <h2 id="design"><a class="link" href="#design">2. Design</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">2.1. Architecture</a></h3>
+<h3 id="architecture"><a class="link" href="#architecture">2.1. Architecture</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/Architecture.png" alt="Architecture" width="600">
@@ -450,10 +435,10 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="Design-Ui"><a class="link" href="#Design-Ui">2.2. UI component</a></h3>
+<h3 id="ui-component"><a class="link" href="#ui-component">2.2. UI component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/UiClassDiagram.png" alt="UiClassDiagram" width="800">
+<img src="images/UiClassDiagram1.png" alt="UiClassDiagram1" width="800">
 </div>
 <div class="title">Figure 5. Structure of the UI Component</div>
 </div>
@@ -461,7 +446,8 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>OrderListPanel</code>,
+<code>StatusBarFooter</code>, <code>Dashboard</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-T16-3/main/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
@@ -484,7 +470,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="Design-Logic"><a class="link" href="#Design-Logic">2.3. Logic component</a></h3>
+<h3 id="logic-component"><a class="link" href="#logic-component">2.3. Logic component</a></h3>
 <div id="fig-LogicClassDiagram" class="imageblock">
 <div class="content">
 <img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
@@ -522,7 +508,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="Design-Model"><a class="link" href="#Design-Model">2.4. Model component</a></h3>
+<h3 id="model-component"><a class="link" href="#model-component">2.4. Model component</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
@@ -568,7 +554,7 @@ the UI automatically updates when the data in the list change.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Design-Storage"><a class="link" href="#Design-Storage">2.5. Storage component</a></h3>
+<h3 id="storage-component"><a class="link" href="#storage-component">2.5. Storage component</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
@@ -602,7 +588,7 @@ the UI automatically updates when the data in the list change.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Design-Commons"><a class="link" href="#Design-Commons">2.6. Common classes</a></h3>
+<h3 id="common-classes"><a class="link" href="#common-classes">2.6. Common classes</a></h3>
 <div class="paragraph">
 <p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
 </div>
@@ -786,13 +772,473 @@ logged in status.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-order-feature"><a class="link" href="#add-order-feature">3.2. Add Order Feature</a></h3>
+<h3 id="dashboard"><a class="link" href="#dashboard">3.2. Dashboard</a></h3>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
 <div class="paragraph">
+<p>The dashboard for this application is the main screen that the user first sees when he or
+she logs into the application. It looks like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.2.1.1 Main Screen showing the dashboard with the Map and Statistics Panel</p>
+</div>
+<div class="paragraph">
+<p>The 2 main components in the dashboard are the:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Map showing location of pending orders</p>
+</li>
+<li>
+<p>Statistics Panel giving insights of the data</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Before delving into the details for these specific components, it is
+important to consider some of the implementation details that are common to both.</p>
+</div>
+<div class="paragraph">
+<p>The dashboard dynamically updates itself when the order list has been changed. For example,
+if <code>/order find n/john</code> is executed, the dashboard will also show orders that are specific
+to john.</p>
+</div>
+<div class="paragraph">
+<p>This is done by using the observer pattern. A higher-level component, <code>Display.java</code> listens for
+changes and renders the user interface for the dashboard screen. This component attaches
+a listener to the Observable List of Orders. The following activity diagram summarize
+what happens inside the <code>Display</code> Component when a user executes a new command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UIListenerActivityDiagram.png" alt="UIListenerActivityDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.2.1.1 Activity Diagram showing what happens inside the <code>Display</code> component when a user
+executes a command</p>
+</div>
+<div class="paragraph">
+<p>The code snippet for the listener being attached is shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>this.orderList.addListener((ListChangeListener.Change&lt;? extends Order&gt; change) -&gt; {
+    while (change.next()) {
+        if (change.wasUpdated()) {
+            // handle order list being updated
+            ....
+        } else {
+            // handle removal or addition to order list
+            ....
+        }
+    }
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Through this, the <code>Display</code> component is able to control the flow of the dashboard. It is responsible for
+rendering the Map and Statistics components along with passing in the data that
+they need. The data to be passed in has to be processed into a specific format so that
+they can be easily rendered. The next two subsections in 3.2 would elaborate on how this
+data processing is done.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="map-component"><a class="link" href="#map-component">3.2.2. Map Component</a></h4>
+<div class="paragraph">
+<p>The Map shows the locations of the pending orders.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MapPanel.png" alt="MapPanel" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.2.2.1 A closer look at the Map on the dashboard.</p>
+</div>
+<div class="paragraph">
+<p>The functionality that the map provides is as follows:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>It works offline and does not require internet. There is no reliance on any external service
+like Google Maps</p>
+</li>
+<li>
+<p>Placeholders are rendered based on the location of Order given</p>
+</li>
+<li>
+<p>The size of the placeholder is indicative of the number of orders in a specific area.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In order to work offline, the map makes use of the postal code that is given
+with the order address to give a <strong>reasonable</strong> approximation of its location in Singapore.
+The reason this can be done is because the first 2 digits of a Singapore postal code
+refers to a specific district in Singapore. The demarcation diagram is show below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SingaporeDemarcation.png" alt="SingaporeDemarcation" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.2.1.2 Diagram to illustrate how the regions are split up in Singapore. Each of the
+regions above corresponds to a specifc postal code tag</p>
+</div>
+<div class="paragraph">
+<p>For example, if the first 2 digits of the given postal code is "61", the
+Order falls under district 22 (with reference to the image above). If the first 2 digits are
+"47", the location is district 16.</p>
+</div>
+<div class="paragraph">
+<p>Based on this information in order to create an offline map, the components/data structures
+used are as follows:</p>
+</div>
+<div class="paragraph">
+<p><strong>An image of a Map that lies on a grid (JavaFx <code>GridPane</code>)</strong></p>
+</div>
+<div class="paragraph">
+<p>This is the component that displays on the dashboard. This component creates and
+updates the placeholders on the map based on the information that it is provided. The component
+has no knowledge of changes to the list of orders. Instead, it exposes 2 methods, <code>initialise</code>
+and <code>clear</code> that is used by the higher-order component to update the placeholders.</p>
+</div>
+<div class="paragraph">
+<p>The code snippet for the initialisation of the placeholders is shown below. Further details on
+the data passed in is given below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>public void initialise(HashMap&lt;String, Integer&gt; orderMap) {
+    // for each postal code
+    for (String postalCodeKey : orderMap.keySet()) {
+
+        if (POSTAL_CODE_CACHE.containsKey(postalCodeKey)) {
+
+            int regionCode = POSTAL_CODE_CACHE.get(postalCodeKey);
+            Integer[] coordinates = DISTRICT_CACHE.get(regionCode);
+
+            placeholderContainer = new ImageView(placeholder);
+
+            int count = orderMap.get(postalCodeKey);
+            int increment = 16 + count * 2;
+
+            placeholderContainer.setPreserveRatio(true);
+            placeholderContainer.setFitHeight(increment);
+            placeholderContainer.setFitWidth(increment);
+
+            mapPane.add(placeholderContainer, coordinates[1], coordinates[0]);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>A Hashtable (Java <code>HashMap</code>) that maps the first two digits of the postal
+code to a specific coordinate on the grid</strong></p>
+</div>
+<div class="paragraph">
+<p>As mentioned above, the map is an image that lies on a grid. The placeholders are
+put onto a specific coordinate specified on the grid. The Map component is thus given
+a Hash Table of how many orders fall under a specific postal code region. An example data that it
+could be given is shown below:</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Postal Code Region</th>
+<th class="tableblock halign-left valign-top">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">61</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Using this information, the <code>MapPanel</code> uses another lookup table to find out
+which coordinate the placeholder should be put inside. For example, postal code 61, is
+to be put inside grid {row: 6, column: 2}. The size of the placeholder is determined
+by the <code>count</code> of orders that fall within a specific region.</p>
+</div>
+<div class="paragraph">
+<p>The job of the <code>Display</code> component is to process the list of Orders into the format shown
+in the table above. It then calls specific method on the <code>MapPanel</code> component to allow
+for placeholders to be shown on the map. This is how the map is able to show locations
+of orders without relying on any internet connection.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="statistics-panel"><a class="link" href="#statistics-panel">3.2.3. Statistics Panel</a></h4>
+<div class="paragraph">
+<p>Another aspect for the dashboard is the statistics panel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/StatisticsPanel.png" alt="StatisticsPanel" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Figure 3.2.3.1 A closer look at the statistics panel in the dashboard</p>
+</div>
+<div class="paragraph">
+<p>The statistics panel has four key indicators:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The total number of orders displayed</p>
+</li>
+<li>
+<p>The percentage of orders that are still pending</p>
+</li>
+<li>
+<p>The most common food item bought</p>
+</li>
+<li>
+<p>The Order History for the last 7 days in which there was at least one order</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Similar to the <code>MapPanel</code>, there is a <code>StatisticsPanel</code> which updates these statistics based
+on the information that it is provided from a higher-level component. It has similar methods
+to the <code>MapPanel</code> that allow data to be initialized and cleared.</p>
+</div>
+<div class="paragraph">
+<p>The data that is passed in to the <code>StatisticsPanel</code> along with the techniques employed to
+process the data is further elaborated on in the table below:</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 59%;">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Statistic</th>
+<th class="tableblock halign-left valign-top">Data Structure</th>
+<th class="tableblock halign-left valign-top">Technique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Total Orders</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count the orders in the list</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pending Order Percentage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Variable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count orders with status "PENDING" and divide with total orders</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trending Food Item</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HashTable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use a lookup table to track the count of each food item in menu.
+Each time there is an update ot the orders, run through the table and see which food item has the largest count value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Order Histogram</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Balanced Binary Search Tree (Java <code>TreeMap</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The dates from the Orders are put
+into a binary search tree along with their count. The tree uses a custom comparator that allows for dates to be
+compared with each other. This allows the 7 most recent dates with at least one order to be retrieved quickly. The
+tree is updated accordingly when orders are added or removed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-for-both-map-statistics"><a class="link" href="#design-considerations-for-both-map-statistics">3.2.4. Design Considerations (for both Map/Statistics)</a></h4>
+<div class="sect4">
+<h5 id="aspect-processing-of-data"><a class="link" href="#aspect-processing-of-data">Aspect: Processing of data</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (Current Approach):</strong> Let the UI component, handle the
+processing of data once the listener detects a change</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Separation of Concerns: the UI need not rely on other components to
+update the statistics once a change has been detected.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There is a lot of code within the UI component itself and this solution
+is not very scalable. If more statistics are needed in the future, it will
+be difficult to configure.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 :</strong> Create a Statistics Manager under Model</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Instead of doing all the processing of data in the UI component itself,
+one consideration was to use a statistics manager. This
+manager will take in the list of orders and return the required statistics needed.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This solution is more scalable. By having a separate class dedicated to managing the
+statistics of orders, it is easier to add in much more
+complex statistics for the application in future.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There is more coupling. The UI has to constantly check with the
+statistics manager once a change to the observable list is detected.</p>
+</li>
+<li>
+<p>The code becomes much more complex. There also may be a need to re-look at
+how the entire listener pattern is established.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-gathering-location-data"><a class="link" href="#aspect-gathering-location-data">Aspect: Gathering Location Data</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (Current Approach):</strong> Use a cache to map points based
+on the first 2 digits of postal code</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The application would work offline.</p>
+</li>
+<li>
+<p>There is no reliance on an external API service for the application to
+function. If the API service fails to function at any point of time, the
+map may not work anymore.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There are inaccuracies in the data that is displayed on the map. It is also
+not very precise. e.g. You cannot zoom into the map and locate where
+exactly the orders are.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 :</strong> Make use of an external API service like Google
+Maps to render the location placeholders on the map</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The location data would be much more accurate and precise. Locations
+can be mapped exactly as they are. Relying on a powerful service could
+mean that this map feature can even be extended to work globally (not
+just Singapore).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>As mentioned above, there will now be a reliance on this service for this
+application to work. This would also introduce more overhead to the code e.g
+there is now a need to check for internet connection and render loaders so
+that the user experience is not affected.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="add-order-feature"><a class="link" href="#add-order-feature">3.3. Add Order Feature</a></h3>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<div class="paragraph">
 <p>The <code>add</code> order command allows the <code>Manager</code> to create a new order and add it to the list of orders.
 Adding a new order requires the customer&#8217;s <code>name</code>, customer&#8217;s <code>phone</code> number, customer&#8217;s <code>address</code>, <code>food</code> and the <code>datetime</code>.<br>
-The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code>.</p>
+The format of the <code>add</code> command is <code>/order add n/NAME p/PHONE a/ADDRESS f/FOOD dt/DATETIME</code>.</p>
 </div>
 <div class="paragraph">
 <p>The following sequence shows the sequence when the <code>add</code> command is execute by the <code>Manager</code>:</p>
@@ -803,7 +1249,7 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.2.1.1 Sequence Diagram for order <code>find</code> command</p>
+<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
 </div>
 <div class="paragraph">
 <p>From the diagram above:</p>
@@ -835,9 +1281,9 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration"><a class="link" href="#design-consideration">3.2.2. Design Consideration</a></h4>
+<h4 id="design-consideration"><a class="link" href="#design-consideration">3.3.2. Design Consideration</a></h4>
 <div class="sect4">
-<h5 id="aspect-data-structure-of-list-of-order"><a class="link" href="#aspect-data-structure-of-list-of-order">Aspect: Data Structure of list of order</a></h5>
+<h5 id="aspect-data-structure-for-the-list-of-orders"><a class="link" href="#aspect-data-structure-for-the-list-of-orders">Aspect: Data Structure for the list of Orders</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -905,9 +1351,9 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.3. Find Order Feature</a></h3>
+<h3 id="find-order-feature"><a class="link" href="#find-order-feature">3.4. Find Order Feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">3.3.1. Current Implementation</a></h4>
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The order <code>find</code> command allows searching of orders in FoodZoom. It allows searching for orders with any order fields.</p>
 </div>
@@ -920,7 +1366,7 @@ The format of the <code>add</code> command is <code>/order add f/FOOD n/NAME p/P
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.3.1.1 Sequence Diagram for order <code>find</code> command</p>
+<p>Figure 3.4.1.1 Sequence Diagram for order <code>find</code> command</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -969,7 +1415,7 @@ of the search.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.3.1.2 Sequence Diagram for <code>datetime</code> search</p>
+<p>Figure 3.4.1.2 Sequence Diagram for <code>datetime</code> search</p>
 </div>
 <div class="ulist">
 <ul>
@@ -983,7 +1429,7 @@ of the search.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.3.2. Design Consideration</a></h4>
+<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">3.4.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-findcommand-code"><a class="link" href="#aspect-implementation-of-code-findcommand-code">Aspect: Implementation of <code>FindCommand</code></a></h5>
 <div class="ulist">
@@ -1053,9 +1499,9 @@ of the search.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">3.4. Add deliveryman feature</a></h3>
+<h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">3.5. Add deliveryman feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">3.4.1. Current Implementation</a></h4>
+<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>add</code> deliveryman command allows the Manager to add deliveryman into FoodZoom. It ensures that the newly-added deliveryman
 is not a duplicate of an existing deliveryman.</p>
@@ -1070,10 +1516,10 @@ command:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.4.1.1 Sequence Diagram for deliveryman <code>add</code> command</p>
+<p>Figure 3.5.1.1 Sequence Diagram for deliveryman <code>add</code> command</p>
 </div>
 <div class="paragraph">
-<p>From Figure 3.4.1.1:</p>
+<p>From Figure 3.5.1.1:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1106,7 +1552,7 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.4.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommandparser-code"><a class="link" href="#implementation-of-code-deliverymanaddcommandparser-code">Implementation of <code>DeliverymanAddCommandParser</code></a></h5>
 <div class="ulist">
@@ -1176,14 +1622,14 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.5. Create Route Feature [deprecated since v1.2.1]</a></h3>
+<h3 id="create-route-feature-deprecated-since-v1-2-1"><a class="link" href="#create-route-feature-deprecated-since-v1-2-1">3.6. Create Route Feature [deprecated since v1.2.1]</a></h3>
 <div class="paragraph">
 <p>This feature is deprecated as there was a design change regarding the relationship between delivery man and order.
 Previously, route was the middleman between delivery men and orders. Now, delivery men and orders are directly related.
 Route is removed as its existence will complicate implementations of other features without adding much benefit.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-5"><a class="link" href="#current-implementation-5">3.5.1. Current Implementation</a></h4>
+<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>create</code> route command allows creation of routes in FoodZoom.
 It allows creating routes based on the order ids.</p>
@@ -1197,7 +1643,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.5.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.6.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1205,7 +1651,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.5.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.6.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -1240,7 +1686,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration-3"><a class="link" href="#design-consideration-3">3.5.2. Design Consideration</a></h4>
+<h4 id="design-consideration-3"><a class="link" href="#design-consideration-3">3.6.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-implementation-of-code-createroutecommandparser-code"><a class="link" href="#aspect-implementation-of-code-createroutecommandparser-code">Aspect: Implementation of <code>CreateRouteCommandParser</code></a></h5>
 <div class="ulist">
@@ -1277,9 +1723,9 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assign-feature"><a class="link" href="#assign-feature">3.6. Assign feature</a></h3>
+<h3 id="assign-feature"><a class="link" href="#assign-feature">3.7. Assign feature</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-6"><a class="link" href="#current-implementation-6">3.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-7"><a class="link" href="#current-implementation-7">3.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The <code>/assign</code> command allows assigning of multiple orders to a delivery man in FoodZoom.</p>
 </div>
@@ -1292,7 +1738,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.6.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for <code>/assign</code> command.</p>
+<p>Figure 3.7.1.1 Sequence diagram to illustrate <code>Logic</code> component interactions for <code>/assign</code> command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1300,7 +1746,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Figure 3.6.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
+<p>Figure 3.7.1.2 Sequence diagram to illustrate <code>Logic</code> and <code>Model</code> component interactions for route <code>create</code> command.</p>
 </div>
 <div class="paragraph">
 <p>From the sequence diagram:</p>
@@ -1338,7 +1784,7 @@ It allows creating routes based on the order ids.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-consideration-4"><a class="link" href="#design-consideration-4">3.6.2. Design Consideration</a></h4>
+<h4 id="design-consideration-4"><a class="link" href="#design-consideration-4">3.7.2. Design Consideration</a></h4>
 <div class="sect4">
 <h5 id="aspect-relationship-between-code-order-code-and-code-deliveryman-code"><a class="link" href="#aspect-relationship-between-code-order-code-and-code-deliveryman-code">Aspect: Relationship between <code>Order</code> and <code>Deliveryman</code></a></h5>
 <div class="ulist">
@@ -1376,14 +1822,14 @@ delivery man are more effective as they are aware of one another.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1414,7 +1860,7 @@ delivery man are more effective as they are aware of one another.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1844,7 +2290,7 @@ b. Require developers to download those libraries manually (this creates extra w
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Do take a look at <a href="#Design-Logic">Section 2.3, &#8220;Logic component&#8221;</a> before attempting to modify the <code>Logic</code> component.
+Do take a look at <a href="#Design-Logic">[Design-Logic]</a> before attempting to modify the <code>Logic</code> component.
 </td>
 </tr>
 </table>
@@ -1910,7 +2356,7 @@ analyzing command words.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Do take a look at <a href="#Design-Model">Section 2.4, &#8220;Model component&#8221;</a> before attempting to modify the <code>Model</code> component.
+Do take a look at <a href="#Design-Model">[Design-Model]</a> before attempting to modify the <code>Model</code> component.
 </td>
 </tr>
 </table>
@@ -1977,7 +2423,7 @@ Do take a look at <a href="#Design-Model">Section 2.4, &#8220;Model component&#8
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Do take a look at <a href="#Design-Ui">Section 2.2, &#8220;UI component&#8221;</a> before attempting to modify the <code>UI</code> component.
+Do take a look at <a href="#Design-Ui">[Design-Ui]</a> before attempting to modify the <code>UI</code> component.
 </td>
 </tr>
 </table>
@@ -2199,7 +2645,7 @@ Do take a look at <a href="#Design-Ui">Section 2.2, &#8220;UI component&#8221;</
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Do take a look at <a href="#Design-Storage">Section 2.5, &#8220;Storage component&#8221;</a> before attempting to modify the <code>Storage</code> component.
+Do take a look at <a href="#Design-Storage">[Design-Storage]</a> before attempting to modify the <code>Storage</code> component.
 </td>
 </tr>
 </table>
@@ -3144,32 +3590,31 @@ Expected: The most recent window size and location is retained.</p>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">H.2. Deleting a person</a></h3>
+<h3 id="deleting-an-order"><a class="link" href="#deleting-an-order">H.2. Deleting an order</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deleting a person while all persons are listed</p>
+<p>Deleting an order while all order are listed</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
+<p>Prerequisites: List all orders using the <code>/order list</code> command. Multiple orders in the list.</p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Test case: <code>/order delete 1</code><br>
+Expected: First order is deleted from the list. Details of the deleted order shown in the status message.
+Timestamp in the status bar is updated.</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+<p>Test case: <code>/order delete 0</code><br>
+Expected: No order is deleted. Error details shown in the status message. Status bar remains the same.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
-Expected: Similar to previous.</p>
+<p>Other incorrect delete commands to try: <code>/order delete</code>, <code>/order delete x</code> (where x is larger than the list size)
+<em>{give more}</em><br>
+   Expected: Similar to previous.</p>
 </li>
 </ol>
 </div>
@@ -3201,4 +3646,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 12:54:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 13:07:06 UTC</div></div></div></body></html>
