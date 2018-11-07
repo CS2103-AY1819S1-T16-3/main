@@ -32,11 +32,11 @@
 <li><a href="#deleting-a-delivery-man-code-deliveryman-delete-code-code-since-v1-2-code">3.17. Deleting a delivery man : <code>/deliveryman delete</code> <code>[Since v1.2]</code></a></li>
 <li><a href="#selecting-a-deliveryman-code-deliveryman-select-code-code-since-v1-4-code">3.18. Selecting a deliveryman : <code>/deliveryman select</code> <code>[Since v1.4]</code></a></li>
 <li><a href="#clearing-all-delivery-men-entries-code-deliveryman-clear-code-code-coming-in-v2-0-code">3.19. Clearing all delivery men entries : <code>/deliveryman clear</code> <code>[Coming in v2.0]</code></a></li>
-<li><a href="#creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code">3.20. Creating a new route: <code>/route create</code> <code>[Deprecated since v1.2.1]</code></a></li>
-<li><a href="#assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code">3.21. Assign orders to a delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></li>
-<li><a href="#mark-an-order-as-completed-code-order-done-code-code-since-v1-4-code">3.22. Mark an order as completed : <code>/order done</code> <code>[Since v1.4]</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code-code-since-v1-1-code">3.23. Listing entered commands : <code>/history</code> <code>[Since v1.1]</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code-code-since-v1-1-code">3.24. Exiting the program : <code>/exit</code> <code>[Since v1.1]</code></a></li>
+<li><a href="#assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code">3.20. Assign orders to a delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></li>
+<li><a href="#mark-an-order-as-completed-code-order-done-code-code-since-v1-4-code">3.21. Mark an order as completed : <code>/order done</code> <code>[Since v1.4]</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code-code-since-v1-1-code">3.22. Listing entered commands : <code>/history</code> <code>[Since v1.1]</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code-code-since-v1-1-code">3.23. Exiting the program : <code>/exit</code> <code>[Since v1.1]</code></a></li>
+<li><a href="#creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code">3.24. Creating a new route: <code>/route create</code> <code>[Deprecated since v1.2.1]</code></a></li>
 <li><a href="#saving-the-data">3.25. Saving the data</a></li>
 <li><a href="#viewing-help-code-help-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.26. Viewing help : <code>/help</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
 <li><a href="#login-to-system-code-login-code-code-deliveryman-command-code-code-coming-in-v2-0-code">3.27. Login to system : <code>/login</code> <code>(Deliveryman Command)</code> <code>[Coming in v2.0]</code></a></li>
@@ -125,7 +125,7 @@ the format to be used for all the commands and the syntax that is to be followed
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>/order add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>/order add n/John Doe</code>.</p>
 </li>
 <li>
 <p>Items in square brackets are optional e.g <code>n/NAME [p/PHONE]</code> can be used as <code>n/John Doe p/9112</code> or as <code>n/John Doe</code>.</p>
@@ -140,7 +140,7 @@ the format to be used for all the commands and the syntax that is to be followed
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>Fields restrictions</strong>:</p>
+<p><strong>Fields restrictions</strong></p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -169,6 +169,10 @@ the format to be used for all the commands and the syntax that is to be followed
 <td class="tableblock halign-left valign-top"><p class="tableblock">Must conform to the format <code>dd-MM-YYYY h:m:s</code>, where <em>dd</em> is date, <em>MM</em> is month, <em>YYYY</em> is year, <em>h</em> is 24 hour of the day, <em>m</em> is minutes and <em>s</em> is seconds. e.g. <code>14-10-2018 23:30:00</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ORDER_STATUS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>PENDING</code>, <code>ONGOING</code> or <code>COMPLETED</code> are allowed</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">USERNAME</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Can be alphanumeric and spaces are <strong>NOT</strong> allowed, it should not be blank and be 3 to 64 characters long.</p></td>
 </tr>
@@ -188,7 +192,7 @@ in current releases.</p></td>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p><strong>Available Commands</strong>:</p>
+<p><strong>Available Commands</strong></p>
 </div>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -232,10 +236,16 @@ in current releases.</p></td>
 <p><code>/order find</code></p>
 </div>
 <div class="paragraph">
+<p><code>/order select</code></p>
+</div>
+<div class="paragraph">
 <p><code>/order delete</code></p>
 </div>
 <div class="paragraph">
 <p><code>/order clear</code></p>
+</div>
+<div class="paragraph">
+<p><code>/order done</code></p>
 </div>
 <div class="paragraph">
 <p><code>/deliveryman add</code></p>
@@ -245,6 +255,9 @@ in current releases.</p></td>
 </div>
 <div class="paragraph">
 <p><code>/deliveryman find</code></p>
+</div>
+<div class="paragraph">
+<p><code>/deliveryman select</code></p>
 </div>
 <div class="paragraph">
 <p><code>/deliveryman delete</code></p>
@@ -357,7 +370,7 @@ Format: <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code></p>
 <p>Address must be a valid address that exists in Singapore to be displayed on the map.</p>
 </li>
 <li>
-<p>If the postal code is longer than 6 digits, much like any other field, only the last 6 digits will be taken into
+<p>If the postal code is longer than 6 digits, much like any other field, only the <strong>last 6 digits</strong> will be taken into
 consideration</p>
 </li>
 <li>
@@ -442,7 +455,7 @@ Edits the food of the 2nd order to be <code>Maggi Goreng, Ice Milo</code>.</p>
 <h3 id="finding-orders-code-order-find-code-code-since-v1-2-code"><a class="link" href="#finding-orders-code-order-find-code-code-since-v1-2-code">3.9. Finding orders : <code>/order find</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
 <p>Find any order/s with any given order fields.<br>
-Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME]</code><br></p>
+Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME] [st/ORDER_STATUS]</code><br></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -458,15 +471,15 @@ Format: <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME]<
 <p>The search is case insensitive. e.g <code>tom</code> will match <code>Tom</code></p>
 </li>
 <li>
-<p>Partial match is allowed for name, phone and food. e.g. <code>alex</code> will match <code>alex lim</code></p>
-</li>
-<li>
-<p>To find for orders with a date range, use 2 date fields. e.g. <code>dt/01-10-2018 10:00:00 dt/03-10-2018
-10:00:00</code> will return order/s within the 2 dates.</p>
+<p>Partial match is allowed for name, phone and food. e.g. <code>alex</code> will match <code>alex lim</code> and <code>al</code> will match <code>alex lim</code></p>
 </li>
 <li>
 <p>To find for orders from a specific date, use 1 date field. e.g <code>dt/01-10-2018 10:00:00</code> will return order/s on that
 date.</p>
+</li>
+<li>
+<p>To find for orders with a date range, use 2 date fields. e.g. <code>dt/01-10-2018 10:00:00 dt/03-10-2018
+10:00:00</code> will return order/s within the 2 dates.</p>
 </li>
 </ul>
 </div>
@@ -615,7 +628,7 @@ Format: <code>/deliveryman list</code></p>
 <h3 id="editing-a-delivery-man-code-deliveryman-edit-code-code-coming-in-v2-0-code"><a class="link" href="#editing-a-delivery-man-code-deliveryman-edit-code-code-coming-in-v2-0-code">3.15. Editing a delivery man : <code>/deliveryman edit</code> <code>[Coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing delivery man in the list of delivery men.<br>
-Format: <code>/delivery man edit INDEX n/NAME</code></p>
+Format: <code>/deliveryman edit INDEX n/NAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -772,38 +785,7 @@ Format: <code>/deliveryman clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code"><a class="link" href="#creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code">3.20. Creating a new route: <code>/route create</code> <code>[Deprecated since v1.2.1]</code></a></h3>
-<div class="paragraph">
-<p>Creates a route with a set of orders<br>
-Format: <code>/route create o/ORDER_ID</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>All fields need to have at least a value. e.g. <code>o/</code> is not allowed.</p>
-</li>
-<li>
-<p>Able to add more than 1 orders by specifying more tags. e.g. <code>o/1 o/2 o/3</code>.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>/route create o/1 o/3</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code"><a class="link" href="#assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code">3.21. Assign orders to a delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></h3>
+<h3 id="assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code"><a class="link" href="#assign-orders-to-a-delivery-man-code-assign-code-code-since-v1-3-code">3.20. Assign orders to a delivery man : <code>/assign</code> <code>[Since v1.3]</code></a></h3>
 <div class="paragraph">
 <p>Assign multiple orders to a delivery man<br>
 Format: <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code></p>
@@ -814,13 +796,6 @@ Format: <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code></p>
 <ul>
 <li>
 <p>Assigns orders at the specific <code>ORDER_INDEX</code> to the delivery man at the <code>DELIVERYMAN_INDEX</code></p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed delivery men list or orders list respectively.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203; and must be within the number of displayed delivery men or orders
-respectively.</p>
 </li>
 <li>
 <p>There must be at least 1 order and 1 delivery man.</p>
@@ -850,7 +825,7 @@ Assigns order number 1 and 2 to delivery man number 2.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mark-an-order-as-completed-code-order-done-code-code-since-v1-4-code"><a class="link" href="#mark-an-order-as-completed-code-order-done-code-code-since-v1-4-code">3.22. Mark an order as completed : <code>/order done</code> <code>[Since v1.4]</code></a></h3>
+<h3 id="mark-an-order-as-completed-code-order-done-code-code-since-v1-4-code"><a class="link" href="#mark-an-order-as-completed-code-order-done-code-code-since-v1-4-code">3.21. Mark an order as completed : <code>/order done</code> <code>[Since v1.4]</code></a></h3>
 <div class="paragraph">
 <p>Mark an order as completed.
 Format: <code>/order done ORDER_INDEX</code></p>
@@ -894,7 +869,7 @@ Mark order number 1 as completed.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code-code-since-v1-1-code"><a class="link" href="#listing-entered-commands-code-history-code-code-since-v1-1-code">3.23. Listing entered commands : <code>/history</code> <code>[Since v1.1]</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code-code-since-v1-1-code"><a class="link" href="#listing-entered-commands-code-history-code-code-since-v1-1-code">3.22. Listing entered commands : <code>/history</code> <code>[Since v1.1]</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>/history</code></p>
@@ -915,10 +890,41 @@ Format: <code>/history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code-code-since-v1-1-code"><a class="link" href="#exiting-the-program-code-exit-code-code-since-v1-1-code">3.24. Exiting the program : <code>/exit</code> <code>[Since v1.1]</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code-code-since-v1-1-code"><a class="link" href="#exiting-the-program-code-exit-code-code-since-v1-1-code">3.23. Exiting the program : <code>/exit</code> <code>[Since v1.1]</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>/exit</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code"><a class="link" href="#creating-a-new-route-code-route-create-code-code-deprecated-since-v1-2-1-code">3.24. Creating a new route: <code>/route create</code> <code>[Deprecated since v1.2.1]</code></a></h3>
+<div class="paragraph">
+<p>Creates a route with a set of orders<br>
+Format: <code>/route create o/ORDER_ID</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>All fields need to have at least a value. e.g. <code>o/</code> is not allowed.</p>
+</li>
+<li>
+<p>Able to add more than 1 orders by specifying more tags. e.g. <code>o/1 o/2 o/3</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>/route create o/1 o/3</code></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -1001,18 +1007,18 @@ e.g. <code>/login u/manager pw/password</code></p>
 <p><strong>Return to Home</strong> : <code>/home</code></p>
 </li>
 <li>
-<p><strong>Add order</strong> : <code>/order add f/FOOD n/NAME p/PHONE_NUMBER a/ADDRESS dt/DATETIME</code><br>
+<p><strong>Add order</strong> : <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code><br>
 e.g. <code>/order add f/Roti Prata n/James Ho p/22224444 a/block 123, Clementi Rd, 1234665 dt/14-12-2018 10:18:00</code></p>
 </li>
 <li>
 <p><strong>Listing orders</strong> : <code>/order list</code></p>
 </li>
 <li>
-<p><strong>Edit order</strong> : <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dt/DATETIME]</code><br>
+<p><strong>Edit order</strong> : <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATETIME]</code><br>
 e.g. <code>/order edit 2 n/James Lee</code></p>
 </li>
 <li>
-<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME]</code><br>
+<p><strong>Find order</strong> : <code>/order find [n/NAME] [p/PHONE] [a/ADDRESS] [f/FOOD] [dt/DATETIME] [st/ORDER_STATUS]</code><br>
 e.g. <code>/order find n/James Jake</code></p>
 </li>
 <li>
@@ -1046,11 +1052,11 @@ e.g. <code>/deliveryman find n/James Jake</code></p>
 e.g. <code>/deliveryman delete 3</code></p>
 </li>
 <li>
-<p><strong>Clear delivery men</strong> (Coming in v2.0) : <code>/deliveryman clear</code></p>
+<p><strong>Select delivery man</strong> : <code>/deliveryman select INDEX</code><br>
+e.g. <code>/deliveryman select 1</code></p>
 </li>
 <li>
-<p><strong>Create a route</strong> [DEPRECATED] : <code>/route create o/ORDER_INDEX</code><br>
-e.g. <code>/route create o/1 o/3</code></p>
+<p><strong>Clear delivery men</strong> (Coming in v2.0) : <code>/deliveryman clear</code></p>
 </li>
 <li>
 <p><strong>Assign orders to a delivery man</strong> : <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code><br>
@@ -1068,6 +1074,10 @@ e.g. <code>/order done 1</code></p>
 </li>
 <li>
 <p><strong>Exit the program</strong> : <code>/exit</code></p>
+</li>
+<li>
+<p><strong>Create a route</strong> [DEPRECATED] : <code>/route create o/ORDER_INDEX</code><br>
+e.g. <code>/route create o/1 o/3</code></p>
 </li>
 <li>
 <p><strong>Login (Deliveryman)</strong> (Coming in v2.0) : <code>/login u/USERNAME pw/PASSWORD</code><br>
@@ -1091,4 +1101,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 12:58:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 03:47:35 UTC</div></div></div></body></html>
