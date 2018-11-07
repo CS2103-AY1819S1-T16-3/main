@@ -1,0 +1,91 @@
+== Julius Sander - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+=== PROJECT: FoodZoom
+
+---
+Hello there! My name is Julius Sander, and I am a Year 2 Computer Science student
+in National University of Singapore. This is a report of my contributions to my most
+recent team project, FoodZoom.
+
+==== Overview
+
+FoodZoom is a desktop food delivery management application designed for
+food businesses to streamline their delivery process. FoodZoom is
+responsive and quick, allowing managers to plan routes for order
+delivery and dispatch them to delivery men using the Command Line
+Interface (CLI). The delivery men can also use this application to view
+their delivery routes and increase their efficiency. FoodZoom is built
+by 5 computer science student namely Rahul Rajesh, Julius Sander, Monika
+Monuela, Koh Chi Hao and Tan Jin Ying.
+
+
+.FoodZoom Home page
+image::Ui.png[width="800"]
+
+==== Summary of Contributions
+
+---
+|===
+|Given below are contributions that I made to this application.
+|===
+
+* *Major enhancement*: Added deliverymen into the application.
+** _What it does_: Managers can add, delete or assign order deliveries
+to the deliverymen with this feature. Managers can also see and monitor
+the activity of the deliverymen from the main screen.
+** _Justification_: This feature provides managers the ability to manage
+deliveryman independently from orders, giving them added control over
+their order deliveries.
+** _Highlights_: This enhancement adds new commands into the
+application, and requires in-depth analysis of design analysis with
+regards to information storage.
+* *Minor enhancement*: Added IDs to resources for storage. This provides
+the application an ability to save and load complex associations between
+resources in the application.
+* *Other contributions*:
+** _Project Management_:
+*** Manual & automated testing of application on major features
+** _Community_:
+*** Regular Pull Request reviews
+(https://github.com/CS2103-AY1819S1-T16-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Ajuxd[see here])
+*** Extensive reviews of major features with non-trivial comments
+    (https://github.com/CS2103-AY1819S1-T16-3/main/pull/131[#131],
+     https://github.com/CS2103-AY1819S1-T16-3/main/pull/50[#50])
+*** Reported bugs and gave suggestions for other group's project (
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/136[#136],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/134[#134],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/130[#130],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/126[#126],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/123[#123],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/121[#121],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/118[#118],
+Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/109[#109]
+)
+** _Tools_:
+*** Integrated Github plugins (Coveralls, Travis) into the project, providing a seamless
+process to integrate code changes.
+
+==== Contributions to User Guide
+
+|===
+|Given below are some of my contributions to the User Guide. They showcase my ability to write clear
+ documentation targeting end-users.
+|===
+
+include::../UserGuide.adoc[tag=deliverymanadd]
+
+include::../UserGuide.adoc[tag=deliverymanlist]
+
+include::../UserGuide.adoc[tag=deliverymandelete]
+
+include::../UserGuide.adoc[tag=deliverymanselect]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write
+technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=deliverymanaddfeature]

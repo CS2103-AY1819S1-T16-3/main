@@ -647,6 +647,7 @@ Figure 3.4.1.2 Sequence Diagram for `datetime` search
 ** Cons: It violates SRP. `FindCommandParser` has to break down the fields as well as check which fields are present.
 // end::orderfindfeature[]
 
+// tag::deliverymanaddfeature[]
 === Add deliveryman feature
 
 ==== Current Implementation
@@ -699,6 +700,7 @@ a `ParseException` would be thrown.
 * **Alternative 2:** Deliverymen are stored in the same file as `Order`
 ** Pros: Easier to implement & maintain
 ** Cons: Deliveryman can only be accessed & treated as parts of an `Order`
+// end::deliverymanaddfeature[]
 
 // tag::route[]
 === Create Route Feature [deprecated since v1.2.1]

@@ -306,6 +306,7 @@ Format: `/order clear`
 * If there is an order already assigned to a deliveryman, order list cannot be cleared.
 ****
 
+// tag::deliverymanadd[]
 === Adding a delivery man : `/deliveryman add` `[Since v1.2]`
 
 Adds a delivery man to the list of delivery men +
@@ -314,11 +315,14 @@ Format: `/deliveryman add n/NAME`
 Examples:
 
 * `/deliveryman add n/John Smith`
+// end::deliverymanadd[]
 
+// tag::deliverymanlist[]
 === Listing all delivery men : `/deliveryman list` `[Since v1.2]`
 
 Shows a list of all delivery men in chronological order +
 Format: `/deliveryman list`
+// end::deliverymanlist[]
 
 === Editing a delivery man : `/deliveryman edit` `[Coming in v2.0]`
 
@@ -355,6 +359,7 @@ Examples:
 * `/deliveryman find n/John Smith` +
 Returns all delivery men with the names `John` or `Smith` e.g. `John Smith`, `John Doe`, and `Michael Smith`
 
+// tag::deliverymandelete[]
 === Deleting a delivery man : `/deliveryman delete` `[Since v1.2]`
 
 Deletes the specified delivery man from the list of delivery men +
@@ -373,7 +378,9 @@ Deletes the 2nd delivery man in the list of delivery men.
 * `/deliveryman find n/tom` +
 `/deliveryman delete 1` +
 Deletes the 1st delivery man in the results of the `find` command.
+// end::deliverymandelete[]
 
+// tag::deliverymanselect[]
 === Selecting a deliveryman : `/deliveryman select` `[Since v1.4]`
 
 Selects the specified deliveryman from the list of deliverymen. +
@@ -392,6 +399,7 @@ Selects the 2nd deliveryman in the list of deliverymen.
 * `/deliveryman find n/david` +
 `/deliveryman select 1` +
 Selects the 1st deliveryman in the results of the `find` command.
+// end::deliverymanselect[]
 
 === Clearing all delivery men entries : `/deliveryman clear` `[Coming in v2.0]`
 
