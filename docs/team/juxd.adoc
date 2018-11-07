@@ -31,18 +31,25 @@ image::Ui.png[width="800"]
 |===
 
 * *Major enhancement*: Added deliverymen into the application.
+
 ** _What it does_: Managers can add, delete or assign order deliveries
 to the deliverymen with this feature. Managers can also see and monitor
 the activity of the deliverymen from the main screen.
+
 ** _Justification_: This feature provides managers the ability to manage
 deliveryman independently from orders, giving them added control over
 their order deliveries.
+
 ** _Highlights_: This enhancement adds new commands into the
 application, and requires in-depth analysis of design analysis with
 regards to information storage.
+
 * *Minor enhancement*: Added IDs to resources for storage. This provides
 the application an ability to save and load complex associations between
 resources in the application.
+
+* *Code contribution*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=juxd[RepoSense]
+
 * *Other contributions*:
 ** _Project Management_:
 *** Manual & automated testing of application on major features

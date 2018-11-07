@@ -20,7 +20,7 @@ Roles: Integration, code quality
 
 === Julius Sander
 image::juxd.png[width="150", align="left"]
-{empty}[https://github.com/juxd[github]] [<<juliussander#, portfolio>>]
+{empty}[https://github.com/juxd[github]] [<<juxd#, portfolio>>]
 
 Roles: Code quality and testing +
 
