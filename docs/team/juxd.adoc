@@ -1,14 +1,15 @@
-== Julius Sander - Project Portfolio
+= Julius Sander - Project Portfolio
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-=== PROJECT: FoodZoom
+
+== PROJECT: FoodZoom
 
 ---
 Hello there! My name is Julius Sander, and I am a Year 2 Computer Science student
 in National University of Singapore. This is a report of my contributions to my most
 recent team project, FoodZoom.
 
-==== Overview
+== Overview
 
 FoodZoom is a desktop food delivery management application designed for
 food businesses to streamline their delivery process. FoodZoom is
@@ -23,7 +24,7 @@ Monuela, Koh Chi Hao and Tan Jin Ying.
 .FoodZoom Home page
 image::Ui.png[width="800"]
 
-==== Summary of Contributions
+== Summary of Contributions
 
 ---
 |===
@@ -73,7 +74,7 @@ Issue https://github.com/CS2103-AY1819S1-W12-4/main/issues/109[#109]
 *** Integrated Github plugins (Coveralls, Travis) into the project, providing a seamless
 process to integrate code changes.
 
-==== Contributions to User Guide
+== Contributions to User Guide
 
 |===
 |Given below are some of my contributions to the User Guide. They showcase my ability to write clear
