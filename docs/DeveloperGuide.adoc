@@ -1653,6 +1653,49 @@ Expected: Fail to mark the order as `Completed` because it is already `completed
    Command: `/assign o/<ongoing_or_completed_order_index> d/1` +
    Expected: Cannot assign because that order was already assigned to a deliveryman previously.
 
+=== Adding deliveryman
+
+.. Prerequisites: Name "John" has not been used for any existing deliverymen. To check, type `/deliveryman list` to see
+all existing deliverymen.
+
+... Test case: `/deliveryman add n/John` +
+    Expected: A new deliveryman named 'John' is added to the list. The command box should reflect this accordingly
+    with the message "New deliveryman added: John". Timestamp in the status bar is updated.
+
+... Test case: `/deliveryman add n/John-Paul` +
+    Expected: No deliveryman is added. Error details shown in the status message - non-alphanumeric characters are not allowed.
+    Status bar remains the same.
+
+.. Prerequisites: A deliveryman named "John" exists in the system.
+
+... Test case: `/deliveryman add n/John` +
+    Expected: No deliveryman is added. Error details shown in the status message.
+    Status bar remains the same.
+
+=== Deleting deliveryman
+
+.. Prerequisites: There is 1 deliveryman being displayed in the list. This deliveryman must not have any orders assigned to him too.
+To achieve this, you can filter deliverymen by name, for example, using the default deliverymen, you can try `/deliveryman find n/Chi Kao`
+
+... Test case: `/deliveryman delete 0` +
+    Expected: No deliveryman would be deleted as the index is invalid.
+
+... Test case: `/deliveryman delete 2` +
+    Expected: No deliveryman would be deleted as the index is invalid.
+
+... Test case: `/deliveryman delete 1` +
+    Expected: The deliveryman displayed will be deleted.
+
+.. Prerequisites: There is 1 deliveryman being displayed in the list. This deliveryman has an order assigned to him.
+To achieve this, you can filter deliveryman by name, then assign him a `Pending` order, for example `/assign o/1 d/1`.
+
+... Test case: `/deliveryman delete 1` +
+    Expected: Deliveryman would not be deleted as you are not allowed to delete deliveryman with orders assigned.
+
+=== Selecting deliveryman
+. Selecting a deliveryman
+..
+
 === Saving data
 
 . Dealing with missing/corrupted data files
