@@ -1693,13 +1693,11 @@ To achieve this, you can filter deliveryman by name, then assign him a `Pending`
     Expected: Deliveryman would not be deleted as you are not allowed to delete deliveryman with orders assigned.
 
 === Selecting deliveryman
-. Selecting a deliveryman
-..
+.. Prerequisites: There is at least 1 deliveryman being displayed in the list.
 
-=== Saving data
+... Test case: `/deliveryman select 1` +
+    Expected: The selected deliveryman would be displayed on the display panel.
 
-. Dealing with missing/corrupted data files
+... Test case: `/deliveryman select 0` +
+    Expected: No deliveryman would be selected and displayed as this is an invalid index.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
