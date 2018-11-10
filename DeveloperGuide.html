@@ -82,8 +82,11 @@
 <li><a href="#instructions-for-manual-testing">Appendix H: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-an-order">H.2. Deleting an order</a></li>
-<li><a href="#saving-data">H.3. Saving data</a></li>
+<li><a href="#login-into-account">H.2. Login into account</a></li>
+<li><a href="#sign-up-for-an-account">H.3. Sign up for an account</a></li>
+<li><a href="#deleting-an-order">H.4. Deleting an order</a></li>
+<li><a href="#mark-an-order-as-completed">H.5. Mark an order as Completed</a></li>
+<li><a href="#saving-data">H.6. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -3595,7 +3598,118 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-order"><a class="link" href="#deleting-an-order">H.2. Deleting an order</a></h3>
+<h3 id="login-into-account"><a class="link" href="#login-into-account">H.2. Login into account</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Login into the application</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Needs to be logged out of the application.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Invalid username and valid password<br>
+Command: <code>/login u/1 pw/password123</code><br>
+Expected: Cannot login because username is too short and it needs to be 3 - 64 characters.</p>
+</li>
+<li>
+<p>Test case: Username with 65 characters (invalid) and valid password<br>
+Command: <code>/login u/012345678901234567890123456789012345678901234567890123456789012345 pw/password123</code><br>
+Expected: Cannot login because username is too long and it needs to be 3 - 64 characters.</p>
+</li>
+<li>
+<p>Test case: Valid username and invalid password<br>
+Command: <code>/login u/lucaskoh pw/123</code><br>
+Expected: Cannot login because password is too short and it needs to be at least 6 characters.</p>
+</li>
+<li>
+<p>Test case: Valid username and 6 characters password (valid)<br>
+Command: <code>/login u/lucaskoh pw/123456</code><br>
+Expected: Cannot login because account does not exist.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: Application comes with default valid user.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Valid username and valid password<br>
+Command: <code>/login u/alicepauline pw/alicepauline01</code><br>
+Expected: Successfully login into the application because of valid username and password and user exist in application. The application will bring you to the home page.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sign-up-for-an-account"><a class="link" href="#sign-up-for-an-account">H.3. Sign up for an account</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign up for an account</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: No exisiting account in application.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Invalid name, valid username, valid password<br>
+Command: <code>/signup n/lu u/lucaskoh pw/123456</code><br>
+Expected: Fail to sign up. Name is too short and it needs to be 3 - 64 characters long.</p>
+</li>
+<li>
+<p>Test case: Invalid name(65 characters long), valid username, valid password<br>
+Command: <code>/signup n/012345678901234567890123456789012345678901234567890123456789012345 u/lucaskoh pw/123456</code><br>
+Expected: Fail to sign up. Name is too long and it needs to be 3 - 64 characters long.</p>
+</li>
+<li>
+<p>Test case: Valid name, invalid username, valid password<br>
+Command: <code>/signup n/LucasKoh u/@1234~2! pw/123456</code><br>
+Expected: Fail to sign up. Username should only contain alphanumeric characters.</p>
+</li>
+<li>
+<p>Test case: Valid name, valid username, invalid password<br>
+Command: <code>/signup n/LucasKoh u/lucaskoh pw/!!@@15</code><br>
+Expected: Fail to sign up. Password should only contain alphanumeric characters.</p>
+</li>
+<li>
+<p>Test case: Valid name, valid username, valid password<br>
+Command: <code>/signup n/Lucas Koh u/lucaskoh pw/lucaskoh54321</code><br>
+Expected: Successfully sign up for account. Application will automatically logged you into the home page.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: Already have <code>n/Alice Pauline u/alicepauline pw/alicepauline01</code> account within the application.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Different name, same username and same password<br>
+Command: <code>/signup n/Alicepauline u/alicepauline pw/alicepauline01</code><br>
+Expected: Fail to sign up. User already exist within the application.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-an-order"><a class="link" href="#deleting-an-order">H.4. Deleting an order</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3629,7 +3743,63 @@ Expected: No order is deleted. Error details shown in the status message. Status
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.3. Saving data</a></h3>
+<h3 id="mark-an-order-as-completed"><a class="link" href="#mark-an-order-as-completed">H.5. Mark an order as Completed</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Marking an order as <code>Completed</code></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Already have an <code>Ongoing</code> order.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Mark an invalid index as completed<br>
+Command: <code>/order done 0</code><br>
+Expected: No order is marked as completed. Index have to a positive integer.</p>
+</li>
+<li>
+<p>Test case: Mark an valid index <code>Ongoing</code> order as completed<br>
+Command: <code>/order done &lt;order_index_of_ongoing_status&gt;</code><br>
+Expected: Order on order list panel is marked as <code>Completed</code> and deliveryman is updated (Deliveryman total assigned
+orders will decrease by <code>1</code> or become <code>available</code>).</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: Have some <code>Pending</code> orders.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Mark a valid index as completed but would fail.<br>
+Command: <code>/order done &lt;order_index_of_pending_status&gt;</code><br>
+Expected: Fail to mark the order as <code>Completed</code> because only <code>ongoing</code> status can be marked as <code>completed</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: Have some <code>Completed</code> orders.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: Mark a valid index as completed but would fail.<br>
+Command: <code>/order done &lt;order_index_of_completed_status&gt;</code><br>
+Expected: Fail to mark the order as <code>Completed</code> because it is already <code>completed</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">H.6. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3649,4 +3819,4 @@ Expected: No order is deleted. Error details shown in the status message. Status
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 14:49:30 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 03:52:30 UTC</div></div></div></body></html>
