@@ -1592,6 +1592,101 @@ Expected: Successfully sign up for account. Application will automatically logge
 Command: `/signup n/Alicepauline u/alicepauline pw/alicepauline01` +
 Expected: Fail to sign up. User already exist within the application.
 
+=== Finding order/s
+. Finding order by name, phone or food
+.. Prerequisites: Having at least 1 order.
+.. Test case: Valid name without space +
+    Command: `/order find n/Alex` +
+    Expected: Order/s with the name `Alex`, `Alexandar` and `Alex Yeoh` is shown on the left panel.
+
+.. Test case: Valid names with space + 
+    Command: `/order find n/Alex Yeoh` +
+    Expected: Order/s with the name `Alex`, `Alexandar`, `Alex Yeoh`, `Yeoh Jin` is shown on the left panel.
+
+.. Test case: Empty value +
+    Command: `/order find n/` + 
+    Expected: Error is shown in the status message. Value cannot be empty.
+
+. Finding order by address
+.. Prerequisites: Having at least 1 order.
+.. Test case: Valid address + 
+    Command: `/order find a/Blk 10` + 
+    Expected: Order/s with the address containing `Blk 10` is shown on the left panel.
+
+. Finding order by status 
+.. Prerequisites: Having orders in the list with 3 different status
+.. Test case: Exact Status + 
+    Command: `/order find st/PENDING` + 
+    Expected: Order/s with status `PENDING` is shown on the left panel.
+
+.. Test case: Exact status in lower case +
+    Command: `/order find st/pending` +
+    Expected: Order/s with status `PENDING` is shown on the left panel. 
+
+.. Test case: Empty status value +  
+    Command: `/order find st/` +
+    Expected: Error is shown in the status message. Value cannot be empty.
+
+.. Test case: Invalid status +  
+    Command: `/order find st/abc` +
+    Expected: Error is shown in the status message. Only valid status are allowed.
+
+. Finding order by date
+.. Prerequisites: Having orders added with different dates
+.. Test case: Find with one datetime parameter +
+    Command: `/order find dt/01-10-2018 10:00:00` +
+    Expected: Order/s with the datetime `01-10-2018 10:00:00` is shown on the left panel.
+
+.. Test case: Find with two datetime parameter +
+    Command: `/order find dt/01-10-2018 10:00:00 dt/03-10-2018 14:00:00` +
+    Expected: Order/s within and on the datetime `01-10-2018 10:00:00` and `03-10-2018 10:00:00` is shown on the left panel.
+
+.. Test case: Find with more than 2 datetime parameter +
+    Command: `/order find dt/01-10-2018 10:00:00 dt/03-10-2018 14:00:00 dt/02-10-2018 10:00:00` +
+    Expected: Order/s within and on the datetime `01-10-2018 10:00:00` and `03-10-2018 10:00:00` is shown on the left panel.
+
+.. Test case: Empty date value +
+    Command: `/order find dt/` + 
+    Expected: Error is shown in the status message. Value cannot be empty.
+
+.. Test case: Only date is given. No time is given +
+    Command: `/order find dt/01-10-2018` +
+    Expected: Error is shown in the status message. Date should follow the format `dd-MM-yyy HH:mm:ss`.
+
+.. Test case: Invalid datetime is given + 
+    Command: `/order find dt/57-10-2018 10:00:00` + 
+    Expected: Error is shown in the status message. Date should be a valid date.
+
+. Finding order with more than 1 argument
+.. Prerequisites: Having at least 1 order
+.. Test case: Valid name and status value + 
+    Command: `/order find n/john st/pending` + 
+    Expected: Order/s with the name `john` and the status `PENDING` is shown on the left panel.
+
+=== Editing an order
+. Edit an order while all orders are listed
+.. Prerequisites: List all orders using the `/order list` command. Multiple orders in the list.
+... Test case: Valid arguments +
+    Command: `/order edit <order_index> f/Roti Canai` +
+    Expected: Food of the order with the `<order_index>` will be overwritten with the food `Roti Canai`
+
+... Test case: Invalid order index +
+    Command: `/order edit 0 n/alex` +
+    Expected: Cannot edit as the order index is a non-zero unsigned integer.
+
+... Other incorrect edit commands to try: `/order edit x f/alex` (where x is larger than the list on the left) + 
+    Expected: Cannot edit as the order index must be a valid index in the list shown on the left.
+
+.. Prerequisites: There is an order with the name `alex`, phone `12345678` and datetime `01-10-2018 10:00:00`
+... Test case: Edit an order to an existing order in the list +
+    Command: `/order edit 1 n/alex p/12345678 dt/01-10-2018 10:00:00` + 
+    Expected: Cannot edit as an order with the same name, phone and datetime is already in the list of orders.
+
+.. Prerequisites: Have orders that are `Ongoing` or `Completed`
+... Test case: Edit an order with status `Ongoing` or `Completed` + 
+    Command: `/order edit <ongoing_or_completed_order_index> f/tea` +
+    Expected: Cannot edit as the order is already assign to a deliveryman. 
+
 === Deleting an order
 
 . Deleting an order while all order are listed
