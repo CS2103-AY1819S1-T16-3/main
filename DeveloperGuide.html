@@ -87,7 +87,9 @@
 <li><a href="#deleting-an-order">H.4. Deleting an order</a></li>
 <li><a href="#mark-an-order-as-completed">H.5. Mark an order as Completed</a></li>
 <li><a href="#assigning-orders-to-a-deliveryman">H.6. Assigning orders to a deliveryman</a></li>
-<li><a href="#saving-data">H.7. Saving data</a></li>
+<li><a href="#adding-deliveryman">H.7. Adding deliveryman</a></li>
+<li><a href="#deleting-deliveryman">H.8. Deleting deliveryman</a></li>
+<li><a href="#selecting-deliveryman">H.9. Selecting deliveryman</a></li>
 </ul>
 </li>
 </ul>
@@ -3837,24 +3839,102 @@ Expected: Cannot assign because that order was already assigned to a deliveryman
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">H.7. Saving data</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Dealing with missing/corrupted data files</p>
+<h3 id="adding-deliveryman"><a class="link" href="#adding-deliveryman">H.7. Adding deliveryman</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+<p>Prerequisites: Name "John" has not been used for any existing deliverymen. To check, type <code>/deliveryman list</code> to see
+all existing deliverymen.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/deliveryman add n/John</code><br>
+Expected: A new deliveryman named 'John' is added to the list. The command box should reflect this accordingly
+with the message "New deliveryman added: John". Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>/deliveryman add n/John-Paul</code><br>
+Expected: No deliveryman is added. Error details shown in the status message - non-alphanumeric characters are not allowed.
+Status bar remains the same.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: A deliveryman named "John" exists in the system.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/deliveryman add n/John</code><br>
+Expected: No deliveryman is added. Error details shown in the status message.
+Status bar remains the same.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+<div class="sect2">
+<h3 id="deleting-deliveryman"><a class="link" href="#deleting-deliveryman">H.8. Deleting deliveryman</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There is 1 deliveryman being displayed in the list. This deliveryman must not have any orders assigned to him too.
+To achieve this, you can filter deliverymen by name, for example, using the default deliverymen, you can try <code>/deliveryman find n/Chi Kao</code></p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/deliveryman delete 0</code><br>
+Expected: No deliveryman would be deleted as the index is invalid.</p>
+</li>
+<li>
+<p>Test case: <code>/deliveryman delete 2</code><br>
+Expected: No deliveryman would be deleted as the index is invalid.</p>
+</li>
+<li>
+<p>Test case: <code>/deliveryman delete 1</code><br>
+Expected: The deliveryman displayed will be deleted.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: There is 1 deliveryman being displayed in the list. This deliveryman has an order assigned to him.
+To achieve this, you can filter deliveryman by name, then assign him a <code>Pending</code> order, for example <code>/assign o/1 d/1</code>.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/deliveryman delete 1</code><br>
+Expected: Deliveryman would not be deleted as you are not allowed to delete deliveryman with orders assigned.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selecting-deliveryman"><a class="link" href="#selecting-deliveryman">H.9. Selecting deliveryman</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There is at least 1 deliveryman being displayed in the list.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/deliveryman select 1</code><br>
+Expected: The selected deliveryman would be displayed on the display panel.</p>
+</li>
+<li>
+<p>Test case: <code>/deliveryman select 0</code><br>
+Expected: No deliveryman would be selected and displayed as this is an invalid index.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 15:23:54 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 06:26:41 UTC</div></div></div></body></html>
