@@ -493,12 +493,13 @@ into a binary search tree along with their count. The tree uses a custom compara
 compared with each other. This allows the 7 most recent dates with at least one order to be retrieved quickly. The
 tree is updated accordingly when orders are added or removed.
 |=======================================================================
+// end::dashboard2[]
 
-
+// tag::dashboard3[]
 ==== Design Considerations (for both Map/Statistics)
 
 ===== Aspect: Processing of data
-* **Alternative 1 (Current Approach):** Let the UI component, handle the
+* **Alternative 1 (Current Approach):** Let the UI component handle the
 processing of data once the listener detects a change
 ** Pros:
 - Separation of Concerns: the UI need not rely on other components to
@@ -551,7 +552,7 @@ just Singapore).
 application to work. This would also introduce more overhead to the code e.g
 there is now a need to check for internet connection and render loaders so
 that the user experience is not affected.
-// end::dashboard2[]
+// end::dashboard3[]
 
 // tag::orderAdd[]
 === Add Order Feature

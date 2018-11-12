@@ -2,27 +2,35 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-I am a year 2 Computer Science Student studying at National University of Singapore. I am
-interested in using technology to solve everyday problems and am always on the lookout for
-any challenging project to work with.
-
----
-== Project: FoodZoom
-
-
 == Overview
 
-FoodZoom is a desktop application for food businesses to streamline their delivery process. FoodZoom's core
-functionality is that it allows for managers to keep track of the food orders they have from
-customers and send out deliverymen to handle those orders. FoodZoom is also able to show orders on a map and
-provide relevant statistics to the user. The application was built by a team of 5 computer science students.
+I am a year 2 Computer Science Student studying at National University of Singapore. I am
+interested in using technology to solve everyday problems and am always on the lookout for
+any challenging project to work with. This portfolio page serves to document my work on FoodZoom.
+
+
+== Project: FoodZoom
+
+FoodZoom is a desktop application allowing users to streamline their delivery process. The application is
+specifically targeted towards food businesses who need an efficient way to manage their delivery services.
+FoodZoom uses a Command-Line Interface, meaning users can simply make use of keyword based commands when running the
+application.
+
+FoodZoom's *core functionality* includes:
+
+- Users being able to track food orders they have from customers
+- Managing deliverymen and assigning orders to them
+- Analysis of Order to display relevant statistics (order history, trending food etc.) to users
+- Pending Orders shown on a map to allow for efficient dispatch to deliverymen.
+
+The application was built by a team of 5 students including myself.
 
 
 == Summary of Contribution
 
 ---
 |===
-|Given below are contributions that I made to this application.
+|The below sections showcase some of the contributions that I made to this application.
 |===
 --
 * *Major enhancement:* Built the system that allows for the *generation of statistics* and *location-based matching*
@@ -89,7 +97,7 @@ https://github.com/CS2103-AY1819S1-T09-2/main/issues/236[#236]
 
 == Contributions to User Guide
 |===
-|Given below are some of my contributions to the User Guide. They showcase my ability to write clear
+|Given below are some of my contributions to the User Guide. They highlight my ability to write clear
  documentation targeting end-users.
 |===
 
@@ -107,3 +115,11 @@ include::../DeveloperGuide.adoc[tag=dashboard]
 
 include::../DeveloperGuide.adoc[tag=dashboard2]
 
+---
+
+|===
+|Given below are some of the design considerations I had while implementing the dashboard feature.
+|===
+
+
+include::../DeveloperGuide.adoc[tag=dashboard3]
