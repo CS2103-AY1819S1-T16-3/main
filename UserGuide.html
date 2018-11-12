@@ -442,7 +442,7 @@ Format: <code>/order edit INDEX [f/FOOD] [n/NAME] [p/PHONE] [a/ADDRESS] [dt/DATE
 <p>When a parameter is specified, e.g. <code>f/</code>, <code>n/</code>, empty fields are not allowed. Value must be specified.</p>
 </li>
 <li>
-<p>Orders that are already assigned to a deliveryman cannot be edited.</p>
+<p>Orders that are <code>Ongoing</code> or <code>Completed</code> cannot be edited.</p>
 </li>
 </ul>
 </div>
@@ -535,7 +535,7 @@ Format: <code>/order delete INDEX</code></p>
 <p>Deletes an order at the specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>Orders that are already assigned to a deliveryman cannot be deleted.</p>
+<p>Orders that are <code>Ongoing</code> cannot be deleted.</p>
 </li>
 </ul>
 </div>
@@ -819,7 +819,7 @@ Format: <code>/assign d/DELIVERYMAN_INDEX o/ORDER_INDEX</code></p>
 <p>Add more than 1 orders by specifying more tags. e.g. <code>o/1 o/2 o/3</code>.</p>
 </li>
 <li>
-<p>Orders that are already assigned to a deliveryman cannot be reassigned.</p>
+<p>Orders that are <code>Ongoing</code> or <code>Completed</code> cannot be reassigned.</p>
 </li>
 </ul>
 </div>
@@ -1143,4 +1143,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:31:00 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:01:08 UTC</div></div></div></body></html>
