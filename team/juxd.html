@@ -24,9 +24,25 @@ their delivery routes and increase their efficiency. FoodZoom is built
 by 5 computer science student namely Rahul Rajesh, Julius Sander, Monika
 Monuela, Koh Chi Hao and Tan Jin Ying.</p>
 </div>
+<div class="paragraph">
+<p>FoodZoom’s core functionality includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Users being able to track food orders (visualise on a map) they have from customers</p>
+</li>
+<li>
+<p>Managing deliverymen and assigning orders to them</p>
+</li>
+<li>
+<p>Analysis of orders to display relevant statistics (order history, trending food etc.) to users</p>
+</li>
+</ul>
+</div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/Ui.png" alt="Ui" width="800">
+<img src="../images/Ui.png" alt="Ui" width="600">
 </div>
 <div class="title">Figure 1. FoodZoom Home page</div>
 </div>
@@ -155,7 +171,7 @@ process to integrate code changes.</p>
 <div class="sect2">
 <h3 id="adding-a-delivery-man-code-deliveryman-add-code-code-since-v1-2-code"><a class="link" href="#adding-a-delivery-man-code-deliveryman-add-code-code-since-v1-2-code">Adding a delivery man : <code>/deliveryman add</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
-<p>Adds a delivery man to the list of delivery men<br>
+<p>Allows you to add a delivery man to the list of delivery men<br>
 Format: <code>/deliveryman add n/NAME</code></p>
 </div>
 <div class="paragraph">
@@ -172,14 +188,14 @@ Format: <code>/deliveryman add n/NAME</code></p>
 <div class="sect2">
 <h3 id="listing-all-delivery-men-code-deliveryman-list-code-code-since-v1-2-code"><a class="link" href="#listing-all-delivery-men-code-deliveryman-list-code-code-since-v1-2-code">Listing all delivery men : <code>/deliveryman list</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all delivery men in chronological order<br>
+<p>Lets you see the list of all delivery men in that were added for chronological order<br>
 Format: <code>/deliveryman list</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="deleting-a-delivery-man-code-deliveryman-delete-code-code-since-v1-2-code"><a class="link" href="#deleting-a-delivery-man-code-deliveryman-delete-code-code-since-v1-2-code">Deleting a delivery man : <code>/deliveryman delete</code> <code>[Since v1.2]</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified delivery man from the list of delivery men<br>
+<p>Allows you to delete the specified delivery man from the list of delivery men<br>
 Format: <code>/deliveryman delete INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -217,7 +233,7 @@ Deletes the 1st delivery man in the results of the <code>find</code> command.</p
 <div class="sect2">
 <h3 id="selecting-a-deliveryman-code-deliveryman-select-code-code-since-v1-4-code"><a class="link" href="#selecting-a-deliveryman-code-deliveryman-select-code-code-since-v1-4-code">Selecting a deliveryman : <code>/deliveryman select</code> <code>[Since v1.4]</code></a></h3>
 <div class="paragraph">
-<p>Selects the specified deliveryman from the list of deliverymen.<br>
+<p>Allows you to select the specified deliveryman from the list of deliverymen.<br>
 Format: <code>/deliveryman select INDEX</code></p>
 </div>
 <div class="sidebarblock">
@@ -268,6 +284,124 @@ technical documentation and the technical depth of my contributions to the proje
 </tr>
 </tbody>
 </table>
+<div class="sect2">
+<h3 id="storage-component"><a class="link" href="#storage-component">Storage component</a></h3>
+<div class="paragraph">
+<p>The following diagram shows how the Storage component is structured.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
+</div>
+<div class="title">Figure 2. Structure of the Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="{repoURL}/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code>Storage</code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>can save <code>UserPref</code> objects in json format and read it back.</p>
+</li>
+<li>
+<p>can save the FoodZoom data in xml format and read it back.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>FoodZoom allows deliverymen and users to be stored separately to prevent
+duplication of data while retaining object associations.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>can save the Users' data in xml format and read it back.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following diagram depicts the sequence diagram of how <code>StorageManager</code> saves changes every time a change is made
+in FoodZoom.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/StorageSequenceDiagram.png" alt="StorageSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 3. Interactions inside the Storage component for whenever <code>ModelManager.saveFoodZoom(orderBook, deliverymenList)</code> is called.</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-file-storage-structure-for-foodzoom"><a class="link" href="#aspect-implementation-of-file-storage-structure-for-foodzoom">Aspect: Implementation of file storage structure for FoodZoom</a></h5>
+<div class="paragraph">
+<p>This concerns the implementation of how application data is stored in a reloadable file.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: Use two separate files for the storage of FoodZoom data</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This solution presents a better separation of concerns between deliverymen and orders. This means that corruption of one
+file would not affect the other.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It is more difficult to manage JXML marshalling from two separate files.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice):</strong> Use a single file to the storage of <code>deliverymen</code> and <code>orders</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Coupling of <code>deliverymen</code> and <code>orders</code> allows more cohesion, as information like <code>id</code> for a deliveryman&#8217;s orders would
+be unusable without knowing the orders.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Corruption of one file would mean corruption of all application data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="add-deliveryman-feature"><a class="link" href="#add-deliveryman-feature">Add deliveryman feature</a></h3>
 <div class="sect3">
@@ -322,9 +456,12 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommandparser-code"><a class="link" href="#implementation-of-code-deliverymanaddcommandparser-code">Implementation of <code>DeliverymanAddCommandParser</code></a></h5>
+<div class="paragraph">
+<p>This concerns the implementation and organization of a <code>DeliverymanAddCommand</code></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -358,6 +495,9 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommand-code"><a class="link" href="#implementation-of-code-deliverymanaddcommand-code">Implementation of <code>DeliverymanAddCommand</code></a></h5>
+<div class="paragraph">
+<p>This concerns how deliverymen data is stored with relation to orders.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -392,4 +532,4 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:59:28 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:54:50 UTC</div></div></div></body></html>

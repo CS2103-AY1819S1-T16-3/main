@@ -569,6 +569,9 @@ the UI automatically updates when the data in the list change.</p>
 </div>
 <div class="sect2">
 <h3 id="storage-component"><a class="link" href="#storage-component">2.5. Storage component</a></h3>
+<div class="paragraph">
+<p>The following diagram shows how the Storage component is structured.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
@@ -588,17 +591,98 @@ the UI automatically updates when the data in the list change.</p>
 </li>
 <li>
 <p>can save the FoodZoom data in xml format and read it back.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>FoodZoom allows deliverymen and users to be stored separately to prevent
+duplication of data while retaining object associations.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>can save the Users' data in xml format and read it back.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The following diagram depicts the sequence diagram of how <code>StorageManager</code> saves changes every time a change is made
+in FoodZoom.</p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/StorageSequenceDiagram.png" alt="StorageSequenceDiagram" width="800">
 </div>
 <div class="title">Figure 10. Interactions inside the Storage component for whenever <code>ModelManager.saveFoodZoom(orderBook, deliverymenList)</code> is called.</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">2.5.1. Design considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-implementation-of-file-storage-structure-for-foodzoom"><a class="link" href="#aspect-implementation-of-file-storage-structure-for-foodzoom">Aspect: Implementation of file storage structure for FoodZoom</a></h5>
+<div class="paragraph">
+<p>This concerns the implementation of how application data is stored in a reloadable file.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1</strong>: Use two separate files for the storage of FoodZoom data</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This solution presents a better separation of concerns between deliverymen and orders. This means that corruption of one
+file would not affect the other.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>It is more difficult to manage JXML marshalling from two separate files.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (current choice):</strong> Use a single file to the storage of <code>deliverymen</code> and <code>orders</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Coupling of <code>deliverymen</code> and <code>orders</code> allows more cohesion, as information like <code>id</code> for a deliveryman&#8217;s orders would
+be unusable without knowing the orders.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Cons:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Corruption of one file would mean corruption of all application data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -678,7 +762,7 @@ to store the <code>User</code> object inside <code>UserSession</code>. The <code
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.1.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-code-login-code-executes"><a class="link" href="#aspect-how-code-login-code-executes">Aspect: How <code>/login</code> executes</a></h5>
 <div class="ulist">
@@ -1566,9 +1650,12 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommandparser-code"><a class="link" href="#implementation-of-code-deliverymanaddcommandparser-code">Implementation of <code>DeliverymanAddCommandParser</code></a></h5>
+<div class="paragraph">
+<p>This concerns the implementation and organization of a <code>DeliverymanAddCommand</code></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1602,6 +1689,9 @@ a <code>ParseException</code> would be thrown.</p>
 </div>
 <div class="sect4">
 <h5 id="implementation-of-code-deliverymanaddcommand-code"><a class="link" href="#implementation-of-code-deliverymanaddcommand-code">Implementation of <code>DeliverymanAddCommand</code></a></h5>
+<div class="paragraph">
+<p>This concerns how deliverymen data is stored with relation to orders.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -4269,4 +4359,4 @@ Expected: Error is shown in the status message. Value cannot be empty.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:59:28 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 11:54:50 UTC</div></div></div></body></html>
