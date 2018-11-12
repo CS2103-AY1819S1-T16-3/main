@@ -3812,41 +3812,51 @@ Expected: No order would be selected and displayed as this is an invalid index.<
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Finding order by name, phone or food</p>
+<p>Finding order by phone</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Logged into the application. Having at least 1 order.</p>
+<p>Prerequisites: Having at least 1 order.</p>
 </li>
 <li>
-<p>Test case: Valid name without space<br>
-Command: <code>/order find n/Alex</code><br>
-Expected: Order/s with the name <code>Alex</code>, <code>Alexandar</code> and <code>Alex Yeoh</code> is shown on the left panel.</p>
+<p>Test case: Valid phone without space<br>
+Command: <code>/order find p/9111</code><br>
+Expected: Order/s with the phone <code>9111</code> and <code>911122113</code> is shown on the left panel.</p>
 </li>
 <li>
-<p>Test case: Valid names with space<br>
-Command: <code>/order find n/Alex Yeoh</code><br>
-Expected: Order/s with the name <code>Alex</code>, <code>Alexandar</code>, <code>Alex Yeoh</code>, <code>Yeoh Jin</code> is shown on the left panel.</p>
+<p>Test case: Valid phones with space<br>
+Command: <code>/order find p/1234 9111</code><br>
+Expected: Order/s with the phone <code>9111</code>, <code>911122113</code>, <code>1234</code>, <code>12345678</code> is shown on the left panel.</p>
 </li>
 <li>
 <p>Test case: Empty value<br>
-Command: <code>/order find n/</code><br>
+Command: <code>/order find p/</code><br>
 Expected: Error is shown in the status message. Value cannot be empty.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
-<p>Finding order by address</p>
+<p>Finding order by address, name, food</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Logged into the application. Having at least 1 order.</p>
+<p>Prerequisites: Having at least 1 order.</p>
 </li>
 <li>
 <p>Test case: Valid address<br>
 Command: <code>/order find a/Blk 10</code><br>
 Expected: Order/s with the address containing <code>Blk 10</code> is shown on the left panel.</p>
+</li>
+<li>
+<p>Test case: Valid food<br>
+Command: <code>/order find f/Chicken Rice</code><br>
+Expected: Order/s with food <code>Chicken Rice</code>, <code>Chicken Rice with Chilli</code> is shown on the left panel.</p>
+</li>
+<li>
+<p>Test case: Valid name<br>
+Command: <code>/order find n/Alex Yeoh</code><br>
+Expected: Order/s with name <code>Alex Yeoh</code>, <code>Alex Yeoh Jin</code> is shown on the left panel.</p>
 </li>
 </ol>
 </div>
@@ -4230,4 +4240,4 @@ Expected: No deliveryman would be selected and displayed as this is an invalid i
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:02:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 03:16:31 UTC</div></div></div></body></html>
