@@ -86,7 +86,7 @@
 <li><a href="#sign-up-for-an-account">H.3. Sign up for an account</a></li>
 <li><a href="#adding-an-order">H.4. Adding an Order</a></li>
 <li><a href="#selecting-order">H.5. Selecting order</a></li>
-<li><a href="#finding-order-s">H.6. Finding order/s</a></li>
+<li><a href="#finding-orders">H.6. Finding orders</a></li>
 <li><a href="#editing-an-order">H.7. Editing an order</a></li>
 <li><a href="#deleting-an-order">H.8. Deleting an order</a></li>
 <li><a href="#mark-an-order-as-completed">H.9. Mark an order as Completed</a></li>
@@ -94,6 +94,7 @@
 <li><a href="#adding-deliveryman">H.11. Adding deliveryman</a></li>
 <li><a href="#deleting-deliveryman">H.12. Deleting deliveryman</a></li>
 <li><a href="#selecting-deliveryman">H.13. Selecting deliveryman</a></li>
+<li><a href="#finding-deliveryman">H.14. Finding deliveryman</a></li>
 </ul>
 </li>
 </ul>
@@ -3808,7 +3809,7 @@ Expected: No order would be selected and displayed as this is an invalid index.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="finding-order-s"><a class="link" href="#finding-order-s">H.6. Finding order/s</a></h3>
+<h3 id="finding-orders"><a class="link" href="#finding-orders">H.6. Finding orders</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3943,6 +3944,11 @@ Expected: Error is shown in the status message. Date should be a valid date.</p>
 Command: <code>/order find n/john st/pending</code><br>
 Expected: Order/s with the name <code>john</code> and the status <code>PENDING</code> is shown on the left panel.</p>
 </li>
+<li>
+<p>Test case: 2 names field are specified.<br>
+Command: <code>/order find n/john n/tom</code><br>
+Expected: Only order/s with the name <code>tom</code> is shown on the left panel. Only the last field is taken.</p>
+</li>
 </ol>
 </div>
 </li>
@@ -4045,9 +4051,6 @@ Expected: Unable to delete the order because it is already assigned to a deliver
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
 </div>
 <div class="sect2">
@@ -4239,5 +4242,31 @@ Expected: No deliveryman would be selected and displayed as this is an invalid i
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="finding-deliveryman"><a class="link" href="#finding-deliveryman">H.14. Finding deliveryman</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisite: Logged into the application. Having at least one deliveryman.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/deliveryman find n/tom</code><br>
+Expected: Deliveryman with the name <code>tom</code>, <code>tommy</code>, <code>tom hanks</code> would be displayed on the display panel.</p>
+</li>
+<li>
+<p>Test case: <code>/deliveryman find n/tom n/john</code><br>
+Expected: Deliveryman with the name <code>john</code>, <code>johnny</code>, <code>john doe</code> would be displayed on the display panel. Only the last field is taken.</p>
+</li>
+<li>
+<p>Test case: <code>/deliveryman find n/</code><br>
+Expected: Error is shown in the status message. Value cannot be empty.</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 07:27:52 UTC</div></div></div></body></html>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:59:28 UTC</div></div></div></body></html>
