@@ -84,14 +84,16 @@
 <li><a href="#launch-and-shutdown">H.1. Launch and Shutdown</a></li>
 <li><a href="#login-into-account">H.2. Login into account</a></li>
 <li><a href="#sign-up-for-an-account">H.3. Sign up for an account</a></li>
-<li><a href="#finding-order-s">H.4. Finding order/s</a></li>
-<li><a href="#editing-an-order">H.5. Editing an order</a></li>
-<li><a href="#deleting-an-order">H.6. Deleting an order</a></li>
-<li><a href="#mark-an-order-as-completed">H.7. Mark an order as Completed</a></li>
-<li><a href="#assigning-orders-to-a-deliveryman">H.8. Assigning orders to a deliveryman</a></li>
-<li><a href="#adding-deliveryman">H.9. Adding deliveryman</a></li>
-<li><a href="#deleting-deliveryman">H.10. Deleting deliveryman</a></li>
-<li><a href="#selecting-deliveryman">H.11. Selecting deliveryman</a></li>
+<li><a href="#adding-an-order">H.4. Adding an Order</a></li>
+<li><a href="#selecting-order">H.5. Selecting order</a></li>
+<li><a href="#finding-order-s">H.6. Finding order/s</a></li>
+<li><a href="#editing-an-order">H.7. Editing an order</a></li>
+<li><a href="#deleting-an-order">H.8. Deleting an order</a></li>
+<li><a href="#mark-an-order-as-completed">H.9. Mark an order as Completed</a></li>
+<li><a href="#assigning-orders-to-a-deliveryman">H.10. Assigning orders to a deliveryman</a></li>
+<li><a href="#adding-deliveryman">H.11. Adding deliveryman</a></li>
+<li><a href="#deleting-deliveryman">H.12. Deleting deliveryman</a></li>
+<li><a href="#selecting-deliveryman">H.13. Selecting deliveryman</a></li>
 </ul>
 </li>
 </ul>
@@ -792,7 +794,7 @@ she logs into the application. It looks like this:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Ui.png" alt="Ui" width="790">
+<img src="images/Ui.png" alt="Ui" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -807,7 +809,7 @@ she logs into the application. It looks like this:</p>
 <p>Map showing location of pending orders</p>
 </li>
 <li>
-<p>Statistics Panel giving insights of the data</p>
+<p>Statistics Panel giving insights for the data</p>
 </li>
 </ol>
 </div>
@@ -828,7 +830,7 @@ what happens inside the <code>Display</code> Component when a user executes a ne
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/UIListenerActivityDiagram.png" alt="UIListenerActivityDiagram" width="800">
+<img src="images/UIListenerActivityDiagram.png" alt="UIListenerActivityDiagram" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -868,7 +870,7 @@ data processing is done.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/MapPanel.png" alt="MapPanel" width="600">
+<img src="images/MapPanel.png" alt="MapPanel" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -899,7 +901,7 @@ refers to a specific district in Singapore. The demarcation diagram is show belo
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/SingaporeDemarcation.png" alt="SingaporeDemarcation" width="790">
+<img src="images/SingaporeDemarcation.png" alt="SingaporeDemarcation" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -1010,7 +1012,7 @@ of orders without relying on any internet connection.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/StatisticsPanel.png" alt="StatisticsPanel" width="400">
+<img src="images/StatisticsPanel.png" alt="StatisticsPanel" width="250">
 </div>
 </div>
 <div class="paragraph">
@@ -1044,7 +1046,7 @@ to the <code>MapPanel</code> that allow data to be initialized and cleared.</p>
 <p>The data that is passed in to the <code>StatisticsPanel</code> along with the techniques employed to
 process the data is further elaborated on in the table below:</p>
 </div>
-<table class="tableblock frame-all grid-all" style="width: 59%;">
+<table class="tableblock frame-all grid-all" style="width: 90%;">
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -3714,7 +3716,99 @@ Expected: Fail to sign up. User already exist within the application.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="finding-order-s"><a class="link" href="#finding-order-s">H.4. Finding order/s</a></h3>
+<h3 id="adding-an-order"><a class="link" href="#adding-an-order">H.4. Adding an Order</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Logged into the application. An order with name "John Lee", phone "98765432" and date "20-10-2018
+00:00:00" does not already exist. To check, type <code>/order list</code> to see all existing order.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo
+dt/20-10-2018 00:00:00</code><br>
+    Expected: A new order with the above details is added to the list. The command box should reflect this accordingly
+    with the message "New order added: " + &lt;details of order&gt;. The map should show a new placeholder (or an existing
+    placeholder will increase in size). Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo
+dt/21-10-2018 00:00:00</code><br>
+    Expected: A new order with the above details is added to the list. The command box should reflect this accordingly
+             with the message "New order added: " + &lt;details of order&gt;. The map should show a new placeholder (or an
+             existing placeholder will increase in size) that gives an approximation of location. Timestamp in the
+             status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo
+            dt/32-10-2018 00:00:00</code><br>
+Expected: No order is added. Error details shown in the status message (invalid date). Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 dt/32-10-2018 00:00:00</code><br>
+Expected: No order is added. Error details shown in the status message (no food). Status bar remains the same.</p>
+</li>
+<li>
+<p>Test case: <code>/order add n/John Lee n/John Roe p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice
+Milo dt/30-10-2018 00:00:05</code><br>
+    Expected: A new order with the above details is added to the list. The name is taken as the last name given which
+     is John Roe. The command box should reflect this accordingly
+           with the message "New order added: " + &lt;details of order&gt;. The map should show a new placeholder (or an
+            existing placeholder will increase in size) that gives an approximation of location. Timestamp in the
+            status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>/order add n/John Lee n/John Roe p/98765432 a/311, Clementi Ave 2, #02-25, 54612344 f/Roti Prata f/Ice
+Milo dt/30-10-2018 00:00:01</code><br>
+    Expected: A new order with the above details is added to the list. The command box should reflect this accordingly
+           with the message "New order added: " + &lt;details of order&gt;. The map should show a new placeholder (or an
+            existing placeholder will increase in size) that gives an approximation of location. The location will
+            point to postal code <code>612344</code> as only last six digits are considered. Timestamp in the
+            status bar is updated.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Prerequisites: An order with name "John Lee", phone "98765432" and date "20-10-2018
+00:00:00" already exists</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/order add n/John Lee p/98765432 a/311, Clementi Ave 2, #02-25, 612344 f/Roti Prata f/Ice Milo dt/20-10-2018 00:00:00</code><br>
+Expected: No order is added. Error details shown in the status message (duplicate order). Status bar remains the
+same.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="selecting-order"><a class="link" href="#selecting-order">H.5. Selecting order</a></h3>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Logged into the application. There is at least 1 order being displayed in the list.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Test case: <code>/order select 1</code><br>
+Expected: The selected order would be displayed on the display panel.</p>
+</li>
+<li>
+<p>Test case: <code>/order select 0</code><br>
+Expected: No order would be selected and displayed as this is an invalid index.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="finding-order-s"><a class="link" href="#finding-order-s">H.6. Finding order/s</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3722,7 +3816,7 @@ Expected: Fail to sign up. User already exist within the application.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Having at least 1 order.</p>
+<p>Prerequisites: Logged into the application. Having at least 1 order.</p>
 </li>
 <li>
 <p>Test case: Valid name without space<br>
@@ -3747,7 +3841,7 @@ Expected: Error is shown in the status message. Value cannot be empty.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Having at least 1 order.</p>
+<p>Prerequisites: Logged into the application. Having at least 1 order.</p>
 </li>
 <li>
 <p>Test case: Valid address<br>
@@ -3762,7 +3856,7 @@ Expected: Order/s with the address containing <code>Blk 10</code> is shown on th
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Having orders in the list with 3 different status</p>
+<p>Prerequisites: Logged into the application. Having orders in the list with 3 different status</p>
 </li>
 <li>
 <p>Test case: Exact Status<br>
@@ -3792,7 +3886,7 @@ Expected: Error is shown in the status message. Only valid status are allowed.</
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Having orders added with different dates</p>
+<p>Prerequisites: Logged into the application. Having orders added with different dates</p>
 </li>
 <li>
 <p>Test case: Find with one datetime parameter<br>
@@ -3832,7 +3926,7 @@ Expected: Error is shown in the status message. Date should be a valid date.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Having at least 1 order</p>
+<p>Prerequisites: Logged into the application. Having at least 1 order</p>
 </li>
 <li>
 <p>Test case: Valid name and status value<br>
@@ -3846,7 +3940,7 @@ Expected: Order/s with the name <code>john</code> and the status <code>PENDING</
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-an-order"><a class="link" href="#editing-an-order">H.5. Editing an order</a></h3>
+<h3 id="editing-an-order"><a class="link" href="#editing-an-order">H.7. Editing an order</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3854,7 +3948,8 @@ Expected: Order/s with the name <code>john</code> and the status <code>PENDING</
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all orders using the <code>/order list</code> command. Multiple orders in the list.</p>
+<p>Prerequisites: Logged into the application. List all orders using the <code>/order list</code> command. Multiple orders in the
+list.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3875,7 +3970,8 @@ Expected: Cannot edit as the order index must be a valid index in the list shown
 </div>
 </li>
 <li>
-<p>Prerequisites: There is an order with the name <code>alex</code>, phone <code>12345678</code> and datetime <code>01-10-2018 10:00:00</code></p>
+<p>Prerequisites: Logged into the application. There is an order with the name <code>alex</code>, phone <code>12345678</code> and datetime
+<code>01-10-2018 10:00:00</code></p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3887,7 +3983,7 @@ Expected: Cannot edit as an order with the same name, phone and datetime is alre
 </div>
 </li>
 <li>
-<p>Prerequisites: Have orders that are <code>Ongoing</code> or <code>Completed</code></p>
+<p>Prerequisites: Logged into the application. Have orders that are <code>Ongoing</code> or <code>Completed</code></p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3905,7 +4001,7 @@ Expected: Cannot edit as the order is already assign to a deliveryman.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-order"><a class="link" href="#deleting-an-order">H.6. Deleting an order</a></h3>
+<h3 id="deleting-an-order"><a class="link" href="#deleting-an-order">H.8. Deleting an order</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3913,7 +4009,8 @@ Expected: Cannot edit as the order is already assign to a deliveryman.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all orders using the <code>/order list</code> command. Multiple orders in the list. The order to be deleted is <code>Pending</code> or <code>Completed</code>.</p>
+<p>Prerequisites: Logged into the application. List all orders using the <code>/order list</code> command. Multiple orders in the
+list. The order to be deleted is <code>Pending</code> or <code>Completed</code>.</p>
 </li>
 <li>
 <p>Test case: <code>/order delete &lt;pending_or_completed_order_index&gt;</code><br>
@@ -3930,7 +4027,7 @@ Expected: No order is deleted. Error details shown in the status message. Status
    Expected: Similar to previous.</p>
 </li>
 <li>
-<p>Test case: Deleting an <code>Ongoing</code> order<br>
+<p>Test case: Logged into the application. Deleting an <code>Ongoing</code> order<br>
 Command: <code>/order delete o/&lt;ongoing_order_index&gt;</code>
 Expected: Unable to delete the order because it is already assigned to a deliveryman.</p>
 </li>
@@ -3944,7 +4041,7 @@ Expected: Unable to delete the order because it is already assigned to a deliver
 </div>
 </div>
 <div class="sect2">
-<h3 id="mark-an-order-as-completed"><a class="link" href="#mark-an-order-as-completed">H.7. Mark an order as Completed</a></h3>
+<h3 id="mark-an-order-as-completed"><a class="link" href="#mark-an-order-as-completed">H.9. Mark an order as Completed</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3952,7 +4049,7 @@ Expected: Unable to delete the order because it is already assigned to a deliver
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Already have an <code>Ongoing</code> order.</p>
+<p>Prerequisites: Logged into the application. Already have an <code>Ongoing</code> order.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3970,7 +4067,7 @@ orders will decrease by <code>1</code> or become <code>available</code>).</p>
 </div>
 </li>
 <li>
-<p>Prerequisites: Have some <code>Pending</code> orders.</p>
+<p>Prerequisites: Logged into the application. Have some <code>Pending</code> orders.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3982,7 +4079,7 @@ Expected: Fail to mark the order as <code>Completed</code> because only <code>on
 </div>
 </li>
 <li>
-<p>Prerequisites: Have some <code>Completed</code> orders.</p>
+<p>Prerequisites: Logged into the application. Have some <code>Completed</code> orders.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -4000,7 +4097,7 @@ Expected: Fail to mark the order as <code>Completed</code> because it is already
 </div>
 </div>
 <div class="sect2">
-<h3 id="assigning-orders-to-a-deliveryman"><a class="link" href="#assigning-orders-to-a-deliveryman">H.8. Assigning orders to a deliveryman</a></h3>
+<h3 id="assigning-orders-to-a-deliveryman"><a class="link" href="#assigning-orders-to-a-deliveryman">H.10. Assigning orders to a deliveryman</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4008,19 +4105,19 @@ Expected: Fail to mark the order as <code>Completed</code> because it is already
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisite: Have orders that are <code>Pending</code>, and a deliveryman<br>
+<p>Prerequisite: Logged into the application. Have orders that are <code>Pending</code>, and a deliveryman<br>
 Test case: Assigning two <code>Pending</code> orders to a deliveryman<br>
 Command: <code>/assign o/&lt;first_pending_order_index&gt; o/&lt;second_pending_order_index&gt; d/1</code><br>
 Expected: First deliveryman&#8217;s assigned order count increases by 2, the two orders change status to become <code>Ongoing</code>.</p>
 </li>
 <li>
-<p>Prerequisite: Have a deliveryman<br>
+<p>Prerequisite: Logged into the application. Have a deliveryman<br>
 Test case: Invalid order or deliveryman index<br>
 Command: <code>/assign o/0 d/1</code>, <code>/assign o/1 d/0</code><br>
 Expected: Cannot assign because the order index is not a non-zero unsigned integer.</p>
 </li>
 <li>
-<p>Prerequisite: Have an <code>Ongoing</code> or <code>Completed</code> order<br>
+<p>Prerequisite: Logged into the application. Have an <code>Ongoing</code> or <code>Completed</code> order<br>
 Test case: Assigning an <code>Ongoing</code> or <code>Completed</code> order to a deliveryman<br>
 Command: <code>/assign o/&lt;ongoing_or_completed_order_index&gt; d/1</code><br>
 Expected: Cannot assign because that order was already assigned to a deliveryman previously.</p>
@@ -4032,11 +4129,12 @@ Expected: Cannot assign because that order was already assigned to a deliveryman
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-deliveryman"><a class="link" href="#adding-deliveryman">H.9. Adding deliveryman</a></h3>
+<h3 id="adding-deliveryman"><a class="link" href="#adding-deliveryman">H.11. Adding deliveryman</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Name "John" has not been used for any existing deliverymen. To check, type <code>/deliveryman list</code> to see
+<p>Prerequisites: Logged into the application. Name "John" has not been used for any existing deliverymen. To check,
+type <code>/deliveryman list</code> to see
 all existing deliverymen.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
@@ -4054,7 +4152,7 @@ Status bar remains the same.</p>
 </div>
 </li>
 <li>
-<p>Prerequisites: A deliveryman named "John" exists in the system.</p>
+<p>Prerequisites: Logged into the application. A deliveryman named "John" exists in the system.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -4069,11 +4167,12 @@ Status bar remains the same.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-deliveryman"><a class="link" href="#deleting-deliveryman">H.10. Deleting deliveryman</a></h3>
+<h3 id="deleting-deliveryman"><a class="link" href="#deleting-deliveryman">H.12. Deleting deliveryman</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: There is 1 deliveryman being displayed in the list. This deliveryman must not have any orders assigned to him too.
+<p>Prerequisites: Logged into the application. There is 1 deliveryman being displayed in the list. This deliveryman
+must not have any orders assigned to him too.
 To achieve this, you can filter deliverymen by name, for example, using the default deliverymen, you can try <code>/deliveryman find n/Chi Kao</code></p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
@@ -4093,7 +4192,8 @@ Expected: The deliveryman displayed will be deleted.</p>
 </div>
 </li>
 <li>
-<p>Prerequisites: There is 1 deliveryman being displayed in the list. This deliveryman has an order assigned to him.
+<p>Prerequisites: Logged into the application. There is 1 deliveryman being displayed in the list. This deliveryman
+has an order assigned to him.
 To achieve this, you can filter deliveryman by name, then assign him a <code>Pending</code> order, for example <code>/assign o/1 d/1</code>.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
@@ -4108,11 +4208,11 @@ Expected: Deliveryman would not be deleted as you are not allowed to delete deli
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-deliveryman"><a class="link" href="#selecting-deliveryman">H.11. Selecting deliveryman</a></h3>
+<h3 id="selecting-deliveryman"><a class="link" href="#selecting-deliveryman">H.13. Selecting deliveryman</a></h3>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: There is at least 1 deliveryman being displayed in the list.</p>
+<p>Prerequisites: Logged into the application. There is at least 1 deliveryman being displayed in the list.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -4130,4 +4230,4 @@ Expected: No deliveryman would be selected and displayed as this is an invalid i
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:06:36 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:29:40 UTC</div></div></div></body></html>

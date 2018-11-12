@@ -346,11 +346,26 @@ Format: <code>/home</code></p>
 designed to work offline and give you a rough gauge of where your orders are</p>
 </li>
 <li>
-<p>This dashboard dynamically updates itself when the order list is changed (try /order find!)</p>
+<p>This dashboard dynamically updates itself when the order list is changed</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Once the command is executed, you will be greeted with a screen similar to below (statistics shown will vary based on
+ the data you have):</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UiHome.png" alt="UiHome" width="400">
+</div>
+<div class="title">Figure 1. Home page for application</div>
+</div>
+<div class="paragraph">
+<p>The screen consists of a map showing your pending orders and a statistics panel. The size of the
+placeholder is indicative of how many orders they are in a region. You can observe these
+components change when carrying out some of the other commands in the application! (try <code>/order find</code>)</p>
 </div>
 </div>
 <div class="sect2">
@@ -371,7 +386,7 @@ Format: <code>/order add f/FOOD n/NAME p/PHONE a/ADDRESS dt/DATETIME</code></p>
 </li>
 <li>
 <p>If the postal code is longer than 6 digits, much like any other field, only the <strong>last 6 digits</strong> will be taken into
-consideration</p>
+consideration for approximating the location</p>
 </li>
 <li>
 <p>The manager is able to add dates from any time period as long as it is valid.</p>
@@ -830,7 +845,7 @@ Assigns order number 1 and 2 to delivery man number 2.</p>
 <div class="content">
 <img src="images/assign-before.png" alt="assign before" width="750">
 </div>
-<div class="title">Figure 1. Before <code>/assign</code> command is executed</div>
+<div class="title">Figure 2. Before <code>/assign</code> command is executed</div>
 </div>
 <div class="paragraph">
 <p>After the command is executed, the order status changes to <code>Ongoing</code> and the delivery man has 2 assigned orders:</p>
@@ -839,7 +854,7 @@ Assigns order number 1 and 2 to delivery man number 2.</p>
 <div class="content">
 <img src="images/assign-after.png" alt="assign after" width="750">
 </div>
-<div class="title">Figure 2. After <code>/assign</code> command is executed successfully</div>
+<div class="title">Figure 3. After <code>/assign</code> command is executed successfully</div>
 </div>
 </div>
 <div class="sect2">
@@ -892,7 +907,7 @@ Mark order number 1 as completed.</p>
 <div class="content">
 <img src="images/orderdone.png" alt="orderdone" width="350">
 </div>
-<div class="title">Figure 3. Order status changed to Completed after the order is marked as done</div>
+<div class="title">Figure 4. Order status changed to Completed after the order is marked as done</div>
 </div>
 </div>
 <div class="sect2">
@@ -1128,4 +1143,4 @@ e.g. <code>/login u/deliveryman pw/password</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:06:36 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 02:29:40 UTC</div></div></div></body></html>
